@@ -3,14 +3,14 @@ import hashlib
 import hmac
 import json
 import urllib.request
-import urllib.parse
+from urllib import parse
 from datetime import datetime, timedelta
 import uuid
 import os
 
 apikey = os.environ.get("SB_API_KEY", "").strip()
 sharedkey = os.environ.get("SB_SHARED_KEY", "").strip()
-baseurl = "https://api.silobreaker.com/"
+baseurl = "https://api.silobreaker.com/v2/documents/search"
 
 today = datetime.today()
 first_day_current_month = today.replace(day=1)
@@ -20,60 +20,46 @@ first_day_prev_month = last_day_prev_month.replace(day=1)
 start_date = first_day_prev_month.strftime('%Y-%m-%d')
 end_date = last_day_prev_month.strftime('%Y-%m-%d')
 
-def _fetch(req):
-    response = urllib.request.urlopen(req)
-    response_json = response.read()
-    return json.loads(response_json.decode("utf-8"))
-
-def _createUrl(url):
-    out_url = baseurl + url
-    if "?" not in out_url:
-        out_url += "?"
-    else:
-        out_url += "&"
-    return out_url
-
-def _generateMessage(method, url, body):
-    return method + " " + url + "\n" + body
-
-def _createUrlWithDigest(url, message):
-    digest = base64.b64encode(hmac.new(sharedkey.encode('utf-8'), message.encode('utf-8'), hashlib.sha256).digest()).decode('utf-8')
-    return _createUrl(url) + "apiKey=" + apikey + "&digest=" + urllib.parse.quote(digest)
-
-def get(url):
-    message = _generateMessage("GET", url, '')
-    url_with_digest = _createUrlWithDigest(url, message)
-    req = urllib.request.Request(url_with_digest)
-    return _fetch(req)
-
-def searchDocuments(query, params=None):
-    url = "search"
-    if params:
-        p = dict(params)
-        p['q'] = query
-        url += "?" + urllib.parse.urlencode(p)
-    return get(url)
+QUERY = '(publisher:"New York State Department of Financial Services" OR publisher:"FINRA" OR publisher:"Financial Industry Regulatory Authority" OR publisher:"National Futures Association") AND (doctype:"Press Release" OR doctype:"Notice" OR doctype:"Guidance")'
 
 def fetch_tier2_data():
     if not apikey or not sharedkey:
         print("Fatal: API Credentials missing from environment variables.")
         return []
 
-    QUERY = '(publisher:"New York State Department of Financial Services" OR publisher:"FINRA" OR publisher:"Financial Industry Regulatory Authority" OR publisher:"National Futures Association") AND (doctype:"Press Release" OR doctype:"Notice" OR doctype:"Guidance")'
-    
+    # Construct parameter string
     params = {
+        'q': QUERY,
         'fromdate': start_date,
         'todate': end_date,
-        'pagesize': 100
+        'pageSize': 100
     }
     
+    query_string = parse.urlencode(params)
+    raw_url = f"{baseurl}?{query_string}"
+    
+    # Encode URL per official Silobreaker Python standard
+    url = parse.quote(raw_url, safe=":/?&=")
+    
+    verb = "GET"
+    message = verb + " " + url
+
+    # Generate HMAC-SHA512 Signature
+    hmac_sha512 = hmac.new(sharedkey.encode(), message.encode(), digestmod=hashlib.sha512)
+    digest = base64.b64encode(hmac_sha512.digest())
+
+    # Construct final URL with authentication parameters
+    sep = '&' if '?' in url else '?'
+    final_url = url + sep + "apiKey=" + apikey + "&digest=" + parse.quote(digest.decode())
+
+    req = urllib.request.Request(final_url)
+    
     try:
-        data = searchDocuments(QUERY, params)
+        response = urllib.request.urlopen(req)
+        response_json = response.read()
+        data = json.loads(response_json.decode("utf-8"))
     except Exception as e:
         print(f"Silobreaker API Error: {e}")
-        return []
-    
-    if not data:
         return []
 
     items = data.get("Items", [])
