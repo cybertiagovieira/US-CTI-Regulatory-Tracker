@@ -175,6 +175,12 @@
     }
 
     async function init() {
+        // Enforce HTTP/HTTPS environment
+        if (window.location.protocol === 'file:') {
+            document.body.innerHTML = '<div style="padding: 40px; text-align: center; font-family: sans-serif;"><h2>Local Execution Blocked</h2><p>CORS policy restricts file:// fetch requests. Boot local HTTP server.</p><code style="background: #e2e8f0; padding: 10px; display: inline-block; margin-top: 10px;">python -m http.server 8000</code></div>';
+            return;
+        }
+
         // Fetch external data payload
         try {
             const response = await fetch(`master_data.json?t=${new Date().getTime()}`);
