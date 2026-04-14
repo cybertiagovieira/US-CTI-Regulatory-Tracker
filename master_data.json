@@ -1,1 +1,1602 @@
-[]
+[
+  {
+    "id": "2026-06229",
+    "date": "2026-03-31",
+    "agency": "SEC",
+    "type": "NPRM",
+    "title": "Performance-Based Investment Advisory Fees",
+    "summary": "The Securities and Exchange Commission (the \"Commission\") intends to issue an order that would adjust for inflation dollar amount thresholds in the rule under the Investment Advisers Act of 1940 that permits investment advisers to charge performance-based fees to \"qualified clients.\" Under that rule, an investment adviser may charge performance-based fees if a \"qualified client\" has a certain minimum net worth or minimum dollar amount of assets under the management of the adviser. The Commission's order would increase, to reflect inflation, the minimum net worth that a \"qualified client\" must have under the rule. The order would also increase, to reflect inflation, the minimum dollar amount of assets under management."
+  },
+  {
+    "id": "2026-06070",
+    "date": "2026-03-30",
+    "agency": "Multiple/Treasury",
+    "type": "Final Rule",
+    "title": "Marketable Treasury Securities Redemption Operations",
+    "summary": "The Department of the Treasury (Treasury) is issuing in final form amendments to the terms and conditions for marketable Treasury securities redemption (buyback) operations. These amendments reflect expanded direct offer submission eligibility, update the certification statements to participate in buyback operations, enhance clarity, and make conforming changes to several sections of the buyback regulations to reflect Treasury's current practices."
+  },
+  {
+    "id": "2026-05959",
+    "date": "2026-03-27",
+    "agency": "OCC",
+    "type": "NPRM",
+    "title": "Regulatory Capital Rule: Category I and II Banking Organizations, Banking Organizations With Significant Trading Activity, and Optional Adoption for Other Banking Organizations",
+    "summary": "The Office of the Comptroller of the Currency, the Board of Governors of the Federal Reserve System, and the Federal Deposit Insurance Corporation are proposing to modernize the capital requirements applicable to Category I and II depository institution holding companies and depository institutions, as well as revise the market risk capital framework for banking organizations with significant trading activity (the proposal). The proposal would improve the regulatory capital framework for covered banking organizations by enhancing its risk sensitivity and consistency and by simplifying core components of its design. The agencies expect the proposal would support the safety and soundness of covered banking organizations and U.S. financial stability while promoting lending and other financial intermediation activities in the banking system over a range of economic conditions."
+  },
+  {
+    "id": "2026-05961",
+    "date": "2026-03-27",
+    "agency": "FRB",
+    "type": "NPRM",
+    "title": "Regulatory Capital Rule (Regulation Q): Risk-Based Capital Surcharges for Global Systemically Important Bank Holding Companies; Systemic Risk Report (FR Y-15)",
+    "summary": "The Board of Governors of the Federal Reserve System (Board) is inviting public comment on a notice of proposed rulemaking to amend the Board's rule that identifies and establishes risk-based capital surcharges for U.S. global systemically important bank holding companies (GSIBs). The proposal would also amend the Systemic Risk Report (FR Y-15), which is the source of inputs to the implementation of the GSIB framework under the capital rule. The proposal would make several changes to better align surcharges with risk. First, it would modify certain coefficients used to calculate GSIB surcharges under method 2 of the GSIB surcharge framework to reflect changes in the financial system and the economy and provide for annual adjustments for real economic growth and inflation going forward. Second, the proposal would modify the measurement and weighting of the weighted short-term wholesale funding systemic indicator. Third, for certain systemic indicators currently measured as of a single date each year, the proposal would require measurement based on average values to reduce the effects of temporary changes to indicator values around measurement dates. Fourth, the proposal would reduce cliff effects and enhance the sensitivity of the surcharge to changes in a GSIB's systemic risk profile. Fifth, to improve risk capture, the proposal would also make improvements to the measurement of some systemic indicators used in the GSIB surcharge framework and the framework for determining prudential standards for large banking organizations. In addition to these changes, the proposal would make several amendments to the FR Y-15 to improve the consistency of data reporting and streamline the reporting process."
+  },
+  {
+    "id": "2026-05960",
+    "date": "2026-03-27",
+    "agency": "OCC",
+    "type": "NPRM",
+    "title": "Regulatory Capital Rules: Regulatory Capital and Standardized Approach for Risk-Weighted Assets",
+    "summary": "The Office of the Comptroller of the Currency, the Board of Governors of the Federal Reserve System, and the Federal Deposit Insurance Corporation are proposing to modify certain aspects of the regulatory capital rule (the proposal). The proposal would revise the risk-based capital treatment of certain exposure categories under the standardized approach, focusing on improving the calibration and risk sensitivity of risk weights that are particularly material to covered banking organizations' lending activities. The proposal would also modify the definition of regulatory capital by removing the threshold- based deduction for mortgage servicing assets for all banking organizations subject to the regulatory capital rule, including banking organizations subject to the community bank leverage ratio framework. In addition, the proposal would require Category III and IV banking organizations to recognize most elements of accumulated other comprehensive income in their regulatory capital. The agencies are concurrently publishing a separate proposal, which would require Category I and II banking organizations to use a new framework to calculate risk-weighted assets, called the expanded risk-based approach and would allow other banking organizations to elect to use the expanded risk-based approach."
+  },
+  {
+    "id": "2026-05896",
+    "date": "2026-03-26",
+    "agency": "IRS",
+    "type": "NPRM",
+    "title": "Preparer Tax Identification Number (PTIN) User Fee Update; Hearing",
+    "summary": "This document provides a notice of public hearing on the notice of proposed rulemaking (REG-108673-25) published in the Federal Register on Tuesday, September 30, 2025. The notice of proposed rulemaking by cross-reference to the interim final regulations published in the Federal Register on Tuesday, September 30, 2025, proposed to amend the current regulations to reduce from $11 to $10 the amount of the user fee imposed on tax return preparers to apply for or renew a preparer tax identification number (PTIN) plus an amount payable directly to the third party contractor."
+  },
+  {
+    "id": "2026-05797",
+    "date": "2026-03-25",
+    "agency": "NCUA",
+    "type": "NPRM",
+    "title": "Third-Party Servicing of Indirect Vehicle Loans",
+    "summary": "The NCUA Board (Board) is seeking comment on a proposed rule that would remove the NCUA's unnecessarily prescriptive regulation regarding third-party servicing of indirect vehicle loans. This action would reduce regulatory burden and provide credit unions with greater operational flexibility, consistent with a principles-based supervisory approach. The intent is to reduce administrative costs and compliance complexity, enabling credit unions to serve their members more efficiently."
+  },
+  {
+    "id": "2026-05730",
+    "date": "2026-03-24",
+    "agency": "Multiple/Treasury",
+    "type": "Final Rule",
+    "title": "Establishment of the Nashoba Valley Viticultural Area",
+    "summary": "The Alcohol and Tobacco Tax and Trade Bureau (TTB) establishes the approximately 18,367-acre \"Nashoba Valley\" American viticultural area (AVA) in Worcester County, Massachusetts. The Nashoba Valley viticultural area is not located within, nor does it contain, any other established viticultural area. TTB designates viticultural areas to allow vintners to better describe the origin of their wines and to allow consumers to better identify wines they may purchase."
+  },
+  {
+    "id": "2026-05741",
+    "date": "2026-03-24",
+    "agency": "Multiple/Treasury",
+    "type": "NPRM",
+    "title": "Proposed Establishment of the Champlain Valley of Vermont Viticultural Area",
+    "summary": "The Alcohol and Tobacco Tax and Trade Bureau (TTB) proposes to establish the approximately 1,035,104-acre \"Champlain Valley of Vermont\" American viticultural area in western Vermont. The proposed viticultural area is not within, nor does it contain, any other established viticultural area. TTB designates viticultural areas to allow vintners to better describe the origin of their wines and to allow consumers to better identify wines they may purchase. TTB invites comments on this proposed addition to its regulations."
+  },
+  {
+    "id": "2026-05731",
+    "date": "2026-03-24",
+    "agency": "Multiple/Treasury",
+    "type": "Final Rule",
+    "title": "Establishment of the Nine Lakes of East Tennessee Viticultural Area",
+    "summary": "The Alcohol and Tobacco Tax and Trade Bureau (TTB) establishes the approximately 4,064-square mile \"Nine Lakes of East Tennessee\" American viticultural area (AVA) in northeastern Tennessee. The Nine Lakes of East Tennessee AVA is not located within, nor does it contain, any other established viticultural area. TTB designates viticultural areas to allow vintners to better describe the origin of their wines and to allow consumers to better identify wines they may purchase."
+  },
+  {
+    "id": "2026-05635",
+    "date": "2026-03-23",
+    "agency": "SEC",
+    "type": "Final Rule",
+    "title": "Application of the Federal Securities Laws to Certain Types of Crypto Assets and Certain Transactions Involving Crypto Assets",
+    "summary": "The Securities and Exchange Commission (\"Commission\" or \"SEC\") issues herein an interpretation regarding the application of the Federal securities laws to certain types of crypto assets and certain transactions involving crypto assets. The references in this release to \"we\" and \"our\" are to the Commission. The Commodity Futures Trading Commission (\"CFTC\") provides herein guidance relating to that interpretation."
+  },
+  {
+    "id": "2026-05652",
+    "date": "2026-03-23",
+    "agency": "FDIC",
+    "type": "Final Rule",
+    "title": "Clarification of Deposit Insurance Coverage for Branches of U.S. Banks in the Federated States of Micronesia, the Marshall Islands, and Palau",
+    "summary": "The Federal Deposit Insurance Corporation (FDIC) is adopting a final rule to provide that the FDIC will insure deposits of all branches of U.S.-insured depository institutions (IDIs) in the Federated States of Micronesia, the Republic of the Marshall Islands, and the Republic of Palau, whether operating presently or in the future. This final rule follows an interim final rule with request for comment issued by the FDIC in August 2024."
+  },
+  {
+    "id": "2026-05544",
+    "date": "2026-03-20",
+    "agency": "FRB",
+    "type": "Final Rule",
+    "title": "Rules of Procedure; Correction",
+    "summary": "The Board is revising its Rules of Procedure to make certain technical corrections."
+  },
+  {
+    "id": "2026-05525",
+    "date": "2026-03-20",
+    "agency": "IRS",
+    "type": "Final Rule",
+    "title": "Substantiation Requirements and Qualified Nonpersonal Use Vehicles",
+    "summary": "This document contains final regulations relating to the definition of qualified nonpersonal use vehicles. Qualified nonpersonal use vehicles are excepted from the substantiation requirements that apply to certain listed property. These final regulations add unmarked vehicles used by firefighters or members of a rescue squad or ambulance crew as a new type of qualified nonpersonal use vehicle. These final regulations affect governmental units that provide firefighter or rescue squad or ambulance crew member employees with unmarked qualified nonpersonal use vehicles and the employees who use those vehicles."
+  },
+  {
+    "id": "2026-05463",
+    "date": "2026-03-20",
+    "agency": "FHFA",
+    "type": "Final Rule",
+    "title": "Correcting Amendment Reinstating \u201cGrandfather\u201d Exceptions to Restrictions on Private Transfer Fee Covenants; Correction",
+    "summary": "The Federal Housing Finance Agency published a Final Rule; Technical Amendment document in the Federal Register on March 17, 2026, regarding Correcting Amendment Reinstating \"Grandfather\" Exceptions to Restrictions on Private Transfer Fee Covenants. The ACTION: line of the Final Rule; Technical Amendment document incorrectly stated that the Final Rule was requesting public comments, however, the Final Rule; Technical Amendment document is not requesting public comments. This correction removes \"request for comments\" from the ACTION: line of the Final Rule; Technical Amendment document."
+  },
+  {
+    "id": "2026-05401",
+    "date": "2026-03-19",
+    "agency": "SEC",
+    "type": "NPRM",
+    "title": "Publication or Submission of Quotations Without Specified Information",
+    "summary": "The Securities and Exchange Commission (\"Commission\") is proposing amendments to revise a rule that governs certain information gathering and review requirements that brokers and dealers must satisfy before initiating (or resuming) any quotation for a security in a quotation medium other than a national securities exchange. The proposed amendments would revise the rule to refer to only equity securities."
+  },
+  {
+    "id": "2026-05447",
+    "date": "2026-03-19",
+    "agency": "IRS",
+    "type": "Final Rule",
+    "title": "Consistent Basis Reporting Between Estate and Person Acquiring Property From Decedent; Correction",
+    "summary": "This document contains corrections to a final rule (TD 9991), which was published in the Federal Register on Tuesday, September 17, 2024 (89 FR 76356). That document inadvertently overwrote some previous language, and this document corrects the final regulations."
+  },
+  {
+    "id": "2026-05160",
+    "date": "2026-03-17",
+    "agency": "FHFA",
+    "type": "Final Rule",
+    "title": "Amendment Reinstating \u201cGrandfather\u201d Exceptions to Restrictions on Private Transfer Fee Covenants",
+    "summary": "The Federal Housing Finance Agency (FHFA) is making a technical amendment to its Private Transfer Fee Covenants (PTFC) Regulation. The PTFC Regulation restricts FHFA's regulated entities-- the Federal National Mortgage Association (Fannie Mae), the Federal Home Loan Mortgage Corporation (Freddie Mac) (collectively, the Enterprises), and the Federal Home Loan Banks (Banks)--from purchasing, investing in, accepting as collateral, or otherwise dealing in mortgages on properties encumbered by certain types of PTFCs, or related securities, subject to certain exceptions. The technical amendment reinstates timing and transitional applicability (\"grandfather\") exceptions that were removed by FHFA's 2024 amendments to the PTFC Regulation. The reinstated \"grandfather\" exceptions are applicable nunc pro tunc beginning July 16, 2012."
+  },
+  {
+    "id": "2026-05105",
+    "date": "2026-03-16",
+    "agency": "CFTC",
+    "type": "NPRM",
+    "title": "Prediction Markets",
+    "summary": "The Commodity Futures Trading Commission (Commission or CFTC) is issuing this Advance Notice of Proposed Rulemaking and seeking public comment regarding event contract derivatives traded on markets commonly referred to as \"prediction markets.\" In particular, the Commission is seeking information and public comment on statutory core principles and Commission regulations that apply to prediction markets, the types of event contracts that may be prohibited as contrary to the public interest, cost-benefit considerations related to prediction markets, and other topics. The Commission may use the information and comments received from this Notice to inform potential future agency action, such as rulemaking, with respect to prediction markets."
+  },
+  {
+    "id": "2026-04814",
+    "date": "2026-03-12",
+    "agency": "FHFA",
+    "type": "Final Rule",
+    "title": "Orders: Reporting by Regulated Entities of Stress Testing Results as of December 31, 2025; Summary Instructions and Guidance",
+    "summary": "In this document, the Federal Housing Finance Agency (FHFA) provides notice that it issued Orders, dated March 5, 2026, with respect to stress test reporting as of December 31, 2025, under the Dodd-Frank Wall Street Reform and Consumer Protection Act (Dodd-Frank Act), as amended by section 401 of the Economic Growth, Regulatory Relief, and Consumer Protection Act (EGRRCPA). Summary Instructions and Guidance accompanied the Orders to provide testing scenarios."
+  },
+  {
+    "id": "2026-04798",
+    "date": "2026-03-12",
+    "agency": "IRS",
+    "type": "NPRM",
+    "title": "Guidance on Tax-Exempt Refunding Bonds",
+    "summary": "This document contains proposed regulations that would update certain arbitrage rules and definitions applicable to tax-exempt and other tax-advantaged bonds by clarifying the time and manner for requesting refunds of overpayment of rebate to the United States, the special transition rule for transferred proceeds, the limitation on allocations to expenditures, and the IRS address for filing defeasance notices. These proposed regulations would also revise the provision addressing certain perpetual State guarantee funds, the definition of tax-exempt bond, and the definition of refunding issue. The proposed regulations would affect issuers of tax-advantaged bonds."
+  },
+  {
+    "id": "2026-04761",
+    "date": "2026-03-11",
+    "agency": "NCUA",
+    "type": "NPRM",
+    "title": "Records Preservation Program and Appendices-Record Retention Guidelines; Catastrophic Act Preparedness Guidelines",
+    "summary": "On April 24, 2024, the NCUA Board (Board) published an advance notice of proposed rulemaking (ANPR) to solicit comments on ways the agency can improve and update its vital records preservation program regulation and accompanying guidelines. Based on public comments received in response to the ANPR and upon further consideration of the issues involved, the Board is publishing this proposed rule to simplify and streamline part 749. The Board is proposing to update part 749 by clarifying the purpose of the regulation, updating the definitions, and removing the appendices."
+  },
+  {
+    "id": "2026-04641",
+    "date": "2026-03-10",
+    "agency": "FinCEN",
+    "type": "Final Rule",
+    "title": "Geographic Targeting Order Imposing Recordkeeping and Reporting Requirements on Certain Money Services Businesses Along the Southwest Border",
+    "summary": "FinCEN is issuing this Geographic Targeting Order, requiring certain money services businesses along the southwest border of the United States to report and retain records of transactions in currency of $1,000 or more, but not more than $10,000, and to verify the identity of persons presenting such transactions."
+  },
+  {
+    "id": "2026-04534",
+    "date": "2026-03-09",
+    "agency": "IRS",
+    "type": "NPRM",
+    "title": "Trump Accounts Contribution Pilot Program",
+    "summary": "This document contains proposed regulations relating to the Trump accounts contribution pilot program under which the Trump accounts of eligible children can receive $1,000 pilot program contributions. Eligible children must be U.S. citizens with valid Social Security numbers born in 2025 through 2028. The proposed regulations would provide guidance on making an election for the Trump account of an eligible child to receive a $1,000 pilot program contribution. The proposed regulations would affect eligible children and individuals who would make elections with respect to those children."
+  },
+  {
+    "id": "2026-04533",
+    "date": "2026-03-09",
+    "agency": "IRS",
+    "type": "NPRM",
+    "title": "Trump Accounts",
+    "summary": "This document contains proposed regulations relating to Trump accounts. The proposed regulations provide guidance on making an election to open a Trump account and reserve additional sections for further guidance on Trump accounts. The proposed regulations would affect children eligible to have a Trump account, individuals who would make elections with respect to those children, and trustees of Trump accounts."
+  },
+  {
+    "id": "2026-04431",
+    "date": "2026-03-06",
+    "agency": "IRS",
+    "type": "NPRM",
+    "title": "Electronic Furnishing of Payee Statements Regarding Digital Asset Sales by Brokers",
+    "summary": "This document contains proposed regulations that would provide digital asset brokers that are required to furnish to their customers written statements reflecting information provided to the IRS with respect to digital asset sale transactions with an alternative process for obtaining consent from their customers to receive these statements in an electronic format without offering a paper delivery alternative."
+  },
+  {
+    "id": "2026-04419",
+    "date": "2026-03-06",
+    "agency": "FCA",
+    "type": "Final Rule",
+    "title": "Organization, Loan Policies and Operations, Disclosure to Shareholders, Nondiscrimination in Lending, Capital Adequacy of System Institutions, Disclosure to Investors",
+    "summary": "The Farm Credit Administration (FCA, Agency, or we) is publishing the effective date of the final rule correcting citations and making other technical updates and corrections throughout its regulations."
+  },
+  {
+    "id": "2026-04432",
+    "date": "2026-03-06",
+    "agency": "IRS",
+    "type": "NPRM",
+    "title": "Removal of Final Regulations Identifying Certain Partnership Related-Party Basis Adjustment Transactions as Transactions of Interest",
+    "summary": "This document proposes to remove regulations that identify certain partnership related-party basis adjustment transactions and substantially similar transactions as transactions of interest, a type of reportable transaction. The regulations would affect participants in these transactions as well as material advisors."
+  },
+  {
+    "id": "2026-04373",
+    "date": "2026-03-05",
+    "agency": "FRB",
+    "type": "Final Rule",
+    "title": "Rules Regarding Delegation of Authority; Correction",
+    "summary": "The Board is revising its Rules Regarding Delegation of Authority to add delegations previously approved by the Board and to make certain technical corrections."
+  },
+  {
+    "id": "2026-04275",
+    "date": "2026-03-04",
+    "agency": "OCC",
+    "type": "Final Rule",
+    "title": "Community Bank Licensing Amendments",
+    "summary": "The Office of the Comptroller of the Currency (OCC) is amending its rules related to policies and procedures to simplify licensing requirements for corporate activities and transactions involving national banks and Federal savings associations that have less than $30 billion in total assets and satisfy certain conditions. The final rule is intended to reduce burden on these institutions."
+  },
+  {
+    "id": "2026-04276",
+    "date": "2026-03-04",
+    "agency": "OCC",
+    "type": "Final Rule",
+    "title": "Fair Housing Home Loan Data System",
+    "summary": "The Office of the Comptroller of the Currency (OCC) is rescinding its Fair Housing Home Loan Data System regulation. The OCC has determined that the regulation is obsolete and largely duplicative of and inconsistent with other legal authorities that require national banks to collect and retain certain information on applications for home loans. Moreover, it imposed asymmetrical data collection requirements on national banks compared to their other depository institution counterparts, and the data collected had limited utility. For these reasons, rescinding the regulation eliminates the regulatory burden for national banks without having a material impact on the availability of data necessary for the OCC to conduct its fair housing- related supervisory activities."
+  },
+  {
+    "id": "2026-04202",
+    "date": "2026-03-03",
+    "agency": "SEC",
+    "type": "Final Rule",
+    "title": "Holding Foreign Insiders Accountable Act Disclosure",
+    "summary": "The Securities and Exchange Commission (\"Commission\") is adopting final amendments to certain of its rules and forms under the Securities Exchange Act of 1934 (\"Exchange Act\") to reflect the requirements of the Holding Foreign Insiders Accountable Act (\"HFIA Act\"). The HFIA Act amended Section 16(a) of the Exchange Act to require directors and officers of a foreign private issuer with a class of equity securities registered under Section 12 of the Exchange Act to provide disclosure of their beneficial ownership and transactions involving the issuer's equity securities. The final amendments revise the Commission's rules and forms to reflect these statutory requirements."
+  },
+  {
+    "id": "2026-04154",
+    "date": "2026-03-03",
+    "agency": "NCUA",
+    "type": "NPRM",
+    "title": "Regulatory Publication and Voluntary Review as Contemplated by the Economic Growth and Regulatory Paperwork Reduction Act of 1996",
+    "summary": "As contemplated by the Economic Growth and Regulatory Paperwork Reduction Act of 1996, the NCUA is voluntarily reviewing agency regulations to identify rules that are outdated, unnecessary, or unduly burdensome. The NCUA divided its regulations into 10 categories and is publishing several Federal Register documents at regular intervals, each requesting comment on multiple categories of regulations. This third and final document requests comment on regulations in the categories of \"Corporate Credit Unions,\" \"Directors, Officers and Employees,\" \"Anti-Money Laundering and Bank Secrecy Act,\" \"Rules of Procedure,\" and \"Safety and Soundness.\""
+  },
+  {
+    "id": "2026-04088",
+    "date": "2026-03-02",
+    "agency": "OCC",
+    "type": "Final Rule",
+    "title": "National Bank Chartering",
+    "summary": "The Office of the Comptroller of the Currency (OCC) is amending its rule related to chartering of national banks to clarify the longstanding authority of national banks limited to the operations of trust companies and activities related thereto to engage in non- fiduciary activities in addition to their fiduciary activities."
+  },
+  {
+    "id": "2026-04090",
+    "date": "2026-03-02",
+    "agency": "Multiple/Treasury",
+    "type": "Final Rule",
+    "title": "Publication of Russian Harmful Foreign Activities Sanctions Regulations Web General Licenses 124B, 128A, 130, and 131",
+    "summary": "The Department of the Treasury's Office of Foreign Assets Control (OFAC) is publishing four general licenses (GLs) issued pursuant to the Russian Harmful Foreign Activities Sanctions Regulations: GLs 124B, 128A, 130, and 131, each of which was previously made available on OFAC's website."
+  },
+  {
+    "id": "2026-04086",
+    "date": "2026-03-02",
+    "agency": "Multiple/Treasury",
+    "type": "Final Rule",
+    "title": "Publication of Russian Harmful Foreign Activities Sanctions Regulations Web General License 128B",
+    "summary": "The Department of the Treasury's Office of Foreign Assets Control (OFAC) is publishing a general license (GL) issued pursuant to the Russian Harmful Foreign Activities Sanctions Regulations: GL 128B, which was previously made available on OFAC's website."
+  },
+  {
+    "id": "2026-04083",
+    "date": "2026-03-02",
+    "agency": "Multiple/Treasury",
+    "type": "Final Rule",
+    "title": "Publication of Russian Harmful Foreign Activities Sanctions Regulations Web General License 131B",
+    "summary": "The Department of the Treasury's Office of Foreign Assets Control (OFAC) is publishing a general license (GL) issued pursuant to the Russian Harmful Foreign Activities Sanctions Regulations: GL 131B, which was previously made available on OFAC's website."
+  },
+  {
+    "id": "2026-04033",
+    "date": "2026-03-02",
+    "agency": "FinCEN",
+    "type": "NPRM",
+    "title": "Proposal of Special Measure Regarding MBaer Merchant Bank AG as a Financial Institution Operating Outside of the United States of Primary Money Laundering Concern",
+    "summary": "FinCEN is issuing a notice of proposed rulemaking, pursuant to section 311 of the USA PATRIOT Act, that finds MBaer Merchant Bank AG (MBaer), a financial institution based in Switzerland, to be of primary money laundering concern, and proposes imposing a special measure to: (1) prohibit U.S. financial institutions from opening or maintaining a correspondent account for, or on behalf of, MBaer; (2) require U.S. financial institutions to take reasonable steps not to process a transaction for the correspondent account in the United States of a foreign banking institution if such a transaction involves MBaer; and (3) require U.S. financial institutions to apply special due diligence to their foreign correspondent accounts that is reasonably designed to guard against their use to process transactions involving MBaer."
+  },
+  {
+    "id": "2026-04089",
+    "date": "2026-03-02",
+    "agency": "OCC",
+    "type": "NPRM",
+    "title": "Implementing the Guiding and Establishing National Innovation for U.S. Stablecoins Act for the Issuance of Stablecoins by Entities Subject to the Jurisdiction of the Office of the Comptroller of the Currency",
+    "summary": "The Office of the Comptroller of the Currency (OCC) proposes to issue regulations to implement the Guiding and Establishing National Innovation for U.S. Stablecoins Act regarding the issuance of payment stablecoins and certain related activities by entities subject to the OCC's jurisdiction."
+  },
+  {
+    "id": "2026-04092",
+    "date": "2026-03-02",
+    "agency": "Multiple/Treasury",
+    "type": "Final Rule",
+    "title": "Publication of a Belarus Sanctions Regulations Web General License",
+    "summary": "The Department of the Treasury's Office of Foreign Assets Control (OFAC) is publishing a general license (GL) issued pursuant to the Belarus Sanctions Regulations: GL 13. This GL was previously made available on OFAC's website."
+  },
+  {
+    "id": "2026-04091",
+    "date": "2026-03-02",
+    "agency": "Multiple/Treasury",
+    "type": "Final Rule",
+    "title": "Publication of a Belarus Sanctions Regulations Web General License",
+    "summary": "The Department of the Treasury's Office of Foreign Assets Control (OFAC) is publishing a general license (GL) issued pursuant to the Belarus Sanctions Regulations: GL 12. This GL was previously made available on OFAC's website."
+  },
+  {
+    "id": "2026-04087",
+    "date": "2026-03-02",
+    "agency": "Multiple/Treasury",
+    "type": "Final Rule",
+    "title": "Publication of Russian Harmful Foreign Activities Sanctions Regulations Web General Licenses 124A, 126, 127, and 128",
+    "summary": "The Department of the Treasury's Office of Foreign Assets Control (OFAC) is publishing four general licenses (GLs) issued pursuant to the Russian Harmful Foreign Activities Sanctions Regulations: GLs 124A, 126, 127, and 128, each of which was previously made available on OFAC's website."
+  },
+  {
+    "id": "2026-04085",
+    "date": "2026-03-02",
+    "agency": "Multiple/Treasury",
+    "type": "Final Rule",
+    "title": "Publication of Russian Harmful Foreign Activities Sanctions Regulations and Web General License 131A",
+    "summary": "The Department of the Treasury's Office of Foreign Assets Control (OFAC) is publishing a general license (GL) issued pursuant to the Russian Harmful Foreign Activities Sanctions Regulations: GL 131A, which was previously made available on OFAC's website."
+  },
+  {
+    "id": "2026-04093",
+    "date": "2026-03-02",
+    "agency": "Multiple/Treasury",
+    "type": "Final Rule",
+    "title": "Publication of Venezuela Sanctions Regulations Web General License 5T",
+    "summary": "The Department of the Treasury's Office of Foreign Assets Control (OFAC) is publishing a general license (GL) issued pursuant to the Venezuela Sanctions Regulations: GL 5T, which was previously made available on OFAC's website."
+  },
+  {
+    "id": "2026-03923",
+    "date": "2026-02-27",
+    "agency": "FCA",
+    "type": "NPRM",
+    "title": "Permanent Capital Revisions",
+    "summary": "The Farm Credit Administration (FCA or we) requests comments on a proposed rule for Farm Credit System (System) banks and associations that would reduce the burden of calculating permanent capital and minimize potential confusion about its use in evaluating the safety and soundness of System institutions. Specifically, the proposed rule would remove references to permanent capital in shareholder and investor reporting regulations as well as in certain other regulations. It would also simplify the calculation of the permanent capital ratio and make other clarifications, corrections, and updates to capital-related regulations."
+  },
+  {
+    "id": "2026-03818",
+    "date": "2026-02-26",
+    "agency": "FRB",
+    "type": "NPRM",
+    "title": "Prohibition on Use of Reputation Risk or Other Supervisory Tools To Encourage or Compel Banking Organizations To Engage in Politicized or Unlawful Discrimination",
+    "summary": "The Board of Governors of the Federal Reserve System (Board) is inviting public comment on a notice of proposed rulemaking (proposal or proposed rule) that would codify the removal of reputation risk from the Board's supervisory programs. The proposal would prohibit the Board from encouraging or compelling Board-supervised banking organizations to deny or condition the provision of banking or other financial products or services to an individual or business based on their constitutionally protected political or religious beliefs, associations, speech, or conduct, or based on involvement by the individual or business in politically disfavored but lawful business activities perceived to present reputation risk."
+  },
+  {
+    "id": "2026-03754",
+    "date": "2026-02-25",
+    "agency": "NCUA",
+    "type": "NPRM",
+    "title": "Compensation in Connection With Loans to Members and Lines of Credit to Members",
+    "summary": "The NCUA Board (Board) is issuing for public comment a proposal to amend the NCUA's regulation that limits a federally insured credit union (FICU) official and employee compensation in connection with loans to members and lines of credit to members. These regulations have generated confusion and are unduly restrictive. To provide clearer and more flexible standards, the proposed rule would expressly permit incentive and bonuses to employees, including senior management, to incorporate lending metrics as part of compensation based on a credit union's overall financial performance."
+  },
+  {
+    "id": "2026-03753",
+    "date": "2026-02-25",
+    "agency": "NCUA",
+    "type": "NPRM",
+    "title": "Post-Election Training for New Board Members",
+    "summary": "The NCUA Board (Board) solicits public comment on a proposal to eliminate the regulatory requirement that each director of a federal credit union (FCU) attain a working familiarity with finance and accounting within 6 months after election or appointment. The Board believes the regulation is unnecessarily prescriptive."
+  },
+  {
+    "id": "2026-03756",
+    "date": "2026-02-25",
+    "agency": "NCUA",
+    "type": "NPRM",
+    "title": "Refund of Interest",
+    "summary": "The NCUA Board (Board) is issuing for public comment a proposal to rescind its regulation that addresses the refund of interest to members. This regulation is redundant, as it restates the authority already granted to a federal credit union's (FCU's) board of directors by the Federal Credit Union Act (FCU Act) section 113(9)."
+  },
+  {
+    "id": "2026-03757",
+    "date": "2026-02-25",
+    "agency": "NCUA",
+    "type": "NPRM",
+    "title": "Credit Union Service Contracts",
+    "summary": "The NCUA Board (Board) is proposing to revise its regulations governing the organization and operation of federal credit unions (FCUs) by eliminating a provision related to credit union service contracts. The Board intends to reduce administrative costs and compliance complexity with this revision, enabling FCUs to serve their members more efficiently."
+  },
+  {
+    "id": "2026-03755",
+    "date": "2026-02-25",
+    "agency": "NCUA",
+    "type": "NPRM",
+    "title": "Purchase, Sale, and Pledge of Eligible Obligations",
+    "summary": "The NCUA Board (Board) solicits public comment on a proposal to streamline its regulations governing the purchase, sale, and pledge of eligible obligations. The Board proposes to remove the prescriptive lists of items that must be addressed in the written policies adopted by a federal credit union (FCU). Although FCUs would still be required to maintain written policies, removing the mandated items will enable a more efficient and principles-based approach. The Board also proposes to remove detailed requirements regarding conflicts of interest and compensation. These regulatory provisions are unnecessary since FCUs are already governed by broader conflict of interest provisions in their bylaws and by the fiduciary duties of their officials."
+  },
+  {
+    "id": "2026-03758",
+    "date": "2026-02-25",
+    "agency": "NCUA",
+    "type": "NPRM",
+    "title": "Statutory Liens",
+    "summary": "The NCUA Board (Board) is publishing this proposed rule to remove a provision of NCUA regulations regarding federal credit unions' (FCUs) statutory lien authority. The Board believes it is redundant to continue to include a definition of the term \"except as otherwise provided by law or except as otherwise provided by federal law\" when it is axiomatic that a law that supersedes this regulation would be controlling. The provision does not provide any assistance to FCUs in determining whether such statutory or case law exists, therefore it has no material value."
+  },
+  {
+    "id": "2026-03798",
+    "date": "2026-02-25",
+    "agency": "IRS",
+    "type": "NPRM",
+    "title": "Private Health Insurance; Transparency in Coverage; Extension of Comment Period",
+    "summary": "This document extends the comment period for the proposed rule that appeared in the Federal Register on December 23, 2025, titled \"Transparency in Coverage\". The comment period for the proposed rule, which would end on February 23, 2026, is extended until March 2, 2026."
+  },
+  {
+    "id": "C1-2025-19864",
+    "date": "2026-02-25",
+    "agency": "CFPB",
+    "type": "NPRM",
+    "title": "Equal Credit Opportunity Act (Regulation B)",
+    "summary": null
+  },
+  {
+    "id": "2026-03459",
+    "date": "2026-02-23",
+    "agency": "SEC",
+    "type": "Final Rule",
+    "title": "Investment Company Names Form N-PORT Reporting; Extension of Compliance Date",
+    "summary": "The Securities and Exchange Commission (the \"Commission\") is extending the compliance date for the amendments to Form N-PORT that were adopted on September 20, 2023 and relate to the rule under the Investment Company Act of 1940 (the \"Investment Company Act\") that addresses certain broad categories of investment company names that are likely to mislead investors about an investment company's investments and risks. The compliance dates for those Form N-PORT amendments are extended to November 17, 2027, for fund groups with net assets of $10 billion or more as of the end of their most recent fiscal year; and to May 18, 2028, for fund groups with less than $10 billion in net assets as of the end of their most recent fiscal year."
+  },
+  {
+    "id": "2026-03460",
+    "date": "2026-02-23",
+    "agency": "SEC",
+    "type": "NPRM",
+    "title": "Form N-PORT Reporting",
+    "summary": "The Securities and Exchange Commission (the \"Commission\") is proposing amendments to reporting requirements on Form N-PORT that apply to certain registered investment companies, including registered open-end funds, registered closed-end funds, and exchange-traded funds organized as unit investment trusts. The proposed amendments would modify provisions adopted in 2024 to provide these funds with an additional fifteen days to file monthly reports of portfolio-related information on Form N-PORT and would restore the quarterly publication frequency that had been in place for over two decades. The Commission is proposing these amendments in light of feedback from market participants and other developments. The Commission is also proposing to streamline or remove certain items and sub-items, reducing reporting burdens in ways that would not significantly affect the Commission's uses of the data and are not expected to significantly affect the public's ability to assess relevant information about a fund. Finally, the Commission is proposing to adjust how funds with share classes that operate as exchange-traded funds report certain information to improve information about this fund structure and to require information about funds' ticker symbols, as well as certain class-level identifiers, as applicable, to facilitate efficient use of the reported information."
+  },
+  {
+    "id": "2026-03314",
+    "date": "2026-02-19",
+    "agency": "FCA",
+    "type": "Final Rule",
+    "title": "General Provisions",
+    "summary": "The Farm Credit Administration (FCA, we, us or our) is issuing a final rule amending FCA's business planning requirements to comply with Executive Order 14219."
+  },
+  {
+    "id": "2026-03086",
+    "date": "2026-02-17",
+    "agency": "OCC",
+    "type": "NPRM",
+    "title": "Bank Appeals Process",
+    "summary": "The Office of the Comptroller of the Currency (OCC) is issuing a notice of proposed rulemaking to establish revised procedures and policies for appeals of material supervisory determinations by OCC supervised entities. The proposed changes would reflect the OCC's experience administering the bank appeals process and are intended to enhance the independence and efficiency of the appeals function."
+  },
+  {
+    "id": "C1-2025-22825",
+    "date": "2026-02-13",
+    "agency": "IRS",
+    "type": "NPRM",
+    "title": "Updating Regulation References To Reflect Reorganizations at the Department of Justice and the Internal Revenue Service",
+    "summary": null
+  },
+  {
+    "id": "2026-02868",
+    "date": "2026-02-12",
+    "agency": "NCUA",
+    "type": "NPRM",
+    "title": "Investments in and Licensing of Permitted Payment Stablecoins Issuers",
+    "summary": "The NCUA Board (Board) is seeking comment on proposed regulations to implement portions of the Guiding and Establishing National Innovation for U.S. Stablecoins Act (GENIUS Act). The GENIUS Act charges the NCUA with licensing, regulating, and supervising payment stablecoin issuers that are subsidiaries of federally insured credit unions (FICU subsidiaries). The GENIUS Act also requires the NCUA to issue implementing regulations by July 18th, 2026. This proposed rule proposes regulations to implement the statutorily required process for approval and licensure of permitted payment stablecoin issuers (PPSIs) subject to the NCUA's jurisdiction. It also proposes regulations limiting FICUs to investing in NCUA-licensed PPSIs. A forthcoming proposal will propose regulations to implement the standards and restrictions imposed by the GENIUS Act on PPSIs."
+  },
+  {
+    "id": "2026-02748",
+    "date": "2026-02-11",
+    "agency": "IRS",
+    "type": "Final Rule",
+    "title": "Excise Tax on Repurchase of Corporate Stock; Correction",
+    "summary": "This document includes corrections to final regulations (TD 10037) published in the Federal Register (90 FR 53144) on Monday, November 24, 2025, providing guidance regarding the application of the excise tax on repurchases of corporate stock made after December 31, 2022."
+  },
+  {
+    "id": "2026-02763",
+    "date": "2026-02-11",
+    "agency": "NCUA",
+    "type": "NPRM",
+    "title": "Bank Conversions and Mergers, Subpart A-Conversion of Insured Credit Unions to Mutual Savings Banks",
+    "summary": "The NCUA Board (Board) is proposing to amend its regulations governing the conversion of insured credit unions into banks. The NCUA Board proposes to eliminate certain prescriptive procedural, disclosure, and communication requirements. This action reduces unnecessary regulatory burdens and provides credit union boards of directors with greater flexibility to exercise their business judgment. The intended effect of these changes is to simplify compliance for credit unions, reduce administrative costs, and modernize the conversion process, while ensuring members receive clear and effective disclosures."
+  },
+  {
+    "id": "2026-02764",
+    "date": "2026-02-11",
+    "agency": "NCUA",
+    "type": "NPRM",
+    "title": "Mergers of Insured Credit Unions Into Other Credit Unions; Voluntary Termination or Conversion of Insured Status",
+    "summary": "The NCUA Board (Board) proposes to amend its regulations governing the voluntary termination of federal share insurance to streamline member communication requirements. This action is necessary to reduce regulatory burden by eliminating overly prescriptive formatting rules for the mandatory disclosure statement that credit unions must provide to members. The intended effect is to simplify compliance and provide credit unions with greater flexibility in designing effective communications, while still ensuring that members receive clear and prominent notice of a proposed termination of federal insurance."
+  },
+  {
+    "id": "2026-02665",
+    "date": "2026-02-11",
+    "agency": "FDIC",
+    "type": "NPRM",
+    "title": "Approval Requirements for Issuance of Payment Stablecoins by Subsidiaries of FDIC-Supervised Insured Depository Institutions; Extension of Comment Period",
+    "summary": "On December 19, 2025, the Federal Deposit Insurance Corporation (FDIC) published in the Federal Register a notice of proposed rulemaking that would establish procedures to be followed by an insured State nonmember bank or State savings association (each, an FDIC-supervised institution) that seeks to obtain FDIC approval to issue payment stablecoins through a subsidiary pursuant to the Guiding and Establishing National Innovation for U.S. Stablecoins Act (GENIUS Act). The proposed rule provided for a 60-day comment period, which will close on February 17, 2026. The FDIC has determined that an extension of the comment period until May 18, 2026, is appropriate. This action will allow interested parties additional time to analyze the proposal and prepare comments."
+  },
+  {
+    "id": "2026-02765",
+    "date": "2026-02-11",
+    "agency": "NCUA",
+    "type": "NPRM",
+    "title": "Chartering and Field of Membership for Federal Credit Unions-Interpretive Rulings and Policy Statements",
+    "summary": "The NCUA Board proposes to rescind its Interpretative Ruling and Policy Statement 06-1 (IRPS 06-1). Rescinding IRPS 06-1 would ease the compliance burden on Federal credit unions (FCUs) by limiting the number of sources that FCUs must check to ensure compliance with applicable chartering and field of membership (FOM) requirements."
+  },
+  {
+    "id": "2026-02481",
+    "date": "2026-02-09",
+    "agency": "Multiple/Treasury",
+    "type": "NPRM",
+    "title": "Request for Information Pertaining to the CFIUS Known Investor Program and Streamlining the Foreign Investment Review Process",
+    "summary": "The Office of Investment Security, within the U.S. Department of the Treasury (Treasury Department), is seeking public input on how the Committee on Foreign Investment in the United States (CFIUS) may streamline aspects of its foreign investment review process, including through the Known Investor Program as described below, while maintaining its rigorous analysis that identifies and addresses national security risk. This request for information (RFI) may inform CFIUS's development of statutory and/or regulatory reform proposals to increase efficiencies. The Treasury Department plans to make all submissions publicly available at https://www.regulations.gov."
+  },
+  {
+    "id": "2026-02454",
+    "date": "2026-02-06",
+    "agency": "CFTC",
+    "type": "NPRM",
+    "title": "Event Contracts; Withdrawal of Proposed Regulatory Action",
+    "summary": "The Commodity Futures Trading Commission (\"Commission\" or \"CFTC\") is formally withdrawing a notice of proposed rulemaking published on June 10, 2024, titled \"Event Contracts.\" The Commission does not intend to issue final rules with respect to this proposal. If the Commission decides to pursue future regulatory action in this area, it will issue new proposed rules."
+  },
+  {
+    "id": "2026-02325",
+    "date": "2026-02-06",
+    "agency": "FHFA",
+    "type": "Final Rule",
+    "title": "Fair Lending, Fair Housing, and Equitable Housing Finance Plans",
+    "summary": "The Federal Housing Finance Agency (\"FHFA\" or the \"Agency\") is issuing this final rule to repeal the Fair Lending, Fair Housing, and Equitable Housing Finance Plans regulation (\"part 1293\"). After considering public comments received in response to the proposed rule FHFA published on July 28, 2025, this final rule adopts the proposed rule without change."
+  },
+  {
+    "id": "2026-02246",
+    "date": "2026-02-04",
+    "agency": "IRS",
+    "type": "NPRM",
+    "title": "Section 45Z Clean Fuel Production Credit",
+    "summary": "This document contains proposed regulations regarding the clean fuel production credit enacted by the Inflation Reduction Act of 2022 and amended by the One, Big, Beautiful Bill Act (OBBBA). These proposed regulations would provide rules for determining clean fuel production credits, including credit eligibility rules, emissions rates, and certification and registration requirements. In addition, the proposed regulations would amend three sets of final regulations: the elective payment election regulations and the credit transfer election regulations, to clarify language relating to ownership of clean fuel production facilities, and the Federal excise tax registration regulations, to make them clearer and more consistent with the clean fuel production credit registration requirements in these proposed regulations. The proposed regulations would affect domestic producers of clean transportation fuel, taxpayers that may claim a credit for a related producer's fuel, and excise tax registrants."
+  },
+  {
+    "id": "2026-01806",
+    "date": "2026-01-29",
+    "agency": "FDIC",
+    "type": "Final Rule",
+    "title": "FDIC Official Signs, Advertisement of Membership, False Advertising, Misrepresentation of Insured Status, and Misuse of the FDIC's Name or Logo",
+    "summary": "The Federal Deposit Insurance Corporation (FDIC) is amending its signage requirements for insured depository institutions' (IDIs) digital deposit-taking channels and automated teller machines (ATMs) and like devices. This final rule is intended to address implementation issues and sources of potential confusion raised following the adoption of signage requirements for these banking channels in 2023. The final rule provides additional flexibility to IDIs while also enabling consumers to better understand when they are conducting business with an IDI and when their funds are protected by the FDIC's deposit insurance coverage."
+  },
+  {
+    "id": "2026-01712",
+    "date": "2026-01-28",
+    "agency": "CFTC",
+    "type": "Final Rule",
+    "title": "Revisions to Business Conduct and Swap Documentation Requirements for Swap Dealers and Major Swap Participants; Correction",
+    "summary": "The Commodity Futures Trading Commission (CFTC or Commission) is correcting a final rule published in the Federal Register on December 30, 2025. The final rule amended certain of the Commission's business conduct and documentation requirements applicable to swap dealers and major swap participants. This correction rectifies a technical error that would otherwise result in the unintended removal of an appendix to the Commission's regulations that was not meant to be altered by the final rule."
+  },
+  {
+    "id": "2026-01699",
+    "date": "2026-01-28",
+    "agency": "NCUA",
+    "type": "NPRM",
+    "title": "Requirements for Insurance",
+    "summary": "The NCUA Board (Board) is issuing for public comment a proposal to amend the NCUA's regulations that establish the requirements for obtaining and maintaining federal share insurance with the National Credit Union Share Insurance Fund (Share Insurance Fund). The provisions of this part apply to all federally insured credit unions (FICUs). The proposal would reduce regulatory burden by eliminating unnecessary and redundant requirements related to disclosing when nonmember accounts are not covered by federal share insurance."
+  },
+  {
+    "id": "2026-01697",
+    "date": "2026-01-28",
+    "agency": "NCUA",
+    "type": "NPRM",
+    "title": "Requirements for Insurance; Maximum Borrowing Authority",
+    "summary": "The NCUA Board (Board) seeks comment on a proposed rule to remove the maximum borrowing authority from the NCUA's regulations that establish the requirements for obtaining and maintaining federal share insurance with the National Credit Union Share Insurance Fund (Share Insurance Fund). This provision applies to all federally insured credit unions (FICUs). Removing this regulation would eliminate an unnecessary provision that duplicates the statutory maximum borrowing limit for federal credit unions (FCUs). For federally insured, state-chartered credit unions (FISCUs), removing this section would reduce the federal regulatory burden associated with the federal limit and related waiver provision."
+  },
+  {
+    "id": "2026-01696",
+    "date": "2026-01-28",
+    "agency": "NCUA",
+    "type": "NPRM",
+    "title": "Public Unit and Nonmember Shares",
+    "summary": "The NCUA Board (Board) seeks comment on a proposed rule to amend the NCUA's public unit and nonmember share rule to remove the requirement for a written plan to document the intended use of any borrowings, public unit, or nonmember shares if, collectively, those funds exceed 70 percent of the federally insured credit union's (FICU's) paid-in and unimpaired capital and surplus. FICUs would remain subject to the limits and other regulatory requirements governing public unit and nonmember shares. Removing this regulation will provide greater flexibility while holding FICUs accountable for managing the associated risks through a principles-based supervisory approach."
+  },
+  {
+    "id": "2026-01698",
+    "date": "2026-01-28",
+    "agency": "NCUA",
+    "type": "NPRM",
+    "title": "Notice of Termination of Excess Insurance Coverage",
+    "summary": "The NCUA Board (Board) is issuing for public comment a proposal to amend the NCUA's regulations that establish the requirements for obtaining and maintaining federal share insurance with the National Credit Union Share Insurance Fund (Share Insurance Fund). The provisions of this part apply to all federally insured credit unions (FICUs). The proposal would reduce regulatory burden by amending the provision on the timing of prior notice provided to members of the termination of excess non-federal insurance coverage."
+  },
+  {
+    "id": "2026-01368",
+    "date": "2026-01-26",
+    "agency": "FCA",
+    "type": "Final Rule",
+    "title": "Organization, Loan Policies and Operations, Disclosure to Shareholders, Nondiscrimination in Lending, Capital Adequacy of System Institutions, Disclosure to Investors",
+    "summary": "The Farm Credit Administration (FCA, Agency, or we) is issuing a final rule correcting citations and making other technical updates and corrections throughout its regulations."
+  },
+  {
+    "id": "2026-01382",
+    "date": "2026-01-26",
+    "agency": "NCUA",
+    "type": "NPRM",
+    "title": "Dependent Care and Board Member Expense Reimbursement",
+    "summary": "The NCUA Board proposes to amend its regulations concerning the reimbursement of reasonable expenses for federal credit union (FCU) officials. The proposed rule would enable FCU boards to establish policies that allow for the payment of reasonable dependent care costs incurred by volunteer officials while attending board meetings and performing their official duties. This proposed amendment would include dependent care costs as a reimbursable expense. The proposed changes aim to provide FCUs with greater flexibility to create family-friendly policies, thereby alleviating dependent care costs for volunteer officials, which may otherwise hinder their ability to volunteer."
+  },
+  {
+    "id": "2026-00947",
+    "date": "2026-01-20",
+    "agency": "Multiple/Treasury",
+    "type": "Final Rule",
+    "title": "Publication of Russian Harmful Foreign Activities Sanctions Regulations Web General License 129",
+    "summary": "The Department of the Treasury's Office of Foreign Assets Control (OFAC) is publishing a general license (GL) issued pursuant to the Russian Harmful Foreign Activities Sanctions Regulations: GL 129, which was previously made available on OFAC's website."
+  },
+  {
+    "id": "2026-00952",
+    "date": "2026-01-20",
+    "agency": "Multiple/Treasury",
+    "type": "Final Rule",
+    "title": "Publication of Russian Harmful Foreign Activities Sanctions Regulations Web General License 132",
+    "summary": "The Department of the Treasury's Office of Foreign Assets Control (OFAC) is publishing a general license (GL) issued pursuant to the Russian Harmful Foreign Activities Sanctions Regulations: GL 132, which was previously made available on OFAC's website."
+  },
+  {
+    "id": "2026-00948",
+    "date": "2026-01-20",
+    "agency": "Multiple/Treasury",
+    "type": "Final Rule",
+    "title": "Publication of Transnational Criminal Organizations Sanctions Regulations Web General License 1",
+    "summary": "The Department of the Treasury's Office of Foreign Assets Control (OFAC) is publishing a general license (GL) issued pursuant to the Transnational Criminal Organizations Sanctions Regulations: GL 1. This GL was previously made available on OFAC's website."
+  },
+  {
+    "id": "2026-00945",
+    "date": "2026-01-20",
+    "agency": "Multiple/Treasury",
+    "type": "Final Rule",
+    "title": "Publication of Russian Harmful Foreign Activities Sanctions Regulations Web General License 13O",
+    "summary": "The Department of the Treasury's Office of Foreign Assets Control (OFAC) is publishing a general license (GL) issued pursuant to the Russian Harmful Foreign Activities Sanctions Regulations: GL 13O, which was previously made available on OFAC's website."
+  },
+  {
+    "id": "2026-00811",
+    "date": "2026-01-16",
+    "agency": "SEC",
+    "type": "Final Rule",
+    "title": "Delegation of Authority To Grant or Deny Exemptions From Rule 612 of Regulation NMS Under the Securities Exchange Act of 1934",
+    "summary": "The Securities and Exchange Commission (\"Commission\") is adopting a technical amendment to correct an outdated cross-reference in its rules delegating authority to the Commission's staff to grant certain exemptions."
+  },
+  {
+    "id": "2026-00835",
+    "date": "2026-01-16",
+    "agency": "IRS",
+    "type": "Final Rule",
+    "title": "Tribal General Welfare Benefits; Correction",
+    "summary": "This document contains corrections to TD 10040, which was published in the Federal Register on Tuesday, December 16, 2025. TD 10040 contains final regulations regarding the exclusion from gross income of certain Tribal general welfare benefits."
+  },
+  {
+    "id": "2026-00591",
+    "date": "2026-01-14",
+    "agency": "NCUA",
+    "type": "NPRM",
+    "title": "Nondiscrimination Requirements",
+    "summary": "The NCUA Board (Board) is publishing this proposed rule to remove a redundant and outdated regulation regarding nondiscrimination in lending. While the regulation was intended to summarize the Fair Housing Act (FHA) prohibitions on discrimination related to real estate related loans, appraisals, and advertising, the Board's last substantive amendment to the regulation was finalized in 2001. Thus, the regulation may not reflect all case law or regulatory developments under the FHA, a statute that primarily falls under the jurisdiction of the Department of Housing and Urban Development (HUD) and continues to apply to federal credit unions (FCUs) regardless of the NCUA's regulations. Thus, the Board believes the current regulation may cause confusion and unnecessary burden because it has not kept up with changes in FHA interpretation and implementation. For these reasons, the Board is proposing to remove this regulation in its entirety."
+  },
+  {
+    "id": "2026-00594",
+    "date": "2026-01-14",
+    "agency": "NCUA",
+    "type": "NPRM",
+    "title": "Chartering and Field of Membership for Federal Credit Unions-Interpretive Rulings and Policy Statements",
+    "summary": "The NCUA Board (Board) proposes to rescind its Interpretative Ruling and Policy Statement 10-1 (IRPS 10-1), which was issued as an amendment to IRPS 08-2. Rescinding IRPS 10-1 would ease the compliance burden on federal credit unions (FCUs) by limiting the number of sources that FCUs must check to ensure compliance with applicable chartering and field of membership (FOM) requirements."
+  },
+  {
+    "id": "2026-00595",
+    "date": "2026-01-14",
+    "agency": "NCUA",
+    "type": "NPRM",
+    "title": "Corporate Credit Unions",
+    "summary": "The NCUA Board (Board) is issuing for public comment a proposal to rescind its Interpretive Ruling and Policy Statement (IRPS) 11-02, which addresses chartering corporate credit unions, because it is redundant to the Federal Corporate Credit Union Chartering Manual. This action will eliminate potential confusion."
+  },
+  {
+    "id": "2026-00603",
+    "date": "2026-01-14",
+    "agency": "OCC",
+    "type": "NPRM",
+    "title": "National Bank Chartering; Correction",
+    "summary": "This document corrects the preamble to a proposed rule published in the Federal Register of January 12, 2026, regarding National Bank Chartering. This correction document addresses a docket number typographical error, fixes a footnote citation, and clarifies agency references. We are placing a corrected copy of the proposed rule in the docket."
+  },
+  {
+    "id": "2026-00598",
+    "date": "2026-01-14",
+    "agency": "Multiple/Treasury",
+    "type": "NPRM",
+    "title": "Marketable Treasury Securities Redemption Operations",
+    "summary": "The Department of the Treasury (Treasury) proposes to amend the terms and conditions for marketable Treasury securities redemption (buyback) operations. These proposed amendments reflect expanded direct offer submission eligibility, update the certification statements to participate in buyback operations, enhance clarity, and make conforming changes to several sections of the buyback regulations to reflect Treasury's current practices."
+  },
+  {
+    "id": "2026-00592",
+    "date": "2026-01-14",
+    "agency": "NCUA",
+    "type": "NPRM",
+    "title": "Chartering and Field of Membership for Federal Credit Unions-Interpretive Rulings and Policy Statements",
+    "summary": "The NCUA Board proposes to rescind its Interpretative Ruling and Policy Statement 08-2 (IRPS 08-2). Rescinding IRPS 08-2 would ease the compliance burden on Federal credit unions (FCUs) by limiting the number of sources that FCUs must check to ensure compliance with applicable chartering and field of membership (FOM) requirements."
+  },
+  {
+    "id": "2026-00449",
+    "date": "2026-01-13",
+    "agency": "FinCEN",
+    "type": "Final Rule",
+    "title": "Geographic Targeting Order Imposing Recordkeeping and Reporting Requirements on Certain Financial Institutions in Minnesota",
+    "summary": "FinCEN is issuing this Geographic Targeting Order, requiring banks and money transmitters located in the Counties of Hennepin and Ramsey, Minnesota to retain and report records of certain payments of $3,000 or more."
+  },
+  {
+    "id": "2026-00315",
+    "date": "2026-01-12",
+    "agency": "SEC",
+    "type": "Final Rule",
+    "title": "List of Rules To Be Reviewed Pursuant to the Regulatory Flexibility Act",
+    "summary": "The Securities and Exchange Commission (\"Commission\") is publishing a list of rules to be reviewed pursuant to Section 610 of the Regulatory Flexibility Act. The list is published to provide the public with notice that these rules are scheduled for review by the agency and to invite public comment on whether the rules should be continued without change, or should be amended or rescinded to minimize any significant economic impact of the rules upon a substantial number of small entities."
+  },
+  {
+    "id": "2026-00316",
+    "date": "2026-01-12",
+    "agency": "SEC",
+    "type": "NPRM",
+    "title": "\"Small Business\" and \"Small Organization\" Definitions for Investment Companies and Investment Advisers for Purposes of the Regulatory Flexibility Act",
+    "summary": "The Securities and Exchange Commission (the \"Commission\" or the \"SEC\") is proposing to amend the rules under the Investment Company Act of 1940 (the \"Investment Company Act\") and under the Investment Advisers Act of 1940 (the \"Advisers Act\") that define the terms \"small business\" and \"small organization\" for purposes of the Regulatory Flexibility Act (the \"RFA\") to increase the asset-based thresholds used in those definitions. The Commission also is proposing a mechanism for periodic future inflation adjustments of the asset- based thresholds used in these definitions. The Commission further is proposing amendments to Form ADV and the rule providing continuing hardship exemptions from filing electronically for investment advisers in connection with the proposed amendments."
+  },
+  {
+    "id": "2026-00332",
+    "date": "2026-01-12",
+    "agency": "NCUA",
+    "type": "Final Rule",
+    "title": "Privacy Act Exemption; Correction",
+    "summary": "In accordance with the Privacy Act of 1974, the National Credit Union Administration (NCUA) Board is issuing this interim final rule to make a correction to the numbering of one system of records and to exempt one system of records from certain requirements of the Act. NCUA has previously published System of Records Notices (SORN) for these systems. The Board has found good cause to issue the interim final rule without advance notice-and-comment procedures and with an immediate effective date."
+  },
+  {
+    "id": "2026-00372",
+    "date": "2026-01-12",
+    "agency": "OCC",
+    "type": "NPRM",
+    "title": "National Bank Chartering",
+    "summary": "The Office of the Comptroller of the Currency (OCC) is proposing to amend its rule related to chartering of national banks to clarify the longstanding authority of national banks limited to the operations of trust companies and activities related thereto to engage in non-fiduciary activities in addition to their fiduciary activities."
+  },
+  {
+    "id": "2026-00254",
+    "date": "2026-01-09",
+    "agency": "IRS",
+    "type": "NPRM",
+    "title": "Backup Withholding on Third Party Network Transactions",
+    "summary": "This document contains proposed amendments to the regulations governing backup withholding. The proposed regulations reflect recent changes to the statutory law. These changes will affect third party settlement organizations who make payments in settlement of third party network transactions."
+  },
+  {
+    "id": "2026-00087",
+    "date": "2026-01-07",
+    "agency": "CFPB",
+    "type": "Final Rule",
+    "title": "Home Mortgage Disclosure (Regulation C) Adjustment to Asset-Size Exemption Threshold",
+    "summary": "The Consumer Financial Protection Bureau (Bureau) is amending official commentary interpreting requirements of the Bureau's Regulation C to reflect the asset-size exemption threshold for banks, savings associations, and credit unions based on the annual percentage change in the average of the Consumer Price Index for Urban Wage Earners and Clerical Workers (CPI-W). Based on the 2.5 average percent increase in the CPI-W for the 12-month period ending November 2025, the exemption threshold is adjusted to $59 million from $58 million. Institutions with assets of $59 million or less as of December 31, 2025, are exempt from collecting data in 2026."
+  },
+  {
+    "id": "2026-00085",
+    "date": "2026-01-07",
+    "agency": "CFPB",
+    "type": "Final Rule",
+    "title": "Truth in Lending Act (Regulation Z) Adjustment to Asset-Size Exemption Threshold",
+    "summary": "The Consumer Financial Protection Bureau (Bureau) is amending the official commentary to its Regulation Z in order to make annual adjustments to the asset-size thresholds exempting certain creditors from the requirement to establish an escrow account for a higher-priced mortgage loan (HPML). The exemption threshold for creditors and their affiliates that regularly extended covered transactions secured by first liens is adjusted to $2.785 billion and the exemption threshold for certain insured depository institutions and insured credit unions with assets of $10 billion or less is adjusted to $12.485 billion."
+  },
+  {
+    "id": "2025-24184",
+    "date": "2026-01-02",
+    "agency": "FinCEN",
+    "type": "Final Rule",
+    "title": "Delaying the Effective Date of the Anti-Money Laundering/Countering the Financing of Terrorism Program and Suspicious Activity Report Filing Requirements for Registered Investment Advisers and Exempt Reporting Advisers",
+    "summary": "FinCEN is amending the Anti-Money Laundering/Countering the Financing of Terrorism (AML/CFT) Program and Suspicious Activity Report (SAR) Filing Requirements for Registered Investment Advisers and Exempt Reporting Advisers (IA AML Rule) to delay the effective date by two years. As part of this delay, FinCEN is amending the date by which an investment adviser must develop and implement an AML/CFT program."
+  },
+  {
+    "id": "2025-24154",
+    "date": "2026-01-02",
+    "agency": "IRS",
+    "type": "NPRM",
+    "title": "Car Loan Interest Deduction",
+    "summary": "This document contains proposed regulations regarding the deduction for certain taxpayers for an amount up to $10,000 of qualified passenger vehicle loan interest. This document also contains proposed regulations regarding new information reporting requirements for certain persons who, in a trade or business, receive from any individual interest aggregating $600 or more for any calendar year on a specified passenger vehicle loan, including applicable penalties for failures to file information returns or furnish payee statements as required. The proposed regulations would affect taxpayers that may deduct qualified passenger vehicle loan interest, and also persons subject to these information reporting requirements. This document also provides notice of a public hearing on these proposed regulations."
+  },
+  {
+    "id": "2025-24153",
+    "date": "2026-01-02",
+    "agency": "IRS",
+    "type": "NPRM",
+    "title": "Statutory Updates to Branded Prescription Drug Fee Regulations",
+    "summary": "This document proposes amendments to regulations regarding the annual fee imposed on covered entities engaged in the business of manufacturing or importing certain branded prescription drugs. In response to the replacement of the Coverage Gap Discount Program with the new Manufacturer Discount Program by the Inflation Reduction Act of 2022, the proposed regulations would make updates regarding the discounts, rebates, and other price concessions used to determine branded prescription drug sales under Medicare Part D and would update for prior statutory changes. These proposed regulations would affect persons engaged in the business of manufacturing or importing certain branded prescription drugs."
+  },
+  {
+    "id": "SB-4d5e26",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "\u5b88\u671b\u5148\u950b15\u65e5\u767b\u9646\u4efb\u5929\u5802Switch2 \u540c\u6b65\u5f00\u542f\u7b2c\u4e8c\u8d5b\u5b63\u300c\u5c16\u5cf0\u4e4b\u4e0a\u300d",
+    "summary": ""
+  },
+  {
+    "id": "SB-4f8101",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "UP\u4ff1\u4e50\u90e8\u5b98\u5ba3\u7b2c\u4e8c\u8d5b\u6bb5\u5927\u540d\u5355\uff1aSasi/Climber/Saber/Hena/Xiaoxia",
+    "summary": ""
+  },
+  {
+    "id": "SB-676e28",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "\u0633\u0642\u0648\u0637 \u0635\u0627\u062d\u0628 \u0645\u0635\u0646\u0639 \u0637\u0648\u0628 \u0627\u0633\u062a\u0648\u0644\u0649 \u0639\u0644\u0649 40 \u0637\u0646 \u0645\u0634\u062a\u0642\u0627\u062a \u0628\u062a\u0631\u0648\u0644\u064a\u0629 \u0641\u0649 \u0627\u0644\u062f\u0642\u0647\u0644\u064a\u0629",
+    "summary": ""
+  },
+  {
+    "id": "SB-bc3ad5",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "\u751f\u610f\u793e\uff1a4\u670814\u65e5\u5156\u77ff\u56fd\u6cf0\u918b\u9178\u4e59\u916f\u62a5\u4ef7\u4e0b\u8c03",
+    "summary": ""
+  },
+  {
+    "id": "SB-916c3f",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "\u751f\u610f\u793e\uff1a4\u670814\u65e5\u534e\u5317\u5730\u533a\u918b\u9178\u4e59\u916f\u884c\u60c5\u5f31\u52bf\u4e0b\u884c",
+    "summary": ""
+  },
+  {
+    "id": "SB-9b5f42",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "\u592e\u884c\uff1a\u5c06\u5f00\u5c555000\u4ebf\u5143\u4e70\u65ad\u5f0f\u9006\u56de\u8d2d\u64cd\u4f5c",
+    "summary": ""
+  },
+  {
+    "id": "SB-35914d",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "\u5c01\u9501\u884c\u52a8\u52a0\u5267\u7f8e\u4f0a\u7d27\u5f20\u5c40\u52bf \u73b0\u8d27\u91d1\u7ef4\u6301\u9707\u8361\u504f\u5f3a",
+    "summary": ""
+  },
+  {
+    "id": "SB-281852",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "\u751f\u610f\u793e\uff1a4\u670814\u65e5\u5c71\u4e1c\u9c81\u897f\u5316\u5de5\u786b\u9178\u94f5\u4ef7\u683c\u5e73\u7a33",
+    "summary": ""
+  },
+  {
+    "id": "SB-e2b217",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "\u9505\u5708\uff1a\u9884\u8ba1\u4e00\u5b63\u5ea6\u6838\u5fc3\u7ecf\u8425\u5229\u6da6\u589e\u901f\u6700\u9ad8\u8fbe61% \u95e8\u5e97\u603b\u6570\u589e\u81f311758\u5bb6",
+    "summary": ""
+  },
+  {
+    "id": "SB-f8cbf8",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "\u751f\u610f\u793e\uff1a4\u670814\u65e5\u534e\u9c81\u6052\u5347\u5df1\u5185\u9170\u80fa\u4ef7\u683c\u52a8\u6001",
+    "summary": ""
+  },
+  {
+    "id": "SB-2bd487",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "\u751f\u610f\u793e\uff1a4\u670814\u65e5\u534e\u4e1c\u5730\u533a\u918b\u9178\u4e59\u916f\u884c\u60c5\u5f31\u52bf\u4e0b\u884c",
+    "summary": ""
+  },
+  {
+    "id": "SB-724b45",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "2026\u5e7404\u670813\u65e5\u4e19\u70ef\u4ea7\u4e1a\u4ef7\u683c\u6da8\u8dcc\u699c",
+    "summary": ""
+  },
+  {
+    "id": "SB-cbd851",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "2026\u5e7404\u670813\u65e5\u5851\u6599\u4ef7\u683c\u6da8\u8dcc\u699c",
+    "summary": ""
+  },
+  {
+    "id": "SB-c72d01",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "\u067e\u0627\u0633\u062e \u0648\u0632\u0627\u0631\u062a \u0648\u0631\u0632\u0634 \u0628\u0647 \u0641\u062f\u0631\u0627\u0633\u06cc\u0648\u0646 \u0641\u0648\u062a\u0628\u0627\u0644: \u0628\u0627 \u0628\u0631\u06af\u0632\u0627\u0631\u06cc \u0644\u06cc\u06af \u0645\u062e\u0627\u0644\u0641\u062a\u06cc \u0646\u062f\u0627\u0631\u06cc\u0645\u061b \u062a\u0635\u0645\u06cc\u0645 \u0628\u0627 \u0634\u0645\u0627",
+    "summary": ""
+  },
+  {
+    "id": "SB-efee14",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "\u0647\u0634\u062f\u0627\u0631 \u0645\u0624\u0633\u0633\u0627\u062a \u062c\u0647\u0627\u0646\u06cc \u0646\u0633\u0628\u062a \u0628\u0647 \u067e\u06cc\u0627\u0645\u062f\u0647\u0627\u06cc \u0628\u0633\u062a\u0647\u200c \u0628\u0648\u062f\u0646 \u062a\u0646\u06af\u0647 \u0647\u0631\u0645\u0632",
+    "summary": ""
+  },
+  {
+    "id": "SB-4967c1",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "\u062d\u0645\u0644\u0647 \u062a\u0631\u0627\u0645\u067e \u0628\u0647 \u067e\u0627\u067e \u0635\u062f\u0627\u06cc \u06a9\u0627\u062a\u0648\u0644\u06cc\u06a9\u200c\u0647\u0627\u06cc \u0622\u0645\u0631\u06cc\u06a9\u0627 \u0631\u0627 \u062f\u0631 \u0622\u0648\u0631\u062f",
+    "summary": ""
+  },
+  {
+    "id": "SB-d1e9d0",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "Three European soccer giants face Champions League elimination",
+    "summary": ""
+  },
+  {
+    "id": "SB-2c75a4",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "\u4e07\u8fbe\u91cd\u5de5\u53d6\u5f97\u5f2f\u7ba1\u7f20\u5e26\u673a\u7ec4\u4e13\u5229,\u7f20\u5e26\u673a\u7ec4\u4e2d\u7684\u673a\u5668\u6cbf\u5706\u5468\u6392\u5217\u95f4\u9694\u8bbe\u7f6e",
+    "summary": ""
+  },
+  {
+    "id": "SB-b36970",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "\u5fae\u4fe1\u4f59\u989d\u6ca1300\u5230500\u5143\u4e0d\u7ed9\u9762\u8bd5\uff1f\u4e2d\u4ecb\uff1a\u6015\u5458\u5de5\u5e72\u4e24\u5929\u5c31\u8dd1\u8def\u3001\u95f9\u4e8b\u8981\u5de5\u8d44",
+    "summary": ""
+  },
+  {
+    "id": "SB-e0fca8",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "\u5feb\u8a0a\uff0f\u5357\u4e9e\u79d1\u80a1\u50f9\u7d05\u7ffb\u9ed1\u771f\u76f8\u66dd\u5149! \u7a81\u958b\u91cd\u8a0a\u8a18\u8005\u6703\u5ba3\u5e03\u300c\u90191\u4e8b\u300d",
+    "summary": ""
+  },
+  {
+    "id": "SB-cbb983",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "Malaysia urges US to reconsider move to block Strait of Hormuz",
+    "summary": ""
+  },
+  {
+    "id": "SB-238532",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "\u7da0\u6843\u5712\u3001\u7af9\u5e02\u9078\u8209\u63d0\u540d\u62cd\u677f \u660e\u5fb5\u53ec\u9ec3\u4e16\u6770\u3001\u838a\u7af6\u7a0b",
+    "summary": ""
+  },
+  {
+    "id": "SB-d71fea",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "Meta prev\u00e9 superar a Google este a\u00f1o como l\u00edder mundial en publicidad digital",
+    "summary": ""
+  },
+  {
+    "id": "SB-e7624d",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "IPTV South Africa \u2013 Best IPTV Service for Sports, Movies & Series i",
+    "summary": ""
+  },
+  {
+    "id": "SB-95e07c",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "Monbake compra la firma de panader\u00eda pr\u00e9mium Triticum",
+    "summary": ""
+  },
+  {
+    "id": "SB-9ca21a",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "NaturNah: Der Stint",
+    "summary": ""
+  },
+  {
+    "id": "SB-3a9a92",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "Uitbreiding KEC Ganapja Gennep opgeleverd",
+    "summary": ""
+  },
+  {
+    "id": "SB-b99a3e",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "Maasbrug tijdelijk volledig afgesloten",
+    "summary": ""
+  },
+  {
+    "id": "SB-93320c",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "Nationale Dodenherdenking op 4 mei",
+    "summary": ""
+  },
+  {
+    "id": "SB-c0e821",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "\u0645\u0648\u0639\u062f \u0623\u0630\u0627\u0646 \u0627\u0644\u0639\u0635\u0631 \u0627\u0644\u064a\u0648\u0645 14 \u0623\u0628\u0631\u064a\u0644 2026 \u0641\u064a \u0645\u062d\u0627\u0641\u0638\u0629 \u0627\u0644\u0625\u0633\u0645\u0627\u0639\u064a\u0644\u064a\u0629",
+    "summary": ""
+  },
+  {
+    "id": "SB-53173b",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "Journ\u00e9e mondiale de l\u2019enseignant au Niger : \u00e0 Niamey, l\u2019appel \u00e0 refon\u2026",
+    "summary": ""
+  },
+  {
+    "id": "SB-d4298d",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "Pourquoi Luis Enrique est le meilleur coach de l'histoire de la Ligue des champions",
+    "summary": ""
+  },
+  {
+    "id": "SB-539081",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "Grupo Acrescentar lan\u00e7a STRATA no Porto",
+    "summary": ""
+  },
+  {
+    "id": "SB-69d6ef",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "\u503a\u5e02\u6536\u76d8|\u957f\u7aef\u4ecd\u504f\u5f3a 30\u5e74\u671f\u56fd\u503a\u6536\u76ca\u7387\u903c\u8fd12.27%",
+    "summary": ""
+  },
+  {
+    "id": "SB-17d06d",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "\u8fdc\u4fe1\u5de5\u4e1a\uff1a\u5173\u4e8e\u201c\u8fdc\u4fe1\u8f6c\u503a\u201d\u5373\u5c06\u505c\u6b62\u8f6c\u80a1\u66a8\u8d4e\u56de\u524d\u6700\u540e\u4e00\u4e2a\u4ea4\u6613\u65e5\u7684\u91cd\u8981\u63d0\u793a\u6027\u516c\u544a",
+    "summary": ""
+  },
+  {
+    "id": "SB-fce168",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "4\u670814\u65e5\u5168\u56fd\u5171\u53d1\u884c15\u53ea\u5730\u65b9\u653f\u5e9c\u503a \u5171\u8ba1718.81\u4ebf\u5143",
+    "summary": ""
+  },
+  {
+    "id": "SB-c55e4e",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "ZETA DIVISION\u6240\u5c5eClutch_Fi\u4e3b\u50ac\u300eDevil Clutch\u676f2026 #1 Supported by Riot Games\u300f4\u670828\u65e5\u300129\u65e5\u306e2\u65e5\u9593\u306b\u308f\u305f\u308a\u958b\u50ac\u6c7a\u5b9a\uff01",
+    "summary": ""
+  },
+  {
+    "id": "SB-860473",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "ABEMA\u958b\u5c4010\u5468\u5e74\u8a18\u5ff5\u7279\u5225\u756a\u7d44\u300e30\u6642\u9593\u9650\u754c\u7a81\u7834\u30d5\u30a7\u30b9\u300f\u653e\u90012\u65e5\u9593\u3067\u3001\u756a\u7d44\u95a2\u9023\u52d5\u753b\u306e\u7dcf\u518d\u751f\u6570\u304c1\u5104\u56de\u3092\u7a81\u7834\uff01\u201c\u30b3\u30e0\u30c9\u30c3\u30c8\u9650\u754c\u7a81\u7834\u201d\u201c\u6700\u5f37\u30d0\u30ba\u308a\u30bd\u30f3\u30b0\u6b4c\u8b21\u796d\u201d\u307b\u304b\u756a\u7d44\u95a2\u9023\u30ef\u30fc\u30c910\u500b\u304cX\u30c8\u30ec\u30f3\u30c9\u5165\u308a",
+    "summary": ""
+  },
+  {
+    "id": "SB-1a7203",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "\u0628\u064a\u0627\u0646 \u0635\u0627\u062f\u0631 \u0639\u0646 \u0648\u0632\u0627\u0631\u0629 \u0627\u0644\u0623\u0648\u0642\u0627\u0641 \u0628\u062e\u0635\u0648\u0635 \u0627\u0633\u062a\u0631\u062c\u0627\u0639 \u0631\u0633\u0648\u0645 \u0627\u0644\u062d\u062c (500 \u062f\u064a\u0646\u0627\u0631)",
+    "summary": ""
+  },
+  {
+    "id": "SB-372720",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "\u4e94\u65b9\u8054\u52a8\u201c\u4e00\u7ad9\u5f0f\u201d\u89e3\u7eb7 \u6253\u9020\u5e73\u5b89\u6d77\u57df\u201c\u5e84\u6cb3\u6837\u672c\u201d",
+    "summary": ""
+  },
+  {
+    "id": "SB-864b55",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "\u666e\u5170\u5e97\u533a\u603b\u5de5\u4f1a\u7cfb\u5217\u6280\u80fd\u7ade\u8d5b\u52a9\u529b\u4ea7\u4e1a\u5de5\u4eba\u63d0\u6280\u589e\u6548",
+    "summary": ""
+  },
+  {
+    "id": "SB-78bc93",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "Encore 7 ans de Parti socialiste \u00e0 Paris : Assembl\u00e9e ouverte de RP ce jeudi pour pr\u00e9parer la riposte !",
+    "summary": ""
+  },
+  {
+    "id": "SB-a86eff",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "\u56fd\u529e\uff1a\u52a0\u5927\u5bf9\u836f\u54c1\u8d2d\u9500\u9886\u57df\u5931\u4fe1\u884c\u4e3a\u7684\u7ea6\u675f\u548c\u7ea0\u6cbb\u529b\u5ea6",
+    "summary": ""
+  },
+  {
+    "id": "SB-b4a5b3",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "Biologisch groeit in Nederland, maar haalt doelen en EU-gemiddelde nog lang niet",
+    "summary": ""
+  },
+  {
+    "id": "SB-67fc41",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "\u5218\u536b\u4e1c\u53d7\u8d3f\u6848\u4e00\u5ba1\u5ba3\u5224",
+    "summary": ""
+  },
+  {
+    "id": "SB-8dbda2",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "\u56fd\u529e\uff1a\u9632\u8303\u5173\u952e\u836f\u7528\u8f85\u6599\u3001\u836f\u7528\u5305\u6750\u65e0\u5e8f\u6da8\u4ef7",
+    "summary": ""
+  },
+  {
+    "id": "SB-e6ddef",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "\u56fd\u529e\uff1a\u5f3a\u5316\u77ed\u7f3a\u836f\u4fdd\u4f9b\u7a33\u4ef7",
+    "summary": ""
+  },
+  {
+    "id": "SB-f2e290",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "\u591a\u90e8\u95e8\u542f\u52a82026\u5e74\u5ea6\u96c6\u4f53\u534f\u5546\u201c\u96c6\u4e2d\u8981\u7ea6\u884c\u52a8\u201d",
+    "summary": ""
+  },
+  {
+    "id": "SB-1342c4",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "\u516c\u5b89\u90e8\u3001\u81ea\u7136\u8d44\u6e90\u90e8\u8054\u5408\u516c\u5e034\u8d77\u975e\u6cd5\u5360\u7528\u8015\u5730\u5211\u4e8b\u72af\u7f6a\u5178\u578b\u6848\u4f8b",
+    "summary": ""
+  },
+  {
+    "id": "SB-9b1127",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "\u56fd\u529e\u5370\u53d1\u300a\u5173\u4e8e\u5065\u5168\u836f\u54c1\u4ef7\u683c\u5f62\u6210\u673a\u5236\u7684\u82e5\u5e72\u610f\u89c1\u300b",
+    "summary": ""
+  },
+  {
+    "id": "SB-49cda8",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "\u6625\u65e5\u592a\u884c\u5927\u5ce1\u8c37\uff1a\u751f\u6001\u7f8e\u666f\u5f15\u5ba2\u6765",
+    "summary": ""
+  },
+  {
+    "id": "SB-14b137",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "\u8d75\u4e50\u9645\u4f1a\u89c1\u897f\u73ed\u7259\u9996\u76f8\u6851\u5207\u65af",
+    "summary": ""
+  },
+  {
+    "id": "SB-ae5fb4",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "\uc720\uba85\ud558\uc9c0\ub9cc '\ub300\uc911\uc131 \uc5c6\ub294' \ub0a8\uc790 \uc544\uc774\ub3cc \ud2b9\uc9d5",
+    "summary": ""
+  },
+  {
+    "id": "SB-fe379e",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "\u8bf7\u4e86\u4e8b\u5047\u8fd8\u80fd\u4f11\u5e74\u4f11\u5047\u5417\uff1f",
+    "summary": ""
+  },
+  {
+    "id": "SB-7ef7be",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "\u0414\u043e\u0431\u044b\u0447\u0443 \u0437\u043e\u043b\u043e\u0442\u0430 \u0438 \u043f\u0435\u0440\u0435\u0440\u0430\u0431\u043e\u0442\u043a\u0443 \u0443\u0440\u0430\u043d\u0430 \u0440\u0430\u0441\u0448\u0438\u0440\u044f\u044e\u0442 \u0432 \u0410\u043a\u043c\u043e\u043b\u0438\u043d\u0441\u043a\u043e\u0439 \u043e\u0431\u043b\u0430\u0441\u0442\u0438",
+    "summary": ""
+  },
+  {
+    "id": "SB-c07cfa",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "New expressway to link Delhi and Dehradun in 2.5 hours; to boost jobs and economy: Nitin Gadkari",
+    "summary": ""
+  },
+  {
+    "id": "SB-86295b",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "AI+\u79d1\u7814\u8d5b\u9053\u8fce\u6765\u65b0\u73a9\u5bb6\uff1a\u300c\u7814\u4f34 Respal\u300d\u7528 Agent \u5e73\u53f0\u5207\u5165724\u4e07\u79d1\u7814\u4eba\u5458\u5e02\u573a",
+    "summary": ""
+  },
+  {
+    "id": "SB-74a006",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "\u6c88\u9633\u7acb\u6cd5\u89c4\u8303\u5efa\u7b51\u5e02\u573a\u7ba1\u7406 \u4eba\u5de5\u8d39\u7528\u62e8\u4ed8\u5468\u671f\u4e0d\u5f97\u8d85\u8fc7\u4e00\u4e2a\u6708",
+    "summary": ""
+  },
+  {
+    "id": "SB-7de269",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "\u9762\u5411Ascend 950 CANN\u6280\u672f\u67b6\u6784\u7684\u53d8\u4e0e\u4e0d\u53d8",
+    "summary": ""
+  },
+  {
+    "id": "SB-eca826",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "\u5b88\u62a4\u6570\u5b57\u65f6\u4ee3\u7684\u4fe1\u4efb\u57fa\u77f3 \u8fc5\u8f6f\u79d1\u6280\u4ee5\u8d23\u4efb\u4e0e\u521b\u65b0\u5f15\u9886\u6570\u636e\u5b89\u5168\u65b0\u5f81\u7a0b",
+    "summary": ""
+  },
+  {
+    "id": "SB-3026e4",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "\u56fd\u4ea7\u64cd\u4f5c\u7cfb\u7edf\u8d4b\u80fd\u533b\u7597\u670d\u52a1\u5347\u7ea7 \u4e2d\u5174\u65b0\u652f\u70b9\u63a8\u51fa\u5fae\u4fe1\u5c31\u533b\u65b9\u6848",
+    "summary": ""
+  },
+  {
+    "id": "SB-6f3018",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "Experts explain how to stop hay fever from impacting your sleep",
+    "summary": ""
+  },
+  {
+    "id": "SB-1b0d53",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "\u673a\u5708\u9489\u5b50\u6237\uff01\u9ad8\u901a\u9a81\u9f998E5\u6210\u4e3a\u6700\u957f\u5bff\u7684Soc\uff1a\u8fed\u4ee3\u65d7\u8230\u7ee7\u7eed\u7528 2nm\u592a\u8d35\u4e86",
+    "summary": ""
+  },
+  {
+    "id": "SB-c505c6",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "\u6167\u7b97\u8d26\uff1a\u4ee5AI\u91cd\u6784\u8d22\u7a0e\u670d\u52a1 \u4ece\u201c\u6548\u7387\u5de5\u5177\u201d\u5347\u7ea7\u4e3a\u201c\u7ecf\u8425\u4f19\u4f34\u201d",
+    "summary": ""
+  },
+  {
+    "id": "SB-c19e91",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "\u4eac\u4e1c\u8054\u5408\u54c1\u724c\u6210\u7acb\u201c\u54c1\u8d28\u6253\u5370\u8054\u76df\u201d \u627f\u8bfa\u6240\u6709\u4ea7\u54c1\u201c\u539f\u5382\u5168\u65b0\u3001\u6b63\u54c1\u4fdd\u969c\u201d",
+    "summary": ""
+  },
+  {
+    "id": "SB-f704f9",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "\u534e\u4e3aPura\u7cfb\u5217\u53cc\u65d7\u8230\u5b98\u5ba3 \u9e3f\u8499\u7248\u5e7f\u53d1\u6613\u6dd8\u91d1\u65b0\u7248\u4f53\u9a8c\u5168\u9762\u7115\u65b0\uff01",
+    "summary": ""
+  },
+  {
+    "id": "SB-abbc70",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "\u6301\u7eed\u4f18\u5316\u6a21\u578b\u80fd\u529b \u5f00\u62cd\u518d\u5347\u7ea7\u5e76\u63a5\u5165Seedance 2.0",
+    "summary": ""
+  },
+  {
+    "id": "SB-d168de",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "\u6d77\u5c14\u667a\u5bb6\u534a\u4e2a\u6708\u5185\u65a5\u8d44\u8fd15.2\u4ebf\u5143\u56de\u8d2d2400\u591a\u4e07A\u80a1",
+    "summary": ""
+  },
+  {
+    "id": "SB-e64e88",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "\u8d8545\u4e2a\u9ad8\u8d28\u91cfSDK\u5165\u9009 \u9e3f\u8499\u751f\u6001\u4f19\u4f34SDK\u4f18\u9009\u5e93\u8ba9\u5f00\u53d1\u66f4\u7b80\u5355\u3001\u66f4\u5b89\u5168",
+    "summary": ""
+  },
+  {
+    "id": "SB-39e640",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "NIBE Industrier AB (publ) NOTICE OF THE ANNUA...",
+    "summary": ""
+  },
+  {
+    "id": "SB-ed3360",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "Boil Advisory for Holton Water Customers",
+    "summary": ""
+  },
+  {
+    "id": "SB-3dbcfa",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "Is England v Spain on TV? How to watch Women\u2019s World Cup qualifier",
+    "summary": ""
+  },
+  {
+    "id": "SB-1a8ced",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "\u0627\u0644\u0646\u0645\u0627\u0630\u062c \u0627\u0644\u0635\u064a\u0646\u064a\u0629 \u0627\u0644\u0636\u062e\u0645\u0629 \u0644\u0644\u0630\u0643\u0627\u0621 \u0627\u0644\u0627\u0635\u0637\u0646\u0627\u0639\u064a \u062a\u064f\u0633\u062a\u062e\u062f\u0645 \u0628\u0643\u062b\u0627\u0641\u0629 \u0645\u0646 \u0642\u0628\u0644 \u0645\u0633\u062a\u062e\u062f\u0645\u064a\u0646 \u0639\u0627\u0644\u0645\u064a\u064a\u0646",
+    "summary": ""
+  },
+  {
+    "id": "SB-adeda3",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "EQS-News: Entwicklungsf\u00f6rderung durch DEG Impulse (deutsch)",
+    "summary": ""
+  },
+  {
+    "id": "SB-aa18e9",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "\u0635\u0646\u0627\u0639\u0629 \u0627\u0644\u0633\u064a\u0627\u0631\u0627\u062a \u0627\u0644\u0635\u064a\u0646\u064a\u0629 \u0644\u0646 \u062a\u0643\u062a\u0641\u064a \u0628\u0631\u064a\u0627\u062f\u0629 \u0627\u0644\u0645\u0628\u064a\u0639\u0627\u062a \u0639\u0627\u0644\u0645\u064a\u0627",
+    "summary": ""
+  },
+  {
+    "id": "SB-3ebc4a",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "\u300c\u8efd\u3044\u6c17\u6301\u3061\u3067\u4e57\u3063\u3066\u3057\u307e\u3063\u305f\u3068\u300d \u5c0f\u5b66\u6821\u6559\u8aed\u304c\u81ea\u8ee2\u8eca\u9152\u6c17\u5e2f\u3073\u904b\u8ee2 \u5e02\u6559\u59d4\u304c\u8b1d\u7f6a \u5c71\u68a8\u30fb\u7b1b\u5439\u5e02",
+    "summary": ""
+  },
+  {
+    "id": "SB-0344e4",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "\u300a\u91cd\u3044\u4e0d\u6574\u8108\u6cbb\u7642\u306b\u6717\u5831\u300b\u9ad8\u77e5\u770c\u5185\u521d\u306e\u624b\u8853 \u6c11\u9593\u75c5\u9662\u304c\u6210\u529f\u3010\u9ad8\u77e5\u3011",
+    "summary": ""
+  },
+  {
+    "id": "SB-a36f20",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "How Morocco Is Transforming the Global Mobile App Development Market",
+    "summary": ""
+  },
+  {
+    "id": "SB-575e22",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "\u201c\u8ffd\u5fb4\u8ab2\u7a0e\u201d\u306f\u300c\u30d5\u30a7\u30a4\u30af\u30cb\u30e5\u30fc\u30b9\u300d \u9031\u520a\u8a8c\u5831\u9053\u3092\u9577\u5d0e\u77e5\u4e8b\u304c\u5426\u5b9a \u6cd5\u7684\u63aa\u7f6e\u8b1b\u3058\u308b\u8003\u3048\u793a\u3059 \u5c71\u68a8",
+    "summary": ""
+  },
+  {
+    "id": "SB-f2a838",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "\u7206\u767a\u7684\u4eba\u6c17\u306e\u30b7\u30fc\u30eb\u300c\u30dc\u30f3\u30dc\u30f3\u30c9\u30ed\u30c3\u30d7\u300d\u507d\u7269\u8ca9\u58f2\u304b \u30ab\u30fc\u30c9\u30b7\u30e7\u30c3\u30d7\u7d4c\u55b6\u8005\u3089\u902e\u6355 \u672c\u7269\u3088\u308a50\u5186\u5b89\u304f",
+    "summary": ""
+  },
+  {
+    "id": "SB-e246b0",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "Pieter Walstra Award 2026 voor toonaangevend onderzoek melkeiwitten",
+    "summary": ""
+  },
+  {
+    "id": "SB-a22213",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "\u041c\u0433\u043d\u043e\u0432\u0435\u043d\u043d\u043e \u0441\u0434\u0435\u043b\u0430\u044e\u0442 \u0432\u0430\u0441 \u043c\u043e\u043b\u043e\u0436\u0435: 7 \u0430\u043d\u0442\u0438\u0432\u043e\u0437\u0440\u0430\u0441\u0442\u043d\u044b\u0445 \u0441\u0442\u0440\u0438\u0436\u0435\u043a",
+    "summary": ""
+  },
+  {
+    "id": "SB-ef0393",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "\u0424\u0440\u0435\u0439\u043c\u0443\u0442, \u0420\u0430\u043c\u0438\u043d\u0430 \u0438 \u0442\u043e\u043f\u043e\u0432\u044b\u0435 \u043c\u0435\u0434\u0438\u0430\u0444\u0438\u0433\u0443\u0440\u044b \u0441\u0442\u0440\u0430\u043d\u044b: \u043a\u0430\u043a \u043f\u0440\u043e\u0448\u0435\u043b fashion-\u0431\u0440\u0430\u043d\u0447 Harper's Bazaar & Domino \u0432 \u041a\u0438\u0435\u0432\u0435",
+    "summary": ""
+  },
+  {
+    "id": "SB-f3dfeb",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "ROI Training Tools for Sales Teams: How Training Drives Performance",
+    "summary": ""
+  },
+  {
+    "id": "SB-f4ffde",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "Top Wedding Photography Trends You Should Know in 2026",
+    "summary": ""
+  },
+  {
+    "id": "SB-61ed86",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "Apple with Crypto: A Modern Approach to Secure Digital Finance",
+    "summary": ""
+  },
+  {
+    "id": "SB-0a1711",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "Non-Executive Board Director Appointment",
+    "summary": ""
+  },
+  {
+    "id": "SB-bf550a",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "New investment in Agentic payments company",
+    "summary": ""
+  },
+  {
+    "id": "SB-c5ea15",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "Funding Circle renews funding agreement",
+    "summary": ""
+  },
+  {
+    "id": "SB-6b4239",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "Greenwood Research Report",
+    "summary": ""
+  },
+  {
+    "id": "SB-88b4fa",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "Annual Financial Report",
+    "summary": ""
+  },
+  {
+    "id": "SB-df646b",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "Transaction in Own Shares",
+    "summary": ""
+  },
+  {
+    "id": "SB-057625",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "\u65e5 \uad6d\ubbfc \ubc34\ub4dc \ubc31\ub118\ubc84, 9\uc6d4 \ud0a8\ud14d\uc2a4\uc5d0\uc11c \uccab \ub0b4\ud55c \uacf5\uc5f0\u202622\uc77c \uc608\ub9e4 \uc2dc\uc791",
+    "summary": ""
+  },
+  {
+    "id": "SB-a6558f",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "B2BINPAY Rolls Out Partner Program With Direc...",
+    "summary": ""
+  },
+  {
+    "id": "SB-34d310",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "Funding Circle renews funding agreement to su...",
+    "summary": ""
+  },
+  {
+    "id": "SB-87d761",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "Director/PDMR Shareholding",
+    "summary": ""
+  },
+  {
+    "id": "SB-d2ec59",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "Huhtamaki publishes Q1 2026 Interim Report on...",
+    "summary": ""
+  },
+  {
+    "id": "SB-0b5764",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "Compre announces FY 2025 results",
+    "summary": ""
+  },
+  {
+    "id": "SB-8de312",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "50\uc77c \uc55e\ub454 \uc9c0\ubc29\uc120\uac70\u2026\u91d1\ucd1d\ub9ac \"AI \uac00\uc9dc\ub274\uc2a4\uc5d4 \uc77c\ubc8c\ubc31\uacc4\"",
+    "summary": ""
+  },
+  {
+    "id": "SB-da22f9",
+    "date": "2026-04-14",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "\ucda9\ubd81\uad50\uc721\uccad, \ub9cc\ucde8\uc6b4\uc804 \uad50\uc0ac '\uc815\uc9c1' \uc911\uc9d5\uacc4\u2026\uc219\ucde8 \uc801\ubc1c \uad50\uc0ac\ub294 \uac10\ubd09",
+    "summary": ""
+  }
+]
