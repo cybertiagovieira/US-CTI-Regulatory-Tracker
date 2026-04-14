@@ -187,7 +187,7 @@
             console.error("Data extraction failed:", error);
         }
 
-        fetchSha(); // Prime the GitHub API file target
+        await fetchSha(); // MANDATORY INJECTION: Block until SHA resolves
 
         // Safely extract months
         const months = [...new Set(rawData.filter(d => d.date && d.date.length >= 7).map(d => d.date.substring(0, 7)))].sort();
