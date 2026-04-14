@@ -78,6 +78,10 @@
 <div class="container">
     <div id="admin-panel">
         <h2>Administrator Controls</h2>
+        <div class="input-grid" style="background: #e2e8f0; padding: 10px; border-radius: 4px; margin-bottom: 15px;">
+            <input type="password" id="gh-token" placeholder="GitHub Personal Access Token (Requires Contents Read/Write)" required>
+            <input type="text" id="gh-repo" placeholder="Target Repo" value="cybertiagovieira/US-CTI-Regulatory-Tracker" required>
+        </div>
         <div class="input-grid">
             <input type="date" id="in-date" required>
             <select id="in-agency" required>
@@ -144,11 +148,50 @@
         "Speech/Statement": { class: "type-speech", color: "#94a3b8" }
     };
 
+    let rawData = [];
     let charts = {};
     let currentFilter = 'All';
+    let currentFileSha = ''; // Required by GitHub API to update existing files
 
-    function init() {
-        const months = [...new Set(rawData.map(d => d.date.substring(0, 7)))].sort();
+    // Base64 encoding compatible with UTF-8 payload injection
+    function b64EncodeUnicode(str) {
+        return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, function toSolidBytes(match, p1) {
+            return String.fromCharCode('0x' + p1);
+        }));
+    }
+
+    async function fetchSha() {
+        const repo = document.getElementById('gh-repo').value;
+        if(!repo) return;
+        try {
+            const res = await fetch(`https://api.github.com/repos/${repo}/contents/master_data.json`);
+            if(res.ok) {
+                const data = await res.json();
+                currentFileSha = data.sha;
+            }
+        } catch(e) {
+            console.error("SHA fetch failed", e);
+        }
+    }
+
+    async function init() {
+        // Fetch external data payload
+        try {
+            const response = await fetch(`master_data.json?t=${new Date().getTime()}`);
+            if(response.ok) {
+                rawData = await response.json();
+            } else {
+                console.warn("master_data.json inaccessible. Defaulting to empty array.");
+            }
+        } catch (error) {
+            console.error("Data extraction failed:", error);
+        }
+
+        fetchSha(); // Prime the GitHub API file target
+
+        // Safely extract months
+        const months = [...new Set(rawData.filter(d => d.date && d.date.length >= 7).map(d => d.date.substring(0, 7)))].sort();
+        
         const tabContainer = document.getElementById('tabContainer');
         tabContainer.innerHTML = `<button class="tab" data-target="All" onclick="renderView('All')">All</button>`;
         months.forEach(m => {
@@ -169,12 +212,10 @@
             if(t.dataset.target === filterValue) t.classList.add('active');
         });
 
-        const filteredData = filterValue === 'All' ? rawData : rawData.filter(d => d.date.startsWith(filterValue));
+        const filteredData = filterValue === 'All' ? rawData : rawData.filter(d => d.date && d.date.startsWith(filterValue));
         filteredData.sort((a, b) => new Date(b.date) - new Date(a.date));
         renderTimeline(filteredData);
         renderCharts(filteredData);
-        
-        document.getElementById('data-store').innerText = `let rawData = ${JSON.stringify(rawData)};`;
     }
 
     function renderTimeline(data) {
@@ -254,32 +295,89 @@
                 responsive: true, 
                 maintainAspectRatio: false, 
                 plugins: { legend: { display: false } }, 
-                scales: { 
-                    y: { beginAtZero: true, ticks: { stepSize: 1 } }, 
-                    x: { display: false } 
-                } 
+                scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } }, x: { display: false } } 
             }
         });
     }
 
-    function addEntry() {
+    async function syncToGitHub() {
+        const token = document.getElementById('gh-token').value;
+        const repo = document.getElementById('gh-repo').value;
+        
+        if(!token) {
+            alert("GitHub PAT Required for synchronization.");
+            return false;
+        }
+
+        const url = `https://api.github.com/repos/${repo}/contents/master_data.json`;
+        const content = b64EncodeUnicode(JSON.stringify(rawData, null, 2));
+
+        const body = {
+            message: "Dashboard Admin: Update CTI Intelligence",
+            content: content,
+            branch: "main"
+        };
+        if (currentFileSha) body.sha = currentFileSha;
+
+        try {
+            const res = await fetch(url, {
+                method: 'PUT',
+                headers: {
+                    'Authorization': `token ${token}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(body)
+            });
+
+            if(res.ok) {
+                const data = await res.json();
+                currentFileSha = data.content.sha;
+                return true;
+            } else {
+                const err = await res.json();
+                alert(`API Error: ${err.message}`);
+                return false;
+            }
+        } catch(e) {
+            alert("Network routing error.");
+            return false;
+        }
+    }
+
+    async function addEntry() {
         const date = document.getElementById('in-date').value;
         const agency = document.getElementById('in-agency').value;
         const type = document.getElementById('in-type').value;
         const title = document.getElementById('in-title').value;
         const summary = document.getElementById('in-summary').value;
 
-        if(!date || !title || !summary) return alert('Populate Date, Title, and Summary.');
+        if(!date || !title || !summary) return alert('Define Date, Title, and Summary.');
 
+        // Optimistic UI Append
         rawData.push({ id: Date.now().toString(), date, agency, type, title, summary });
-        document.getElementById('in-title').value = '';
-        document.getElementById('in-summary').value = '';
-        init();
+        
+        const success = await syncToGitHub();
+        if(success) {
+            document.getElementById('in-title').value = '';
+            document.getElementById('in-summary').value = '';
+            renderView(currentFilter);
+        } else {
+            rawData.pop(); // Revert on failure
+        }
     }
 
-    function deleteEntry(id) {
+    async function deleteEntry(id) {
+        if(!confirm("Execute deletion protocol?")) return;
+        
+        const backup = [...rawData];
         rawData = rawData.filter(d => d.id !== id);
-        init();
+        
+        const success = await syncToGitHub();
+        if(success) {
+            renderView(currentFilter);
+        } else {
+            rawData = backup; // Revert on failure
+        }
     }
 
     function exportChart(canvasId, name) {
@@ -304,7 +402,8 @@
         link.click();
     }
 
-    init();
+    // Execute initialization
+    window.addEventListener('DOMContentLoaded', init);
 </script>
 </body>
 </html>
