@@ -21,11 +21,10 @@ end_date = last_day_prev_month.strftime('%Y-%m-%d')
 
 # Deploy relative temporal offset. Restrict to specific document types.
 QUERY = (
-    '(Organization:"FINRA Financial Industry Regulatory Authority" OR '
-    'Organization:"National Futures Association" OR '
-    'Organization:"New York State Department of Financial Services" OR '
-    'GovernmentBody:"New York State Department of Financial Services") AND '
-    '(doctype:"Press Release" OR doctype:"Notice" OR doctype:"Guidance") AND '
+    '(organization:"FINRA Financial Industry Regulatory Authority" OR '
+    'organization:"National Futures Association" OR '
+    'governmentbody:"New York State Department of Financial Services") AND '
+    '(doctype:"Press Release" OR doctype:"Forum Post" OR doctype:"Report") AND '
     'fromdate:"-60"'
 )
 
