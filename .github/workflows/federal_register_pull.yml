@@ -23,14 +23,15 @@ jobs:
       - name: Install Dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install requests beautifulsoup4 feedparser playwright
-          playwright install chromium
-          playwright install-deps
+          pip install requests
 
       - name: Execute Tier 1 (Federal Register)
         run: python pull_data.py
 
-      - name: Execute Tier 2 (State/SRO Scrapers)
+      - name: Execute Tier 2 (Silobreaker API)
+        env:
+          SB_API_KEY: ${{ secrets.SB_API_KEY }}
+          SB_SHARED_KEY: ${{ secrets.SB_SHARED_KEY }}
         run: python tier2_pull.py
 
       - name: Commit and Push Artifacts
@@ -38,5 +39,5 @@ jobs:
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           git add latest_pull.json latest_tier2_pull.json
-          git commit -m "Automated CTI pull: Federal Register and SRO/State data" || echo "No changes to commit"
+          git commit -m "Automated CTI pull: Tier 1 and Tier 2 extraction" || echo "No changes to commit"
           git push
