@@ -403,7 +403,17 @@
     }
 
     // Execute initialization
-    window.addEventListener('DOMContentLoaded', init);
+    window.addEventListener('DOMContentLoaded', () => {
+        const tokenInput = document.getElementById('gh-token');
+        const savedToken = localStorage.getItem('cti_gh_token');
+        if (savedToken) tokenInput.value = savedToken;
+
+        tokenInput.addEventListener('change', (e) => {
+            localStorage.setItem('cti_gh_token', e.target.value);
+        });
+
+        init();
+    });
 </script>
 </body>
 </html>
