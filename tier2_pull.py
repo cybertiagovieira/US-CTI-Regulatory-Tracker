@@ -1,106 +1,86 @@
-from playwright.sync_api import sync_playwright
-from bs4 import BeautifulSoup
-import feedparser
-from datetime import datetime, timedelta
+import base64
+import hashlib
+import hmac
 import json
+import urllib.request
+import urllib.parse
+from datetime import datetime, timedelta
 import uuid
+import os
 
-target_month = (datetime.today().replace(day=1) - timedelta(days=1)).strftime('%Y-%m')
+API_KEY = os.environ.get("SB_API_KEY")
+SHARED_KEY = os.environ.get("SB_SHARED_KEY")
+BASE_URL = "https://api.silobreaker.com/"
 
-def fetch_rendered_html(url):
-    html = ""
-    with sync_playwright() as p:
-        browser = p.chromium.launch(headless=True)
-        context = browser.new_context(
-            user_agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36',
-            viewport={'width': 1920, 'height': 1080}
-        )
-        page = context.new_page()
-        try:
-            page.goto(url, wait_until="domcontentloaded", timeout=45000)
-            page.wait_for_timeout(4000) # Buffer to allow WAF JS challenge execution
-            html = page.content()
-        except Exception as e:
-            print(f"Error fetching {url}: {e}")
-        finally:
-            browser.close()
-    return html
+today = datetime.today()
+first_day_current_month = today.replace(day=1)
+last_day_prev_month = first_day_current_month - timedelta(days=1)
+first_day_prev_month = last_day_prev_month.replace(day=1)
 
-def fetch_nydfs():
-    payload = []
-    print("Executing NYDFS DOM Extraction...")
-    html = fetch_rendered_html("https://www.dfs.ny.gov/industry_guidance/industry_letters")
-    soup = BeautifulSoup(html, 'html.parser')
-    articles = soup.find_all('div', class_='views-row')
+start_date = first_day_prev_month.strftime('%Y-%m-%d')
+end_date = last_day_prev_month.strftime('%Y-%m-%d')
+
+# Targeting Tier 2 Regulatory Bodies
+QUERY = '(publisher:"New York State Department of Financial Services" OR publisher:"FINRA" OR publisher:"Financial Industry Regulatory Authority" OR publisher:"National Futures Association") AND (doctype:"Press Release" OR doctype:"Notice" OR doctype:"Guidance")'
+
+def _generateMessage(method, url, body):
+    return f"{method} {url}\n{body}"
+
+def _createUrlWithDigest(url, message):
+    digest = base64.b64encode(hmac.new(SHARED_KEY.encode('utf-8'), message.encode('utf-8'), hashlib.sha256).digest()).decode('utf-8')
+    separator = "&" if "?" in url else "?"
+    return f"{BASE_URL}{url}{separator}apiKey={API_KEY}&digest={urllib.parse.quote(digest)}"
+
+def fetch_tier2_data():
+    if not API_KEY or not SHARED_KEY:
+        print("Fatal: API Credentials missing from environment variables.")
+        return []
+
+    url_path = f"search?q={urllib.parse.quote(QUERY)}&fromdate={start_date}&todate={end_date}&pagesize=100"
+    message = _generateMessage("GET", url_path, "")
+    url_with_digest = _createUrlWithDigest(url_path, message)
     
-    for article in articles:
-        time_tag = article.find('time')
-        if not time_tag: continue
-        try:
-            date_obj = datetime.strptime(time_tag.text.strip(), '%B %d, %Y')
-            if date_obj.strftime('%Y-%m') == target_month:
-                payload.append({
-                    "id": f"NYDFS-{uuid.uuid4().hex[:6]}",
-                    "date": date_obj.strftime('%Y-%m-%d'),
-                    "agency": "NYDFS",
-                    "type": "Guidance/Circular",
-                    "title": article.find('a').text.strip(),
-                    "summary": "Industry Letter published by NYDFS. Review source for full text."
-                })
-        except ValueError: continue
-    return payload
+    req = urllib.request.Request(url_with_digest)
+    try:
+        response = urllib.request.urlopen(req)
+        data = json.loads(response.read().decode("utf-8"))
+    except Exception as e:
+        print(f"Silobreaker API Error: {e}")
+        return []
 
-def fetch_finra():
-    payload = []
-    print("Executing FINRA DOM Extraction...")
-    html = fetch_rendered_html("https://www.finra.org/rss/finra-notices")
-    feed = feedparser.parse(html)
+    items = data.get("Items", [])
+    print(f"Silobreaker Items Extracted: {len(items)}")
     
-    for entry in feed.entries:
-        try:
-            pub_date = datetime(*entry.published_parsed[:6])
-            if pub_date.strftime('%Y-%m') == target_month:
-                payload.append({
-                    "id": f"FINRA-{uuid.uuid4().hex[:6]}",
-                    "date": pub_date.strftime('%Y-%m-%d'),
-                    "agency": "FINRA",
-                    "type": "Enforcement Action" if "enforcement" in entry.title.lower() else "Guidance/Circular",
-                    "title": entry.title,
-                    "summary": entry.description[:250] + "..."
-                })
-        except Exception: continue
-    return payload
+    payload = []
+    for item in items:
+        publisher = item.get("Publisher", "")
+        if "New York" in publisher or "NYDFS" in publisher:
+            agency = "NYDFS"
+        elif "FINRA" in publisher or "Regulatory Authority" in publisher:
+            agency = "FINRA"
+        elif "Futures" in publisher or "NFA" in publisher:
+            agency = "NFA"
+        else:
+            agency = "Other/SRO"
+        
+        pub_date_str = item.get("PublicationDate", start_date)
+        date_obj = datetime.fromisoformat(pub_date_str.replace("Z", "+00:00"))
 
-def fetch_nfa():
-    payload = []
-    print("Executing NFA DOM Extraction...")
-    html = fetch_rendered_html("https://www.nfa.futures.org/news/newsNotice.asp")
-    soup = BeautifulSoup(html, 'html.parser')
-    rows = soup.find_all('tr')
-    
-    for row in rows:
-        cols = row.find_all('td')
-        if len(cols) >= 2:
-            try:
-                date_obj = datetime.strptime(cols[0].text.strip(), '%m/%d/%Y')
-                if date_obj.strftime('%Y-%m') == target_month:
-                    payload.append({
-                        "id": f"NFA-{uuid.uuid4().hex[:6]}",
-                        "date": date_obj.strftime('%Y-%m-%d'),
-                        "agency": "NFA",
-                        "type": "Guidance/Circular",
-                        "title": cols[1].text.strip(),
-                        "summary": "NFA Notice to Members published. Review source for full text."
-                    })
-            except ValueError: continue
+        description = item.get("Description", "")
+        teaser = item.get("Teaser", "")
+
+        payload.append({
+            "id": f"SB-{uuid.uuid4().hex[:6]}",
+            "date": date_obj.strftime('%Y-%m-%d'),
+            "agency": agency,
+            "type": "Enforcement Action" if "enforcement" in description.lower() or "fine" in description.lower() else "Guidance/Circular",
+            "title": description,
+            "summary": teaser
+        })
     return payload
 
 if __name__ == "__main__":
-    tier2_data = []
-    tier2_data.extend(fetch_nydfs())
-    tier2_data.extend(fetch_finra())
-    tier2_data.extend(fetch_nfa())
-    
-    print(f"Total Tier 2 Records Extracted: {len(tier2_data)}")
+    tier2_data = fetch_tier2_data()
+    print(f"Total Tier 2 Records Staged: {len(tier2_data)}")
     with open('latest_tier2_pull.json', 'w') as outfile:
         json.dump(tier2_data, outfile, indent=2)
