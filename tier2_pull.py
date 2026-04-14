@@ -8,9 +8,9 @@ from datetime import datetime, timedelta
 import uuid
 import os
 
-API_KEY = os.environ.get("SB_API_KEY")
-SHARED_KEY = os.environ.get("SB_SHARED_KEY")
-BASE_URL = "https://api.silobreaker.com/"
+apikey = os.environ.get("SB_API_KEY", "").strip()
+sharedkey = os.environ.get("SB_SHARED_KEY", "").strip()
+baseurl = "https://api.silobreaker.com/"
 
 today = datetime.today()
 first_day_current_month = today.replace(day=1)
@@ -20,32 +20,60 @@ first_day_prev_month = last_day_prev_month.replace(day=1)
 start_date = first_day_prev_month.strftime('%Y-%m-%d')
 end_date = last_day_prev_month.strftime('%Y-%m-%d')
 
-# Targeting Tier 2 Regulatory Bodies
-QUERY = '(publisher:"New York State Department of Financial Services" OR publisher:"FINRA" OR publisher:"Financial Industry Regulatory Authority" OR publisher:"National Futures Association") AND (doctype:"Press Release" OR doctype:"Notice" OR doctype:"Guidance")'
+def _fetch(req):
+    response = urllib.request.urlopen(req)
+    response_json = response.read()
+    return json.loads(response_json.decode("utf-8"))
+
+def _createUrl(url):
+    out_url = baseurl + url
+    if "?" not in out_url:
+        out_url += "?"
+    else:
+        out_url += "&"
+    return out_url
 
 def _generateMessage(method, url, body):
-    return f"{method} {url}\n{body}"
+    return method + " " + url + "\n" + body
 
 def _createUrlWithDigest(url, message):
-    digest = base64.b64encode(hmac.new(SHARED_KEY.encode('utf-8'), message.encode('utf-8'), hashlib.sha256).digest()).decode('utf-8')
-    separator = "&" if "?" in url else "?"
-    return f"{BASE_URL}{url}{separator}apiKey={API_KEY}&digest={urllib.parse.quote(digest)}"
+    digest = base64.b64encode(hmac.new(sharedkey.encode('utf-8'), message.encode('utf-8'), hashlib.sha256).digest()).decode('utf-8')
+    return _createUrl(url) + "apiKey=" + apikey + "&digest=" + urllib.parse.quote(digest)
+
+def get(url):
+    message = _generateMessage("GET", url, '')
+    url_with_digest = _createUrlWithDigest(url, message)
+    req = urllib.request.Request(url_with_digest)
+    return _fetch(req)
+
+def searchDocuments(query, params=None):
+    url = "search"
+    if params:
+        p = dict(params)
+        p['q'] = query
+        url += "?" + urllib.parse.urlencode(p)
+    return get(url)
 
 def fetch_tier2_data():
-    if not API_KEY or not SHARED_KEY:
+    if not apikey or not sharedkey:
         print("Fatal: API Credentials missing from environment variables.")
         return []
 
-    url_path = f"search?q={urllib.parse.quote(QUERY)}&fromdate={start_date}&todate={end_date}&pagesize=100"
-    message = _generateMessage("GET", url_path, "")
-    url_with_digest = _createUrlWithDigest(url_path, message)
+    QUERY = '(publisher:"New York State Department of Financial Services" OR publisher:"FINRA" OR publisher:"Financial Industry Regulatory Authority" OR publisher:"National Futures Association") AND (doctype:"Press Release" OR doctype:"Notice" OR doctype:"Guidance")'
     
-    req = urllib.request.Request(url_with_digest)
+    params = {
+        'fromdate': start_date,
+        'todate': end_date,
+        'pagesize': 100
+    }
+    
     try:
-        response = urllib.request.urlopen(req)
-        data = json.loads(response.read().decode("utf-8"))
+        data = searchDocuments(QUERY, params)
     except Exception as e:
         print(f"Silobreaker API Error: {e}")
+        return []
+    
+    if not data:
         return []
 
     items = data.get("Items", [])
