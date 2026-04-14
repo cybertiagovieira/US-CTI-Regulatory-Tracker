@@ -1782,24 +1782,59 @@
 
     function renderTimeline(data) {
         const container = document.getElementById('timelineContainer');
-        container.innerHTML = '';
+        container.innerHTML = ''; 
+        
+        const fragment = document.createDocumentFragment();
+
         data.forEach(item => {
             const cfg = typeConfig[item.type] || { class: "", color: "#475569" };
-            // Auto-adjust text color for high contrast if background is bright yellow
             const badgeTextColor = item.type === "NPRM" ? "#000000" : "#ffffff";
-            container.innerHTML += `
-                <div class="event ${cfg.class}">
-                    <button class="btn-delete" onclick="deleteEntry('${item.id}')">×</button>
-                    <div class="meta">
-                        <span class="badge" style="background: ${cfg.color}; color: ${badgeTextColor};">${item.type}</span>
-                        <span class="badge agency">${item.agency}</span>
-                        <span class="date">${item.date}</span>
-                    </div>
-                    <h2 class="title">${item.title}</h2>
-                    <p class="summary">${item.summary}</p>
-                </div>
-            `;
+
+            const eventDiv = document.createElement('div');
+            eventDiv.className = `event ${cfg.class}`;
+
+            const deleteBtn = document.createElement('button');
+            deleteBtn.className = 'btn-delete';
+            deleteBtn.textContent = '×';
+            deleteBtn.onclick = () => deleteEntry(item.id);
+            eventDiv.appendChild(deleteBtn);
+
+            const metaDiv = document.createElement('div');
+            metaDiv.className = 'meta';
+
+            const typeBadge = document.createElement('span');
+            typeBadge.className = 'badge';
+            typeBadge.style.background = cfg.color;
+            typeBadge.style.color = badgeTextColor;
+            typeBadge.textContent = item.type;
+            metaDiv.appendChild(typeBadge);
+
+            const agencyBadge = document.createElement('span');
+            agencyBadge.className = 'badge agency';
+            agencyBadge.textContent = item.agency;
+            metaDiv.appendChild(agencyBadge);
+
+            const dateSpan = document.createElement('span');
+            dateSpan.className = 'date';
+            dateSpan.textContent = item.date;
+            metaDiv.appendChild(dateSpan);
+
+            eventDiv.appendChild(metaDiv);
+
+            const titleH2 = document.createElement('h2');
+            titleH2.className = 'title';
+            titleH2.textContent = item.title;
+            eventDiv.appendChild(titleH2);
+
+            const summaryP = document.createElement('p');
+            summaryP.className = 'summary';
+            summaryP.textContent = item.summary;
+            eventDiv.appendChild(summaryP);
+
+            fragment.appendChild(eventDiv);
         });
+
+        container.appendChild(fragment);
     }
 
     function renderCharts(data) {
