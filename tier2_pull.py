@@ -10,91 +10,168 @@ import os
 
 apikey = os.environ.get("SB_API_KEY", "").strip()
 sharedkey = os.environ.get("SB_SHARED_KEY", "").strip()
-baseurl = "https://api.silobreaker.com/v2/documents/search"
+baseurl = "https://api.silobreaker.com/"
 
+# --- Date range: previous calendar month ---
 today = datetime.today()
 first_day_current_month = today.replace(day=1)
 last_day_prev_month = first_day_current_month - timedelta(days=1)
 first_day_prev_month = last_day_prev_month.replace(day=1)
-
 start_date = first_day_prev_month.strftime('%Y-%m-%d')
 end_date = last_day_prev_month.strftime('%Y-%m-%d')
 
-QUERY = '(publisher:"New York State Department of Financial Services" OR publisher:"FINRA" OR publisher:"Financial Industry Regulatory Authority" OR publisher:"National Futures Association") AND (doctype:"Press Release" OR doctype:"Notice" OR doctype:"Guidance")'
+# --- Silobreaker entity names (must match platform entity database exactly) ---
+# Targets: NYDFS, FINRA, NFA — agencies not covered by Tier 1 Federal Register pull
+# Date range is embedded inline in the query string, not as URL params
+QUERY = (
+    '(Organization:"FINRA Financial Industry Regulatory Authority" OR '
+    'Organization:"National Futures Association" OR '
+    'Organization:"New York State Department of Financial Services") AND '
+    'language:en AND '
+    f'fromdate:"{start_date}" AND todate:"{end_date}"'
+)
 
-def fetch_tier2_data():
+# --- Agency resolution map ---
+AGENCY_MAP = {
+    "new york": "NYDFS",
+    "nydfs": "NYDFS",
+    "finra": "FINRA",
+    "financial industry regulatory": "FINRA",
+    "futures association": "NFA",
+    "nfa": "NFA"
+}
+
+# --- Type inference from document title/description ---
+TYPE_KEYWORDS = {
+    "Final Rule":           ["final rule", "adopted rule", "adopts rule"],
+    "Enforcement Action":   ["enforcement", "fine", "penalty", "sanction", "censure",
+                             "suspended", "barred", "expelled", "cease and desist"],
+    "NPRM":                 ["proposed rule", "notice of proposed", "request for comment",
+                             "rfc", "concept release"],
+    "Guidance/Circular":    ["guidance", "circular", "notice", "information memo",
+                             "regulatory notice", "faq", "interpretive"],
+    "Examination Priority": ["examination priority", "exam priority", "supervisory priority"],
+    "Speech/Statement":     ["speech", "statement", "remarks", "testimony", "address"]
+}
+
+
+def _create_url(path: str) -> str:
+    """
+    Build the full URL with source=ApiKey appended.
+    source=ApiKey MUST be included before HMAC signing — this matches
+    the official Silobreaker Python sample pattern.
+    """
+    url = baseurl + path
+    sep = "&" if "?" in url else "?"
+    return url + sep + "source=ApiKey"
+
+
+def _sign_url(url: str) -> str:
+    """
+    Compute HMAC-SHA1 digest and append apiKey + digest to URL.
+    Algorithm: SHA-1 per official Silobreaker API documentation.
+    """
+    message = ("GET " + url).encode()
+    # FIX: SHA-1, not SHA-512
+    digest = base64.b64encode(
+        hmac.new(sharedkey.encode(), message, digestmod=hashlib.sha1).digest()
+    ).decode()
+    return url + "&apiKey=" + apikey + "&digest=" + parse.quote(digest)
+
+
+def _infer_type(text: str) -> str:
+    """Map document description text to our canonical action type hierarchy."""
+    text_lower = text.lower()
+    for action_type, keywords in TYPE_KEYWORDS.items():
+        if any(kw in text_lower for kw in keywords):
+            return action_type
+    return "Guidance/Circular"  # Default for unclassified regulatory communications
+
+
+def _resolve_agency(publisher: str) -> str:
+    pub_lower = publisher.lower()
+    for key, acronym in AGENCY_MAP.items():
+        if key in pub_lower:
+            return acronym
+    return "Other/SRO"
+
+
+def fetch_tier2_data() -> list:
     if not apikey or not sharedkey:
-        print("Fatal: API Credentials missing from environment variables.")
+        print("Fatal: SB_API_KEY and SB_SHARED_KEY environment variables are required.")
         return []
 
-    # Construct parameter string
-    params = {
-        'q': QUERY,
-        'fromdate': start_date,
-        'todate': end_date,
-        'pageSize': 100
-    }
-    
-    query_string = parse.urlencode(params)
-    raw_url = f"{baseurl}?{query_string}"
-    
-    # Encode URL per official Silobreaker Python standard
-    url = parse.quote(raw_url, safe=":/?&=")
-    
-    verb = "GET"
-    message = verb + " " + url
+    # FIX: parameter name is 'query' (not 'q'), and 'extras=documentTeasers'
+    # must be requested to receive teaser text in the response.
+    # Date range is embedded in the query string, not as separate URL params.
+    params = parse.urlencode({
+        "query": QUERY,
+        "pageSize": 100,
+        "extras": "documentTeasers",   # FIX: required to populate Teaser field
+        "sortBy": "publicationdate",
+        "sortDirection": "desc"
+    })
 
-    # Generate HMAC-SHA512 Signature
-    hmac_sha512 = hmac.new(sharedkey.encode(), message.encode(), digestmod=hashlib.sha512)
-    digest = base64.b64encode(hmac_sha512.digest())
+    path = f"v2/documents/search?{params}"
+    base = _create_url(path)           # FIX: source=ApiKey appended before signing
+    signed = _sign_url(base)           # FIX: SHA-1 HMAC over full URL
 
-    # Construct final URL with authentication parameters
-    sep = '&' if '?' in url else '?'
-    final_url = url + sep + "apiKey=" + apikey + "&digest=" + parse.quote(digest.decode())
-
-    req = urllib.request.Request(final_url)
-    
     try:
-        response = urllib.request.urlopen(req)
-        response_json = response.read()
-        data = json.loads(response_json.decode("utf-8"))
+        response = urllib.request.urlopen(urllib.request.Request(signed))
+        data = json.loads(response.read().decode("utf-8"))
     except Exception as e:
-        print(f"Silobreaker API Error: {e}")
+        print(f"Silobreaker API error: {e}")
         return []
 
     items = data.get("Items", [])
-    print(f"Silobreaker Items Extracted: {len(items)}")
-    
+    print(f"Silobreaker raw items received: {len(items)}")
+
     payload = []
     for item in items:
         publisher = item.get("Publisher", "")
-        if "New York" in publisher or "NYDFS" in publisher:
-            agency = "NYDFS"
-        elif "FINRA" in publisher or "Regulatory Authority" in publisher:
-            agency = "FINRA"
-        elif "Futures" in publisher or "NFA" in publisher:
-            agency = "NFA"
-        else:
-            agency = "Other/SRO"
-        
-        pub_date_str = item.get("PublicationDate", start_date)
-        date_obj = datetime.fromisoformat(pub_date_str.replace("Z", "+00:00"))
+        agency = _resolve_agency(publisher)
 
         description = item.get("Description", "")
-        teaser = item.get("Teaser", "")
+        action_type = _infer_type(description)
+
+        # Teaser is returned under Extras.documentTeasers when extras param is set
+        teaser = ""
+        extras = item.get("Extras", {})
+        if extras:
+            teaser_obj = extras.get("documentTeasers", {})
+            if isinstance(teaser_obj, dict):
+                teaser = teaser_obj.get("Teaser", "")
+            elif isinstance(teaser_obj, str):
+                teaser = teaser_obj
+        # Fallback: some API versions return Teaser at root level
+        if not teaser:
+            teaser = item.get("Teaser", "")
+
+        pub_date_str = item.get("PublicationDate", start_date)
+        try:
+            date_obj = datetime.fromisoformat(pub_date_str.replace("Z", "+00:00"))
+            date_str = date_obj.strftime('%Y-%m-%d')
+        except ValueError:
+            date_str = start_date
+
+        source_url = item.get("SourceUrl", "")
+        silobreaker_url = item.get("SilobreakerUrl", "")
 
         payload.append({
             "id": f"SB-{uuid.uuid4().hex[:6]}",
-            "date": date_obj.strftime('%Y-%m-%d'),
+            "date": date_str,
             "agency": agency,
-            "type": "Enforcement Action" if "enforcement" in description.lower() or "fine" in description.lower() else "Guidance/Circular",
+            "type": action_type,
             "title": description,
-            "summary": teaser
+            "summary": teaser,
+            "source_url": source_url or silobreaker_url  # FIX: capture attribution URL
         })
+
+    print(f"Tier 2 records staged: {len(payload)}")
     return payload
+
 
 if __name__ == "__main__":
     tier2_data = fetch_tier2_data()
-    print(f"Total Tier 2 Records Staged: {len(tier2_data)}")
-    with open('latest_tier2_pull.json', 'w') as outfile:
-        json.dump(tier2_data, outfile, indent=2)
+    with open("latest_tier2_pull.json", "w") as f:
+        json.dump(tier2_data, f, indent=2)
