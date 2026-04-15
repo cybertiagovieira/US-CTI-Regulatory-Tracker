@@ -4,7 +4,7 @@ import hmac
 import json
 import urllib.request
 from urllib import parse
-from datetime import datetime, timedelta
+from datetime import datetime
 import uuid
 import os
 
@@ -12,19 +12,11 @@ apikey = os.environ.get("SB_API_KEY", "").strip()
 sharedkey = os.environ.get("SB_SHARED_KEY", "").strip()
 baseurl = "https://api.silobreaker.com/"
 
-today = datetime.today()
-first_day_current_month = today.replace(day=1)
-last_day_prev_month = first_day_current_month - timedelta(days=1)
-first_day_prev_month = last_day_prev_month.replace(day=1)
-start_date = first_day_prev_month.strftime('%Y-%m-%d')
-end_date = last_day_prev_month.strftime('%Y-%m-%d')
-
-# Deploy relative temporal offset. Restrict to specific document types.
 QUERY = (
     '(organization:"FINRA Financial Industry Regulatory Authority" OR '
     'organization:"National Futures Association" OR '
     'governmentbody:"New York State Department of Financial Services") AND '
-    '(doctype:"Press Release" OR doctype:"Report" OR doctype:"Fact Sheet") AND '
+    '(doctype:"Report") AND '
     'fromdate:"2026-01-01"'
 )
 
@@ -68,10 +60,10 @@ def _infer_type(text: str) -> str:
             return action_type
     return "Guidance/Circular"
 
-def _resolve_agency(publisher: str) -> str:
-    pub_lower = publisher.lower()
+def _resolve_agency(publisher: str, description: str) -> str:
+    combined = (publisher + " " + description).lower()
     for key, acronym in AGENCY_MAP.items():
-        if key in pub_lower:
+        if key in combined:
             return acronym
     return "Other/SRO"
 
@@ -112,9 +104,9 @@ def fetch_tier2_data() -> list:
             continue
 
         publisher = item.get("Publisher", "")
-        agency = _resolve_agency(publisher)
-
         description = item.get("Description", "")
+        
+        agency = _resolve_agency(publisher, description)
         action_type = _infer_type(description)
 
         teaser = ""
