@@ -24,8 +24,8 @@ QUERY = (
     '(organization:"FINRA Financial Industry Regulatory Authority" OR '
     'organization:"National Futures Association" OR '
     'governmentbody:"New York State Department of Financial Services") AND '
-    '(doctype:"Press Release" OR doctype:"Forum Post" OR doctype:"Report") AND '
-    'fromdate:"-60"'
+    '(doctype:"Press Release" OR doctype:"Report" OR doctype:"Fact Sheet") AND '
+    'fromdate:"2026-01-01"'
 )
 
 AGENCY_MAP = {
@@ -109,10 +109,6 @@ def fetch_tier2_data() -> list:
             date_obj = datetime.fromisoformat(pub_date_str.replace("Z", "+00:00"))
             date_str = date_obj.strftime('%Y-%m-%d')
         except ValueError:
-            continue
-
-        # Isolate exactly to target calendar month post-fetch
-        if not (start_date <= date_str <= end_date):
             continue
 
         publisher = item.get("Publisher", "")
