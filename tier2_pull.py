@@ -107,10 +107,6 @@ def fetch_tier2_data() -> list:
         description = item.get("Description", "")
         
         agency = _resolve_agency(publisher, description)
-        
-        if agency == "Other/SRO":
-            continue
-            
         action_type = _infer_type(description)
 
         teaser = ""
