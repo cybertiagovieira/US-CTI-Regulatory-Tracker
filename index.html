@@ -19,69 +19,81 @@
         --hl-3: rgb(255, 222, 51);
         --c-gray-dark: #475569;
         --c-gray-light: #94a3b8;
+        --sev-high: #dc2626;
+        --sev-med: #d97706;
+        --sev-low: #059669;
     }
     body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif; background: var(--bg-main); color: var(--text-main); margin: 0; padding: 20px; }
-    .container { max-width: 1400px; margin: 0 auto; }
+    .container { max-width: 1500px; margin: 0 auto; }
     
-    /* Admin Panel */
     #admin-panel { background: #f0fdf4; border: 1px solid var(--c-primary); padding: 15px; border-radius: 8px; margin-bottom: 20px; display: none; }
     .admin-mode #admin-panel { display: block; }
     #admin-panel h2 { margin-top: 0; color: var(--c-primary); font-size: 16px; margin-bottom: 10px;}
-    .input-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-bottom: 10px; }
-    input, select, textarea { width: 100%; padding: 8px; background: #ffffff; border: 1px solid var(--border); color: var(--text-main); border-radius: 4px; box-sizing: border-box; font-size: 14px; }
+    .input-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-bottom: 10px; }
+    input, select, textarea { width: 100%; padding: 8px; background: #ffffff; border: 1px solid var(--border); color: var(--text-main); border-radius: 4px; box-sizing: border-box; font-size: 13px; }
     input:focus, select:focus, textarea:focus { outline: 2px solid var(--c-primary); border-color: transparent; }
     .btn-action { background: var(--c-primary); color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; font-weight: bold; }
     .btn-action:hover { background: var(--c-primary-hover); }
     
-    /* Header & Controls */
-    .header-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+    .header-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 10px; }
     h1 { margin: 0; font-size: 24px; color: var(--text-main); }
-    .export-group { display: flex; gap: 10px; }
-    .btn-export { background: var(--c-gray-dark); color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer; font-size: 14px; font-weight: bold;}
+    .export-group { display: flex; gap: 8px; flex-wrap: wrap; }
+    .btn-export { background: var(--c-gray-dark); color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer; font-size: 13px; font-weight: bold;}
     .btn-export:hover { background: #334155; }
+    .btn-brief { background: #1e293b; color: #fbbf24; border: 1px solid #fbbf24; }
+    .btn-brief:hover { background: #0f172a; }
 
-    /* KPI Cards */
-    .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px; }
+    .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin-bottom: 20px; }
     .kpi-card { background: var(--bg-panel); border: 1px solid var(--border); border-radius: 8px; padding: 15px; box-shadow: 0 1px 2px rgba(0,0,0,0.05); text-align: center; }
-    .kpi-value { font-size: 28px; font-weight: bold; color: var(--c-primary); margin: 5px 0; }
-    .kpi-label { font-size: 12px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
+    .kpi-value { font-size: 28px; font-weight: bold; color: var(--text-main); margin: 5px 0; }
+    .kpi-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; font-weight: bold;}
+    .val-alert { color: var(--sev-high); }
 
-    /* Filter Bar */
-    .filter-bar { background: var(--bg-panel); border: 1px solid var(--border); border-radius: 8px; padding: 15px; margin-bottom: 20px; display: grid; grid-template-columns: 1fr 1fr 2fr; gap: 15px; box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
+    .filter-bar { background: var(--bg-panel); border: 1px solid var(--border); border-radius: 8px; padding: 15px; margin-bottom: 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
 
-    /* Dashboard Layout */
     .dashboard-grid { display: grid; grid-template-columns: 350px 1fr; gap: 20px; }
     .sidebar { display: flex; flex-direction: column; gap: 20px; }
     .panel { background: var(--bg-panel); border: 1px solid var(--border); border-radius: 8px; padding: 15px; box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
-    .panel h3 { margin: 0 0 15px 0; font-size: 14px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; display: flex; justify-content: space-between; align-items: center; }
+    .panel h3 { margin: 0 0 15px 0; font-size: 13px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; display: flex; justify-content: space-between; align-items: center; }
     .btn-export-png { background: transparent; color: var(--text-muted); border: 1px solid var(--border); padding: 2px 6px; border-radius: 4px; cursor: pointer; font-size: 10px; }
     .btn-export-png:hover { background: var(--bg-main); color: var(--text-main); }
     .chart-container { position: relative; height: 220px; width: 100%; }
     
-    /* Timeline */
     .timeline { border-left: 2px solid var(--border); padding-left: 20px; margin-left: 10px;}
-    .event { background: var(--bg-panel); padding: 15px; border-radius: 6px; margin-bottom: 15px; border-left: 4px solid transparent; border-top: 1px solid var(--border); border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); position: relative; box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
+    .event { background: var(--bg-panel); padding: 15px; border-radius: 6px; margin-bottom: 15px; border-left: 4px solid transparent; border: 1px solid var(--border); position: relative; box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
+    .event.sev-High { border-left: 4px solid var(--sev-high); background: #fef2f2; }
+    .event.sev-Medium { border-left: 4px solid var(--sev-med); }
+    .event.sev-Low { border-left: 4px solid var(--sev-low); }
     .event::before { content: ''; position: absolute; left: -26px; top: 18px; width: 10px; height: 10px; border-radius: 50%; background: var(--bg-panel); border: 2px solid var(--border); }
+    
     .btn-delete { position: absolute; top: 10px; right: 10px; background: transparent; border: none; color: var(--hl-1); cursor: pointer; font-size: 18px; display: none; }
     .admin-mode .btn-delete { display: block; }
     
-    /* Mapped Custom Colors */
-    .type-final-rule { border-left-color: var(--hl-1); }
-    .type-enforcement { border-left-color: var(--hl-2); }
-    .type-nprm { border-left-color: var(--hl-3); }
-    .type-guidance { border-left-color: var(--c-primary); }
-    .type-exam { border-left-color: var(--c-gray-dark); }
-    .type-speech { border-left-color: var(--c-gray-light); }
-    
     .meta { display: flex; gap: 8px; margin-bottom: 8px; font-size: 11px; font-weight: bold; align-items: center; flex-wrap: wrap;}
-    .badge { padding: 3px 6px; border-radius: 4px; color: #ffffff; text-shadow: 0 1px 1px rgba(0,0,0,0.2); }
+    .badge { padding: 3px 6px; border-radius: 4px; color: #ffffff; text-shadow: 0 1px 1px rgba(0,0,0,0.2); border: 1px solid rgba(0,0,0,0.1); }
     .badge.agency { background: var(--c-gray-dark); }
+    .badge.theme { background: #3b82f6; }
+    .badge.sector { background: #8b5cf6; }
+    .badge.countdown { background: var(--text-main); }
+    .badge.countdown.urgent { background: var(--sev-high); animation: pulse 2s infinite; }
     .date { color: var(--text-muted); margin-left: auto; font-weight: normal; }
     .title { margin: 0 0 8px 0; font-size: 15px; color: var(--text-main); }
     .summary { margin: 0; color: #334155; font-size: 13px; line-height: 1.5; }
     
     a.source-link { color: var(--c-primary); text-decoration: none; font-size: 12px; margin-top: 8px; display: inline-block; font-weight: bold;}
     a.source-link:hover { text-decoration: underline; }
+
+    @keyframes pulse {
+        0% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.4); }
+        70% { box-shadow: 0 0 0 6px rgba(220, 38, 38, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0); }
+    }
+
+    /* Mobile Responsiveness */
+    @media (max-width: 900px) {
+        .dashboard-grid { grid-template-columns: 1fr; }
+        .timeline { margin-left: 5px; }
+    }
 </style>
 </head>
 <body class="admin-mode">
@@ -90,9 +102,10 @@
     <div class="header-bar">
         <h1>US CTI Regulatory Tracker: 2026</h1>
         <div class="export-group">
-            <button class="btn-export" onclick="exportData('csv')">Export CSV</button>
-            <button class="btn-export" onclick="exportData('json')">Export JSON</button>
-            <button class="btn-export" onclick="exportArtifact()">Export HTML</button>
+            <button class="btn-export btn-brief" onclick="generateExecBrief()">Generate Executive Brief</button>
+            <button class="btn-export" onclick="exportData('csv')">CSV</button>
+            <button class="btn-export" onclick="exportData('json')">JSON</button>
+            <button class="btn-export" onclick="exportArtifact()">HTML</button>
         </div>
     </div>
 
@@ -103,7 +116,8 @@
             <input type="text" id="gh-repo" placeholder="Target Repo (e.g. user/repo)" value="cybertiagovieira/US-CTI-Regulatory-Tracker" required>
         </div>
         <div class="input-grid">
-            <input type="date" id="in-date" required>
+            <input type="date" id="in-date" title="Issuance Date" required>
+            <input type="date" id="in-effective-date" title="Compliance/Effective Date">
             <select id="in-agency" required>
                 <option value="OCC">OCC</option>
                 <option value="FDIC">FDIC</option>
@@ -125,6 +139,26 @@
                 <option value="Examination Priority">Examination Priority</option>
                 <option value="Speech/Statement">Speech/Statement</option>
             </select>
+            <select id="in-severity" required>
+                <option value="Low">Low Severity</option>
+                <option value="Medium">Medium Severity</option>
+                <option value="High">High Severity</option>
+            </select>
+            <select id="in-theme" required>
+                <option value="General">General</option>
+                <option value="Incident Reporting">Incident Reporting</option>
+                <option value="Ransomware">Ransomware</option>
+                <option value="Third-Party Risk">Third-Party Risk</option>
+                <option value="Data Privacy">Data Privacy</option>
+                <option value="Governance">Governance</option>
+            </select>
+            <select id="in-sector" required>
+                <option value="All Entities">All Entities</option>
+                <option value="G-SIBs">G-SIBs</option>
+                <option value="Broker-Dealers">Broker-Dealers</option>
+                <option value="Credit Unions">Credit Unions</option>
+                <option value="Digital Asset Platforms">Digital Asset Platforms</option>
+            </select>
         </div>
         <div class="input-grid">
             <input type="text" id="in-title" placeholder="Action Title" required style="grid-column: 1 / -1;">
@@ -135,7 +169,15 @@
 
     <div class="kpi-grid">
         <div class="kpi-card">
-            <div class="kpi-label">Total Regulatory Actions</div>
+            <div class="kpi-label">Active High Impact</div>
+            <div class="kpi-value val-alert" id="kpi-high-sev">0</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-label">Deadlines < 90 Days</div>
+            <div class="kpi-value val-alert" id="kpi-deadlines">0</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-label">Total Volume (YTD)</div>
             <div class="kpi-value" id="kpi-total">0</div>
         </div>
         <div class="kpi-card">
@@ -143,27 +185,25 @@
             <div class="kpi-value" id="kpi-agency">-</div>
         </div>
         <div class="kpi-card">
-            <div class="kpi-label">Dominant Action Type</div>
-            <div class="kpi-value" id="kpi-type">-</div>
-        </div>
-        <div class="kpi-card">
-            <div class="kpi-label">Recent 30 Days</div>
-            <div class="kpi-value" id="kpi-recent">0</div>
+            <div class="kpi-label">Dominant Threat Vector</div>
+            <div class="kpi-value" id="kpi-theme">-</div>
         </div>
     </div>
 
     <div class="filter-bar">
-        <select id="filter-agency" onchange="applyFilters()">
-            <option value="All">All Agencies</option>
-        </select>
-        <select id="filter-type" onchange="applyFilters()">
-            <option value="All">All Action Types</option>
-        </select>
-        <input type="text" id="filter-text" placeholder="Search titles, summaries, or IDs..." onkeyup="applyFilters()">
+        <select id="filter-agency" onchange="applyFilters()"><option value="All">All Agencies</option></select>
+        <select id="filter-type" onchange="applyFilters()"><option value="All">All Action Types</option></select>
+        <select id="filter-theme" onchange="applyFilters()"><option value="All">All Threat Themes</option></select>
+        <select id="filter-sector" onchange="applyFilters()"><option value="All">All Target Sectors</option></select>
+        <input type="text" id="filter-text" placeholder="Search keywords..." onkeyup="applyFilters()" style="grid-column: 1 / -1;">
     </div>
 
     <div class="dashboard-grid">
         <div class="sidebar">
+            <div class="panel">
+                <h3>Cyber Threat Taxonomy <button class="btn-export-png" onclick="exportChart('radarChart', 'Taxonomy')">PNG</button></h3>
+                <div class="chart-container"><canvas id="radarChart"></canvas></div>
+            </div>
             <div class="panel">
                 <h3>Action Distribution <button class="btn-export-png" onclick="exportChart('donutChart', 'Distribution')">PNG</button></h3>
                 <div class="chart-container"><canvas id="donutChart"></canvas></div>
@@ -171,10 +211,6 @@
             <div class="panel">
                 <h3>Agency Engagement <button class="btn-export-png" onclick="exportChart('barChart', 'Agency')">PNG</button></h3>
                 <div class="chart-container"><canvas id="barChart"></canvas></div>
-            </div>
-            <div class="panel">
-                <h3>Velocity Trend (Monthly) <button class="btn-export-png" onclick="exportChart('lineChart', 'Velocity')">PNG</button></h3>
-                <div class="chart-container"><canvas id="lineChart"></canvas></div>
             </div>
         </div>
         <div class="main-content">
@@ -185,12 +221,12 @@
 
 <script>
     const typeConfig = {
-        "Final Rule": { class: "type-final-rule", color: "rgb(239, 123, 91)" },
-        "Enforcement Action": { class: "type-enforcement", color: "rgb(255, 160, 91)" },
-        "NPRM": { class: "type-nprm", color: "rgb(255, 222, 51)" },
-        "Guidance/Circular": { class: "type-guidance", color: "rgb(0, 145, 90)" },
-        "Examination Priority": { class: "type-exam", color: "#475569" },
-        "Speech/Statement": { class: "type-speech", color: "#94a3b8" }
+        "Final Rule": { color: "rgb(239, 123, 91)" },
+        "Enforcement Action": { color: "rgb(255, 160, 91)" },
+        "NPRM": { color: "rgb(255, 222, 51)" },
+        "Guidance/Circular": { color: "rgb(0, 145, 90)" },
+        "Examination Priority": { color: "#475569" },
+        "Speech/Statement": { color: "#94a3b8" }
     };
 
     let rawData = [];
@@ -213,7 +249,7 @@
                 currentFileSha = data.sha;
             }
         } catch(e) {
-            console.error("SHA fetch failed", e);
+            console.warn("GitHub SHA fetch failed (Normal if local/offline).");
         }
     }
 
@@ -235,44 +271,79 @@
         await fetchSha();
         populateFilterOptions();
         
-        Chart.defaults.color = '#64748b';
-        Chart.defaults.borderColor = '#e2e8f0';
-        Chart.defaults.font.size = 11;
+        if (typeof Chart !== 'undefined') {
+            Chart.defaults.color = '#64748b';
+            Chart.defaults.borderColor = '#e2e8f0';
+            Chart.defaults.font.size = 11;
+        } else {
+            console.warn("Chart.js CDN blocked. Graphs disabled. Core timeline active.");
+        }
         
         applyFilters();
     }
 
     function populateFilterOptions() {
-        const agencySelect = document.getElementById('filter-agency');
-        const typeSelect = document.getElementById('filter-type');
-        
-        // HARD PATCH: Reset DOM string to prevent cumulative duplication on redraw
-        agencySelect.innerHTML = '<option value="All">All Agencies</option>';
-        typeSelect.innerHTML = '<option value="All">All Action Types</option>';
-        
-        const agencies = [...new Set(rawData.map(d => d.agency).filter(Boolean))].sort();
-        const types = [...new Set(rawData.map(d => d.type).filter(Boolean))].sort();
+        const selects = ['filter-agency', 'filter-type', 'filter-theme', 'filter-sector'];
+        const keys = ['agency', 'type', 'theme', 'target_sector'];
+        const labels = ['Agencies', 'Action Types', 'Threat Themes', 'Target Sectors'];
 
-        agencies.forEach(a => agencySelect.innerHTML += `<option value="${a}">${a}</option>`);
-        types.forEach(t => typeSelect.innerHTML += `<option value="${t}">${t}</option>`);
+        selects.forEach((id, i) => {
+            const el = document.getElementById(id);
+            el.innerHTML = `<option value="All">All ${labels[i]}</option>`;
+            // filter(Boolean) safely removes null/undefined from legacy data
+            const unique = [...new Set(rawData.map(d => d[keys[i]]).filter(Boolean))].sort();
+            unique.forEach(val => el.innerHTML += `<option value="${val}">${val}</option>`);
+        });
+    }
+
+    function calculateDays(targetDateStr) {
+        if(!targetDateStr) return null;
+        // Parse "YYYY-MM-DD" strictly to prevent timezone shifting
+        const parts = targetDateStr.split('-');
+        if(parts.length !== 3) return null;
+        
+        const today = new Date();
+        today.setHours(0,0,0,0);
+        
+        const target = new Date(parts[0], parts[1] - 1, parts[2]);
+        target.setHours(0,0,0,0);
+        
+        const diffTime = target - today;
+        return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
     }
 
     function applyFilters() {
-        const fAgency = document.getElementById('filter-agency').value;
-        const fType = document.getElementById('filter-type').value;
-        const fText = document.getElementById('filter-text').value.toLowerCase();
+        const filters = {
+            agency: document.getElementById('filter-agency').value,
+            type: document.getElementById('filter-type').value,
+            theme: document.getElementById('filter-theme').value,
+            sector: document.getElementById('filter-sector').value,
+            text: document.getElementById('filter-text').value.toLowerCase()
+        };
 
         let filtered = rawData.filter(item => {
-            let matchAgency = fAgency === "All" || item.agency === fAgency;
-            let matchType = fType === "All" || item.type === fType;
-            let matchText = fText === "" || 
-                (item.title && item.title.toLowerCase().includes(fText)) || 
-                (item.summary && item.summary.toLowerCase().includes(fText)) ||
-                (item.id && item.id.toLowerCase().includes(fText));
-            return matchAgency && matchType && matchText;
+            let matchText = filters.text === "" || 
+                (item.title && item.title.toLowerCase().includes(filters.text)) || 
+                (item.summary && item.summary.toLowerCase().includes(filters.text));
+            
+            return (filters.agency === "All" || item.agency === filters.agency) &&
+                   (filters.type === "All" || item.type === filters.type) &&
+                   (filters.theme === "All" || item.theme === filters.theme) &&
+                   (filters.sector === "All" || item.target_sector === filters.sector) &&
+                   matchText;
         });
 
-        filtered.sort((a, b) => new Date(b.date) - new Date(a.date));
+        // Sort: Impending deadlines first, then chronological issuance
+        filtered.sort((a, b) => {
+            const daysA = calculateDays(a.effective_date);
+            const daysB = calculateDays(b.effective_date);
+            
+            if (daysA !== null && daysA >= 0 && daysB !== null && daysB >= 0) return daysA - daysB;
+            if (daysA !== null && daysA >= 0) return -1;
+            if (daysB !== null && daysB >= 0) return 1;
+            
+            return new Date(b.date) - new Date(a.date);
+        });
         
         updateKPIs(filtered);
         renderTimeline(filtered);
@@ -284,29 +355,32 @@
 
         if (data.length === 0) {
             document.getElementById('kpi-agency').textContent = "-";
-            document.getElementById('kpi-type').textContent = "-";
-            document.getElementById('kpi-recent').textContent = "0";
+            document.getElementById('kpi-theme').textContent = "-";
+            document.getElementById('kpi-high-sev').textContent = "0";
+            document.getElementById('kpi-deadlines').textContent = "0";
             return;
         }
 
-        const agencyCounts = {};
-        const typeCounts = {};
-        let recentCount = 0;
-        const thirtyDaysAgo = new Date();
-        thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+        const counts = { agency: {}, theme: {} };
+        let highSev = 0;
+        let nearDeadline = 0;
 
         data.forEach(d => {
-            agencyCounts[d.agency] = (agencyCounts[d.agency] || 0) + 1;
-            typeCounts[d.type] = (typeCounts[d.type] || 0) + 1;
-            if (new Date(d.date) >= thirtyDaysAgo) recentCount++;
+            if(d.agency) counts.agency[d.agency] = (counts.agency[d.agency] || 0) + 1;
+            if(d.theme && d.theme !== "General") counts.theme[d.theme] = (counts.theme[d.theme] || 0) + 1;
+            if(d.severity === 'High') highSev++;
+            
+            const days = calculateDays(d.effective_date);
+            if(days !== null && days >= 0 && days <= 90) nearDeadline++;
         });
 
-        const topAgency = Object.keys(agencyCounts).reduce((a, b) => agencyCounts[a] > agencyCounts[b] ? a : b);
-        const topType = Object.keys(typeCounts).reduce((a, b) => typeCounts[a] > typeCounts[b] ? a : b);
+        const topAgency = Object.keys(counts.agency).length ? Object.keys(counts.agency).reduce((a, b) => counts.agency[a] > counts.agency[b] ? a : b) : "-";
+        const topTheme = Object.keys(counts.theme).length ? Object.keys(counts.theme).reduce((a, b) => counts.theme[a] > counts.theme[b] ? a : b) : "-";
 
         document.getElementById('kpi-agency').textContent = topAgency;
-        document.getElementById('kpi-type').textContent = topType;
-        document.getElementById('kpi-recent').textContent = recentCount;
+        document.getElementById('kpi-theme').textContent = topTheme;
+        document.getElementById('kpi-high-sev').textContent = highSev;
+        document.getElementById('kpi-deadlines').textContent = nearDeadline;
     }
 
     function renderTimeline(data) {
@@ -315,11 +389,12 @@
         const fragment = document.createDocumentFragment();
 
         data.forEach(item => {
-            const cfg = typeConfig[item.type] || { class: "", color: "#475569" };
+            const cfg = typeConfig[item.type] || { color: "#475569" };
             const badgeTextColor = item.type === "NPRM" ? "#000000" : "#ffffff";
+            const sevClass = item.severity ? `sev-${item.severity}` : '';
 
             const eventDiv = document.createElement('div');
-            eventDiv.className = `event ${cfg.class}`;
+            eventDiv.className = `event ${sevClass}`;
 
             const deleteBtn = document.createElement('button');
             deleteBtn.className = 'btn-delete';
@@ -337,14 +412,38 @@
             typeBadge.textContent = item.type;
             metaDiv.appendChild(typeBadge);
 
-            const agencyBadge = document.createElement('span');
-            agencyBadge.className = 'badge agency';
-            agencyBadge.textContent = item.agency;
-            metaDiv.appendChild(agencyBadge);
+            if(item.agency) {
+                const agencyBadge = document.createElement('span');
+                agencyBadge.className = 'badge agency';
+                agencyBadge.textContent = item.agency;
+                metaDiv.appendChild(agencyBadge);
+            }
+
+            if(item.theme && item.theme !== "General") {
+                const themeBadge = document.createElement('span');
+                themeBadge.className = 'badge theme';
+                themeBadge.textContent = item.theme;
+                metaDiv.appendChild(themeBadge);
+            }
+
+            if(item.target_sector && item.target_sector !== "All Entities") {
+                const sectorBadge = document.createElement('span');
+                sectorBadge.className = 'badge sector';
+                sectorBadge.textContent = item.target_sector;
+                metaDiv.appendChild(sectorBadge);
+            }
+
+            const daysLeft = calculateDays(item.effective_date);
+            if (daysLeft !== null && daysLeft >= 0) {
+                const cdBadge = document.createElement('span');
+                cdBadge.className = `badge countdown ${daysLeft <= 30 ? 'urgent' : ''}`;
+                cdBadge.textContent = `T-${daysLeft} Days`;
+                metaDiv.appendChild(cdBadge);
+            }
 
             const dateSpan = document.createElement('span');
             dateSpan.className = 'date';
-            dateSpan.textContent = item.date;
+            dateSpan.textContent = `Issued: ${item.date}`;
             metaDiv.appendChild(dateSpan);
 
             eventDiv.appendChild(metaDiv);
@@ -374,50 +473,42 @@
     }
 
     function renderCharts(data) {
-        // Doughnut: Action Types
-        const types = Object.keys(typeConfig);
-        const typeCounts = types.map(t => data.filter(d => d.type === t).length);
-        const typeColors = types.map(t => typeConfig[t].color);
+        if (typeof Chart === 'undefined') return;
 
-        if(charts.donut) charts.donut.destroy();
-        charts.donut = new Chart(document.getElementById('donutChart'), {
-            type: 'doughnut',
-            data: { labels: types, datasets: [{ data: typeCounts, backgroundColor: typeColors, borderWidth: 0 }] },
-            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right', labels: { boxWidth: 10 } } }, cutout: '70%' }
-        });
+        try {
+            const types = Object.keys(typeConfig);
+            const typeCounts = types.map(t => data.filter(d => d.type === t).length);
+            const typeColors = types.map(t => typeConfig[t].color);
 
-        // Bar: Agencies
-        const agencies = [...new Set(data.map(d => d.agency).filter(Boolean))].sort();
-        const agencyCounts = agencies.map(a => data.filter(d => d.agency === a).length);
-        
-        if(charts.bar) charts.bar.destroy();
-        charts.bar = new Chart(document.getElementById('barChart'), {
-            type: 'bar',
-            data: { labels: agencies, datasets: [{ data: agencyCounts, backgroundColor: 'rgb(0, 145, 90)', borderRadius: 3 }] },
-            options: { 
-                indexAxis: 'y',
-                responsive: true, maintainAspectRatio: false, 
-                plugins: { legend: { display: false } }, 
-                scales: { x: { beginAtZero: true, ticks: { stepSize: 1 } } } 
-            }
-        });
+            if(charts.donut) charts.donut.destroy();
+            charts.donut = new Chart(document.getElementById('donutChart'), {
+                type: 'doughnut',
+                data: { labels: types, datasets: [{ data: typeCounts, backgroundColor: typeColors, borderWidth: 0 }] },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right', labels: { boxWidth: 10 } } }, cutout: '70%' }
+            });
 
-        // Line: Time Series
-        const monthMap = {};
-        data.forEach(d => {
-            if(!d.date) return;
-            const month = d.date.substring(0, 7);
-            monthMap[month] = (monthMap[month] || 0) + 1;
-        });
-        const sortedMonths = Object.keys(monthMap).sort();
-        const monthData = sortedMonths.map(m => monthMap[m]);
+            const agencies = [...new Set(data.map(d => d.agency).filter(Boolean))].sort();
+            const agencyCounts = agencies.map(a => data.filter(d => d.agency === a).length);
+            
+            if(charts.bar) charts.bar.destroy();
+            charts.bar = new Chart(document.getElementById('barChart'), {
+                type: 'bar',
+                data: { labels: agencies, datasets: [{ data: agencyCounts, backgroundColor: '#3b82f6', borderRadius: 3 }] },
+                options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { beginAtZero: true, ticks: { stepSize: 1 } } } }
+            });
 
-        if(charts.line) charts.line.destroy();
-        charts.line = new Chart(document.getElementById('lineChart'), {
-            type: 'line',
-            data: { labels: sortedMonths, datasets: [{ data: monthData, borderColor: 'rgb(239, 123, 91)', backgroundColor: 'rgba(239, 123, 91, 0.1)', fill: true, tension: 0.3, pointRadius: 3 }] },
-            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } } }
-        });
+            const themes = [...new Set(data.map(d => d.theme).filter(t => t && t !== 'General'))].sort();
+            const themeCounts = themes.map(t => data.filter(d => d.theme === t).length);
+
+            if(charts.radar) charts.radar.destroy();
+            charts.radar = new Chart(document.getElementById('radarChart'), {
+                type: 'radar',
+                data: { labels: themes, datasets: [{ label: 'Events', data: themeCounts, backgroundColor: 'rgba(220, 38, 38, 0.2)', borderColor: '#dc2626', pointBackgroundColor: '#dc2626', borderWidth: 2 }] },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { r: { beginAtZero: true, ticks: { stepSize: 1 } } } }
+            });
+        } catch (e) {
+            console.error("Chart generation failed.", e);
+        }
     }
 
     async function syncToGitHub() {
@@ -447,19 +538,27 @@
     }
 
     async function addEntry() {
-        const date = document.getElementById('in-date').value;
-        const agency = document.getElementById('in-agency').value;
-        const type = document.getElementById('in-type').value;
-        const title = document.getElementById('in-title').value;
-        const summary = document.getElementById('in-summary').value;
+        const payload = {
+            id: Date.now().toString(),
+            date: document.getElementById('in-date').value,
+            effective_date: document.getElementById('in-effective-date').value,
+            agency: document.getElementById('in-agency').value,
+            type: document.getElementById('in-type').value,
+            severity: document.getElementById('in-severity').value,
+            theme: document.getElementById('in-theme').value,
+            target_sector: document.getElementById('in-sector').value,
+            title: document.getElementById('in-title').value,
+            summary: document.getElementById('in-summary').value
+        };
 
-        if(!date || !title || !summary) return alert('Define Date, Title, and Summary.');
+        if(!payload.date || !payload.title || !payload.summary) return alert('Define Date, Title, and Summary.');
 
-        rawData.push({ id: Date.now().toString(), date, agency, type, title, summary });
+        rawData.push(payload);
         const success = await syncToGitHub();
         if(success) {
             document.getElementById('in-title').value = '';
             document.getElementById('in-summary').value = '';
+            document.getElementById('in-effective-date').value = '';
             populateFilterOptions();
             applyFilters();
         } else {
@@ -481,8 +580,8 @@
         }
     }
 
-    // Export Routines
     function exportChart(canvasId, name) {
+        if (typeof Chart === 'undefined') return alert("Charts offline. Cannot export.");
         const link = document.createElement('a');
         link.download = `CTI_Chart_${name}.png`;
         link.href = document.getElementById(canvasId).toDataURL('image/png', 1.0);
@@ -491,11 +590,9 @@
 
     function exportData(format) {
         let content, mime, ext;
-        const exportSet = rawData; 
-
         if (format === 'csv') {
-            const headers = ['id', 'date', 'agency', 'type', 'title', 'summary', 'source_url'];
-            const rows = exportSet.map(row => 
+            const headers = ['id', 'date', 'effective_date', 'severity', 'agency', 'type', 'theme', 'target_sector', 'title', 'summary', 'source_url'];
+            const rows = rawData.map(row => 
                 headers.map(h => {
                     let val = row[h] ? row[h].toString().replace(/"/g, '""') : '';
                     return `"${val}"`;
@@ -505,7 +602,7 @@
             mime = 'text/csv;charset=utf-8;';
             ext = 'csv';
         } else if (format === 'json') {
-            content = JSON.stringify(exportSet, null, 2);
+            content = JSON.stringify(rawData, null, 2);
             mime = 'application/json';
             ext = 'json';
         }
@@ -518,8 +615,7 @@
     }
 
     function exportArtifact() {
-        document.getElementById('filter-agency').value = 'All';
-        document.getElementById('filter-type').value = 'All';
+        ['filter-agency', 'filter-type', 'filter-theme', 'filter-sector'].forEach(id => document.getElementById(id).value = 'All');
         document.getElementById('filter-text').value = '';
         applyFilters();
 
@@ -533,6 +629,55 @@
         link.href = URL.createObjectURL(blob);
         link.download = `US_CTI_Report_${new Date().toISOString().split('T')[0]}.html`;
         link.click();
+    }
+
+    function generateExecBrief() {
+        const thirtyDaysAgo = new Date();
+        thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+        
+        const briefData = rawData.filter(d => {
+            const isRecent = new Date(d.date) >= thirtyDaysAgo;
+            const isHighSev = d.severity === 'High';
+            const impending = calculateDays(d.effective_date) !== null && calculateDays(d.effective_date) <= 90 && calculateDays(d.effective_date) >= 0;
+            return isHighSev || impending;
+        }).sort((a, b) => new Date(b.date) - new Date(a.date));
+
+        let html = `
+        <html><head><title>CTI Executive Briefing</title>
+        <style>
+            body { font-family: Arial, sans-serif; padding: 40px; color: #0f172a; max-width: 1000px; margin: 0 auto; }
+            h1 { border-bottom: 2px solid #dc2626; padding-bottom: 10px; color: #dc2626; }
+            .item { border: 1px solid #cbd5e1; padding: 20px; margin-bottom: 20px; border-radius: 4px; page-break-inside: avoid; }
+            .meta { font-size: 12px; font-weight: bold; color: #64748b; margin-bottom: 10px; text-transform: uppercase; }
+            .title { margin: 0 0 10px 0; font-size: 18px; }
+            .summary { margin: 0; line-height: 1.5; font-size: 14px; }
+            @media print { body { padding: 0; } }
+        </style></head><body>
+        <h1>US CTI Executive Brief: High Priority Items</h1>
+        <p style="margin-bottom: 30px;">Generated: ${new Date().toLocaleDateString()} | Active High Severity & Impending Deadlines (< 90 Days)</p>`;
+
+        if(briefData.length === 0) {
+            html += `<p>No critical events detected within operational threshold.</p>`;
+        } else {
+            briefData.forEach(d => {
+                const days = calculateDays(d.effective_date);
+                const dlString = (days !== null && days >= 0) ? ` | DEADLINE: T-${days} DAYS` : '';
+                html += `
+                <div class="item">
+                    <div class="meta">${d.agency || 'UNKNOWN'} | ${d.type || 'UNKNOWN'} | SEVERITY: ${d.severity || 'N/A'} ${dlString}</div>
+                    <h2 class="title">${d.title}</h2>
+                    <p class="summary">${d.summary}</p>
+                </div>`;
+            });
+        }
+        
+        html += `</body></html>`;
+        
+        const printWindow = window.open('', '_blank');
+        printWindow.document.write(html);
+        printWindow.document.close();
+        printWindow.focus();
+        setTimeout(() => printWindow.print(), 500);
     }
 
     window.addEventListener('DOMContentLoaded', () => {
