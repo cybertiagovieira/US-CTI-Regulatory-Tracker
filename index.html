@@ -49,7 +49,7 @@
     .kpi-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; font-weight: bold;}
     .val-alert { color: var(--sev-high); }
 
-    .filter-bar { background: var(--bg-panel); border: 1px solid var(--border); border-radius: 8px; padding: 15px; margin-bottom: 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
+    .filter-bar { background: var(--bg-panel); border: 1px solid var(--border); border-radius: 8px; padding: 15px; margin-bottom: 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; box-shadow: 0 1px 2px rgba(0,0,0,0.05); align-items: center; }
 
     .dashboard-grid { display: grid; grid-template-columns: 350px 1fr; gap: 20px; }
     .sidebar { display: flex; flex-direction: column; gap: 20px; }
@@ -71,6 +71,7 @@
     
     .meta { display: flex; gap: 8px; margin-bottom: 8px; font-size: 11px; font-weight: bold; align-items: center; flex-wrap: wrap;}
     .badge { padding: 3px 6px; border-radius: 4px; color: #ffffff; text-shadow: 0 1px 1px rgba(0,0,0,0.2); border: 1px solid rgba(0,0,0,0.1); }
+    .badge.id-tag { background: #e2e8f0; color: #475569; text-shadow: none; font-family: monospace;}
     .badge.agency { background: var(--c-gray-dark); }
     .badge.theme { background: #3b82f6; }
     .badge.sector { background: #8b5cf6; }
@@ -89,7 +90,6 @@
         100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0); }
     }
 
-    /* Mobile Responsiveness */
     @media (max-width: 900px) {
         .dashboard-grid { grid-template-columns: 1fr; }
         .timeline { margin-left: 5px; }
@@ -191,11 +191,12 @@
     </div>
 
     <div class="filter-bar">
+        <select id="filter-month" onchange="applyFilters()"><option value="All">All Time</option></select>
         <select id="filter-agency" onchange="applyFilters()"><option value="All">All Agencies</option></select>
         <select id="filter-type" onchange="applyFilters()"><option value="All">All Action Types</option></select>
         <select id="filter-theme" onchange="applyFilters()"><option value="All">All Threat Themes</option></select>
         <select id="filter-sector" onchange="applyFilters()"><option value="All">All Target Sectors</option></select>
-        <input type="text" id="filter-text" placeholder="Search keywords..." onkeyup="applyFilters()" style="grid-column: 1 / -1;">
+        <input type="text" id="filter-text" placeholder="Search keywords or IDs..." onkeyup="applyFilters()" style="grid-column: 1 / -1;">
     </div>
 
     <div class="dashboard-grid">
@@ -249,7 +250,7 @@
                 currentFileSha = data.sha;
             }
         } catch(e) {
-            console.warn("GitHub SHA fetch failed (Normal if local/offline).");
+            console.warn("GitHub SHA fetch bypass.");
         }
     }
 
@@ -265,7 +266,7 @@
                 rawData = await response.json();
             }
         } catch (error) {
-            console.error("Payload inaccessible:", error);
+            console.error("Payload inaccessible.");
         }
 
         await fetchSha();
@@ -275,14 +276,20 @@
             Chart.defaults.color = '#64748b';
             Chart.defaults.borderColor = '#e2e8f0';
             Chart.defaults.font.size = 11;
-        } else {
-            console.warn("Chart.js CDN blocked. Graphs disabled. Core timeline active.");
         }
         
         applyFilters();
     }
 
     function populateFilterOptions() {
+        const monthSelect = document.getElementById('filter-month');
+        monthSelect.innerHTML = '<option value="All">All Time</option>';
+        const months = [...new Set(rawData.filter(d => d.date && d.date.length >= 7).map(d => d.date.substring(0, 7)))].sort().reverse();
+        months.forEach(m => {
+            const label = new Date(m + "-02").toLocaleString('default', { month: 'short', year: 'numeric' });
+            monthSelect.innerHTML += `<option value="${m}">${label}</option>`;
+        });
+
         const selects = ['filter-agency', 'filter-type', 'filter-theme', 'filter-sector'];
         const keys = ['agency', 'type', 'theme', 'target_sector'];
         const labels = ['Agencies', 'Action Types', 'Threat Themes', 'Target Sectors'];
@@ -290,7 +297,6 @@
         selects.forEach((id, i) => {
             const el = document.getElementById(id);
             el.innerHTML = `<option value="All">All ${labels[i]}</option>`;
-            // filter(Boolean) safely removes null/undefined from legacy data
             const unique = [...new Set(rawData.map(d => d[keys[i]]).filter(Boolean))].sort();
             unique.forEach(val => el.innerHTML += `<option value="${val}">${val}</option>`);
         });
@@ -298,22 +304,18 @@
 
     function calculateDays(targetDateStr) {
         if(!targetDateStr) return null;
-        // Parse "YYYY-MM-DD" strictly to prevent timezone shifting
         const parts = targetDateStr.split('-');
         if(parts.length !== 3) return null;
-        
         const today = new Date();
         today.setHours(0,0,0,0);
-        
         const target = new Date(parts[0], parts[1] - 1, parts[2]);
         target.setHours(0,0,0,0);
-        
-        const diffTime = target - today;
-        return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        return Math.ceil((target - today) / (1000 * 60 * 60 * 24));
     }
 
     function applyFilters() {
         const filters = {
+            month: document.getElementById('filter-month').value,
             agency: document.getElementById('filter-agency').value,
             type: document.getElementById('filter-type').value,
             theme: document.getElementById('filter-theme').value,
@@ -324,24 +326,23 @@
         let filtered = rawData.filter(item => {
             let matchText = filters.text === "" || 
                 (item.title && item.title.toLowerCase().includes(filters.text)) || 
-                (item.summary && item.summary.toLowerCase().includes(filters.text));
+                (item.summary && item.summary.toLowerCase().includes(filters.text)) ||
+                (item.id && item.id.toLowerCase().includes(filters.text)); // Re-enabled ID Search
             
-            return (filters.agency === "All" || item.agency === filters.agency) &&
+            return (filters.month === "All" || (item.date && item.date.startsWith(filters.month))) &&
+                   (filters.agency === "All" || item.agency === filters.agency) &&
                    (filters.type === "All" || item.type === filters.type) &&
                    (filters.theme === "All" || item.theme === filters.theme) &&
                    (filters.sector === "All" || item.target_sector === filters.sector) &&
                    matchText;
         });
 
-        // Sort: Impending deadlines first, then chronological issuance
         filtered.sort((a, b) => {
             const daysA = calculateDays(a.effective_date);
             const daysB = calculateDays(b.effective_date);
-            
             if (daysA !== null && daysA >= 0 && daysB !== null && daysB >= 0) return daysA - daysB;
             if (daysA !== null && daysA >= 0) return -1;
             if (daysB !== null && daysB >= 0) return 1;
-            
             return new Date(b.date) - new Date(a.date);
         });
         
@@ -404,6 +405,15 @@
 
             const metaDiv = document.createElement('div');
             metaDiv.className = 'meta';
+
+            // Re-enabled Visual ID Tag
+            if(item.id) {
+                const idBadge = document.createElement('span');
+                idBadge.className = 'badge id-tag';
+                idBadge.textContent = item.id.substring(0,8);
+                idBadge.title = item.id;
+                metaDiv.appendChild(idBadge);
+            }
 
             const typeBadge = document.createElement('span');
             typeBadge.className = 'badge';
@@ -476,6 +486,16 @@
         if (typeof Chart === 'undefined') return;
 
         try {
+            const fixedThemes = ["Incident Reporting", "Ransomware", "Third-Party Risk", "Data Privacy", "Governance"];
+            const themeCounts = fixedThemes.map(t => data.filter(d => d.theme === t).length);
+
+            if(charts.radar) charts.radar.destroy();
+            charts.radar = new Chart(document.getElementById('radarChart'), {
+                type: 'radar',
+                data: { labels: fixedThemes, datasets: [{ label: 'Events', data: themeCounts, backgroundColor: 'rgba(220, 38, 38, 0.2)', borderColor: '#dc2626', pointBackgroundColor: '#dc2626', borderWidth: 2 }] },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { r: { beginAtZero: true, ticks: { stepSize: 1 } } } }
+            });
+
             const types = Object.keys(typeConfig);
             const typeCounts = types.map(t => data.filter(d => d.type === t).length);
             const typeColors = types.map(t => typeConfig[t].color);
@@ -497,15 +517,6 @@
                 options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { beginAtZero: true, ticks: { stepSize: 1 } } } }
             });
 
-            const themes = [...new Set(data.map(d => d.theme).filter(t => t && t !== 'General'))].sort();
-            const themeCounts = themes.map(t => data.filter(d => d.theme === t).length);
-
-            if(charts.radar) charts.radar.destroy();
-            charts.radar = new Chart(document.getElementById('radarChart'), {
-                type: 'radar',
-                data: { labels: themes, datasets: [{ label: 'Events', data: themeCounts, backgroundColor: 'rgba(220, 38, 38, 0.2)', borderColor: '#dc2626', pointBackgroundColor: '#dc2626', borderWidth: 2 }] },
-                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { r: { beginAtZero: true, ticks: { stepSize: 1 } } } }
-            });
         } catch (e) {
             console.error("Chart generation failed.", e);
         }
@@ -615,7 +626,7 @@
     }
 
     function exportArtifact() {
-        ['filter-agency', 'filter-type', 'filter-theme', 'filter-sector'].forEach(id => document.getElementById(id).value = 'All');
+        ['filter-month', 'filter-agency', 'filter-type', 'filter-theme', 'filter-sector'].forEach(id => document.getElementById(id).value = 'All');
         document.getElementById('filter-text').value = '';
         applyFilters();
 
