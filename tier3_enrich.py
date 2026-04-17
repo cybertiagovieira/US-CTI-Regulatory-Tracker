@@ -1,6 +1,7 @@
 import json
 import os
 import requests
+import time
 from bs4 import BeautifulSoup
 from google import genai
 
@@ -42,15 +43,23 @@ def generate_intelligence(text: str) -> str:
     {text}
     """
     
-    try:
-        response = client.models.generate_content(
-            model='gemini-2.5-flash',
-            contents=prompt,
-        )
-        return response.text.strip()
-    except Exception as e:
-        print(f"LLM inference failed: {e}")
-        return "LLM processing error."
+    max_retries = 3
+    for attempt in range(max_retries):
+        try:
+            response = client.models.generate_content(
+                model='gemini-2.0-flash',
+                contents=prompt,
+            )
+            return response.text.strip()
+        except Exception as e:
+            if "429" in str(e):
+                wait_time = (attempt + 1) * 20
+                print(f"Rate limit hit. Sleeping {wait_time}s...")
+                time.sleep(wait_time)
+                continue
+            print(f"LLM inference failed: {e}")
+            return "LLM processing error."
+    return "Rate limit exceeded after retries."
 
 def execute_tier3():
     file_path = 'master_data.json'
@@ -66,22 +75,21 @@ def execute_tier3():
     for item in data:
         current_summary = item.get("summary", "")
         
-        # GATEKEEPER: Bypass records that already possess valid summaries
         if current_summary and "No summary provided" not in current_summary:
             continue
             
         url = item.get("source_url", "")
         if not url:
             continue
-            
+                
         print(f"Enriching: {item.get('id')} - {item.get('title')[:40]}...")
         raw_text = extract_text(url)
         new_summary = generate_intelligence(raw_text)
         
-        # FAIL-SAFE: Prevent JSON payload corruption via error strings
         if "Manual review required" not in new_summary and "LLM processing error" not in new_summary:
             item["summary"] = new_summary
             modified = True
+            time.sleep(15)
             
     if modified:
         with open(file_path, 'w', encoding='utf-8') as f:
