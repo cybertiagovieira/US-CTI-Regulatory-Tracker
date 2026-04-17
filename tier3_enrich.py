@@ -59,7 +59,7 @@ def generate_intelligence(text: str) -> str:
                 continue
             print(f"LLM inference failed: {e}")
             return "LLM processing error."
-    return "Rate limit exceeded after retries."
+    return ""
 
 def execute_tier3():
     file_path = 'master_data.json'
@@ -86,7 +86,7 @@ def execute_tier3():
         raw_text = extract_text(url)
         new_summary = generate_intelligence(raw_text)
         
-        if "Manual review required" not in new_summary and "LLM processing error" not in new_summary:
+        if "Manual review required" not in new_summary and "LLM processing error" not in new_summary and "Rate limit exceeded" not in new_summary:
             item["summary"] = new_summary
             modified = True
             time.sleep(15)
