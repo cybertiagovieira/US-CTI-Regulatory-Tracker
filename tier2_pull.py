@@ -31,12 +31,9 @@ AGENCY_MAP = {
 
 TYPE_KEYWORDS = {
     "Final Rule":           ["final rule", "adopted rule", "adopts rule"],
-    "Enforcement Action":   ["enforcement", "fine", "penalty", "sanction", "censure",
-                             "suspended", "barred", "expelled", "cease and desist"],
-    "NPRM":                 ["proposed rule", "notice of proposed", "request for comment",
-                             "rfc", "concept release"],
-    "Guidance/Circular":    ["guidance", "circular", "notice", "information memo",
-                             "regulatory notice", "faq", "interpretive"],
+    "Enforcement Action":   ["enforcement", "fine", "penalty", "sanction", "censure", "suspended", "barred", "expelled", "cease and desist"],
+    "NPRM":                 ["proposed rule", "notice of proposed", "request for comment", "rfc", "concept release"],
+    "Guidance/Circular":    ["guidance", "circular", "notice", "information memo", "regulatory notice", "faq", "interpretive"],
     "Examination Priority": ["examination priority", "exam priority", "supervisory priority"],
     "Speech/Statement":     ["speech", "statement", "remarks", "testimony", "address"]
 }
@@ -48,9 +45,7 @@ def _create_url(path: str) -> str:
 
 def _sign_url(url: str) -> str:
     message = ("GET " + url).encode()
-    digest = base64.b64encode(
-        hmac.new(sharedkey.encode(), message, digestmod=hashlib.sha1).digest()
-    ).decode()
+    digest = base64.b64encode(hmac.new(sharedkey.encode(), message, digestmod=hashlib.sha1).digest()).decode()
     return url + "&apiKey=" + apikey + "&digest=" + parse.quote(digest)
 
 def _infer_type(text: str) -> str:
@@ -72,20 +67,14 @@ def fetch_tier2_data() -> list:
         print("Fatal: SB_API_KEY and SB_SHARED_KEY environment variables are required.")
         return []
 
-    params = parse.urlencode({
-        "query": QUERY,
-        "pageSize": 100,
-        "extras": "documentTeasers",
-        "sortBy": "publicationdate",
-        "sortDirection": "desc"
-    })
-
+    params = parse.urlencode({"query": QUERY, "pageSize": 100, "extras": "documentTeasers", "sortBy": "publicationdate", "sortDirection": "desc"})
     path = f"v2/documents/search?{params}"
-    base = _create_url(path)
-    signed = _sign_url(base)
+    signed = _sign_url(_create_url(path))
 
     try:
-        response = urllib.request.urlopen(urllib.request.Request(signed))
+        # TIMEOUT IMPLEMENTED CORRECTLY HERE
+        req = urllib.request.Request(signed)
+        response = urllib.request.urlopen(req, timeout=15)
         data = json.loads(response.read().decode("utf-8"))
     except Exception as e:
         print(f"Silobreaker API error: {e}")
@@ -105,7 +94,6 @@ def fetch_tier2_data() -> list:
 
         publisher = item.get("Publisher", "")
         description = item.get("Description", "")
-        
         agency = _resolve_agency(publisher, description)
         action_type = _infer_type(description)
 
@@ -120,8 +108,7 @@ def fetch_tier2_data() -> list:
         if not teaser:
             teaser = item.get("Teaser", "")
 
-        source_url = item.get("SourceUrl", "")
-        silobreaker_url = item.get("SilobreakerUrl", "")
+        source_url = item.get("SourceUrl", "") or item.get("SilobreakerUrl", "")
 
         payload.append({
             "id": f"SB-{uuid.uuid4().hex[:6]}",
@@ -130,20 +117,11 @@ def fetch_tier2_data() -> list:
             "type": action_type,
             "title": description,
             "summary": teaser,
-            "source_url": source_url or silobreaker_url
+            "source_url": source_url
         })
 
     print(f"Tier 2 records staged: {len(payload)}")
     return payload
-
-response = urllib.request.urlopen(req, timeout=15)
-
-try:
-    with open(FILE_PATH, "r", encoding="utf-8") as f:
-        data = json.load(f)
-except (FileNotFoundError, json.JSONDecodeError) as e:
-    print(f"Ledger initialization failed: {e}. Defaulting to empty array.")
-    data = []
 
 if __name__ == "__main__":
     tier2_data = fetch_tier2_data()

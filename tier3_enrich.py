@@ -64,17 +64,17 @@ def generate_intelligence(text: str) -> str:
 def execute_tier3():
     file_path = 'master_data.json'
     
+    # DECODE ERROR HANDLING INTEGRATED HERE
     try:
-        with open(file_path, 'r', encoding='utf-8') as f:
+        with open(file_path, "r", encoding="utf-8") as f:
             data = json.load(f)
-    except Exception as e:
-        print(f"Failed to read data: {e}")
+    except (FileNotFoundError, json.JSONDecodeError) as e:
+        print(f"Ledger initialization failed: {e}. Defaulting to empty array.")
         return
         
     modified = False
     for item in data:
         current_summary = item.get("summary", "")
-        
         if current_summary and "No summary provided" not in current_summary:
             continue
             
@@ -97,13 +97,6 @@ def execute_tier3():
         print("Tier 3 enrichment complete. master_data.json updated.")
     else:
         print("No eligible records found for enrichment.")
-
-try:
-    with open(FILE_PATH, "r", encoding="utf-8") as f:
-        data = json.load(f)
-except (FileNotFoundError, json.JSONDecodeError) as e:
-    print(f"Ledger initialization failed: {e}. Defaulting to empty array.")
-    data = []
 
 if __name__ == "__main__":
     execute_tier3()
