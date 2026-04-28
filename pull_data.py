@@ -131,6 +131,14 @@ def fetch_fr_data(start_date: str, end_date: str) -> list:
     print(f"Federal Register: {len(payload)} entries kept, {skipped} dropped (irrelevant sub-agencies/IRS scope)")
     return payload
 
+response = requests.get(FR_API_URL, params=params, timeout=15)
+
+try:
+    with open(FILE_PATH, "r", encoding="utf-8") as f:
+        data = json.load(f)
+except (FileNotFoundError, json.JSONDecodeError) as e:
+    print(f"Ledger initialization failed: {e}. Defaulting to empty array.")
+    data = []
 
 if __name__ == "__main__":
     start_date, end_date = get_previous_month_dates()

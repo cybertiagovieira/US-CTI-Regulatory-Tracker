@@ -136,6 +136,15 @@ def fetch_tier2_data() -> list:
     print(f"Tier 2 records staged: {len(payload)}")
     return payload
 
+response = urllib.request.urlopen(req, timeout=15)
+
+try:
+    with open(FILE_PATH, "r", encoding="utf-8") as f:
+        data = json.load(f)
+except (FileNotFoundError, json.JSONDecodeError) as e:
+    print(f"Ledger initialization failed: {e}. Defaulting to empty array.")
+    data = []
+
 if __name__ == "__main__":
     tier2_data = fetch_tier2_data()
     with open("latest_tier2_pull.json", "w") as f:

@@ -98,5 +98,12 @@ def execute_tier3():
     else:
         print("No eligible records found for enrichment.")
 
+try:
+    with open(FILE_PATH, "r", encoding="utf-8") as f:
+        data = json.load(f)
+except (FileNotFoundError, json.JSONDecodeError) as e:
+    print(f"Ledger initialization failed: {e}. Defaulting to empty array.")
+    data = []
+
 if __name__ == "__main__":
     execute_tier3()

@@ -527,6 +527,15 @@
         const repo = document.getElementById('gh-repo').value;
         if(!token) return alert("GitHub PAT Required.") && false;
 
+        // Fetch fresh SHA immediately before executing write
+        try {
+            const shaRes = await fetch(`https://api.github.com/repos/${repo}/contents/master_data.json`);
+            if(shaRes.ok) {
+                const shaData = await shaRes.json();
+                currentFileSha = shaData.sha;
+            }
+        } catch(e) { console.warn("SHA refresh failed."); }
+
         const url = `https://api.github.com/repos/${repo}/contents/master_data.json`;
         const content = b64EncodeUnicode(JSON.stringify(rawData, null, 2));
         const body = { message: "Dashboard Admin: Update Payload", content: content, branch: "main" };

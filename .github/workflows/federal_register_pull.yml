@@ -25,14 +25,16 @@ jobs:
           python -m pip install --upgrade pip
           pip install requests
 
-      - name: Execute Tier 1 (Federal Register)
+      - name: Run Tier 1 Pull
         run: python pull_data.py
-
-      - name: Execute Tier 2 (Silobreaker API)
-        env:
-          SB_API_KEY: ${{ secrets.SB_API_KEY }}
-          SB_SHARED_KEY: ${{ secrets.SB_SHARED_KEY }}
+        
+      - name: Run Tier 2 Pull
         run: python tier2_pull.py
+        
+      - name: Run Tier 3 Enrichment
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: python tier3_enrich.py
 
       - name: Commit and Push Artifacts
         run: |
