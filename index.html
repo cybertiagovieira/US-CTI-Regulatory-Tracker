@@ -3,8 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>US CTI Regulatory Intelligence - Builder</title>
+<title>US CTI Regulatory Intelligence Dashboard</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script id="data-layer">
+    // Artifact injection point for offline HTML exports
+    window.INJECTED_DATA = null;
+</script>
 <style>
     :root {
         --bg-main: #f1f5f9; 
@@ -42,6 +46,8 @@
     .btn-export:hover { background: #334155; }
     .btn-brief { background: #1e293b; color: #fbbf24; border: 1px solid #fbbf24; }
     .btn-brief:hover { background: #0f172a; }
+    .btn-admin-toggle { background: transparent; color: var(--text-muted); border: 1px solid var(--border); }
+    .btn-admin-toggle:hover { background: var(--border); color: var(--text-main); }
 
     .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin-bottom: 20px; }
     .kpi-card { background: var(--bg-panel); border: 1px solid var(--border); border-radius: 8px; padding: 15px; box-shadow: 0 1px 2px rgba(0,0,0,0.05); text-align: center; }
@@ -60,6 +66,7 @@
     .chart-container { position: relative; height: 220px; width: 100%; }
     
     .timeline { border-left: 2px solid var(--border); padding-left: 20px; margin-left: 10px;}
+    .empty-state { text-align: center; padding: 40px; color: var(--text-muted); font-weight: bold; border: 2px dashed var(--border); border-radius: 8px; background: var(--bg-panel); }
     .event { background: var(--bg-panel); padding: 15px; border-radius: 6px; margin-bottom: 15px; border-left: 4px solid transparent; border: 1px solid var(--border); position: relative; box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
     .event.sev-High { border-left: 4px solid var(--sev-high); background: #fef2f2; }
     .event.sev-Medium { border-left: 4px solid var(--sev-med); }
@@ -79,7 +86,7 @@
     .badge.countdown.urgent { background: var(--sev-high); animation: pulse 2s infinite; }
     .date { color: var(--text-muted); margin-left: auto; font-weight: normal; }
     .title { margin: 0 0 8px 0; font-size: 15px; color: var(--text-main); }
-    .summary { margin: 0; color: #334155; font-size: 13px; line-height: 1.5; }
+    .summary { margin: 0; color: #334155; font-size: 13px; line-height: 1.5; white-space: pre-wrap; }
     
     a.source-link { color: var(--c-primary); text-decoration: none; font-size: 12px; margin-top: 8px; display: inline-block; font-weight: bold;}
     a.source-link:hover { text-decoration: underline; }
@@ -92,20 +99,22 @@
 
     @media (max-width: 900px) {
         .dashboard-grid { grid-template-columns: 1fr; }
-        .timeline { margin-left: 5px; }
+        .timeline { margin-left: 5px; border-left: none; padding-left: 0;}
+        .event::before { display: none; }
     }
 </style>
 </head>
-<body class="admin-mode">
+<body>
 
 <div class="container">
     <div class="header-bar">
-        <h1>US CTI Regulatory Tracker: 2026</h1>
+        <h1>US CTI Regulatory Tracker</h1>
         <div class="export-group">
+            <button class="btn-export btn-admin-toggle" onclick="toggleAdmin()" id="btn-admin">Admin Controls</button>
             <button class="btn-export btn-brief" onclick="generateExecBrief()">Generate Executive Brief</button>
             <button class="btn-export" onclick="exportData('csv')">CSV</button>
             <button class="btn-export" onclick="exportData('json')">JSON</button>
-            <button class="btn-export" onclick="exportArtifact()">HTML</button>
+            <button class="btn-export" onclick="exportArtifact()">HTML Download</button>
         </div>
     </div>
 
@@ -233,6 +242,13 @@
     let rawData = [];
     let charts = {};
     let currentFileSha = '';
+    let isProcessing = false; // FIX 3: Global lock state
+
+    function toggleAdmin() {
+        document.body.classList.toggle('admin-mode');
+        const btn = document.getElementById('btn-admin');
+        btn.textContent = document.body.classList.contains('admin-mode') ? 'Exit Admin Mode' : 'Admin Controls';
+    }
 
     function b64EncodeUnicode(str) {
         return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, function(match, p1) {
@@ -249,24 +265,19 @@
                 const data = await res.json();
                 currentFileSha = data.sha;
             }
-        } catch(e) {
-            console.warn("GitHub SHA fetch bypass.");
-        }
+        } catch(e) {}
     }
 
     async function init() {
-        if (window.location.protocol === 'file:') {
-            document.body.innerHTML = '<div style="padding: 40px; text-align: center;"><h2>Local Execution Blocked</h2><p>Execute HTTP Server.</p><code>python -m http.server 8000</code></div>';
-            return;
-        }
-
-        try {
-            const response = await fetch(`master_data.json?t=${new Date().getTime()}`);
-            if(response.ok) {
-                rawData = await response.json();
-            }
-        } catch (error) {
-            console.error("Payload inaccessible.");
+        if (window.INJECTED_DATA) {
+            rawData = window.INJECTED_DATA;
+        } else if (window.location.protocol !== 'file:') {
+            try {
+                const response = await fetch(`master_data.json?t=${new Date().getTime()}`);
+                if(response.ok) {
+                    rawData = await response.json();
+                }
+            } catch (error) { console.error("Data inaccessible."); }
         }
 
         await fetchSha();
@@ -324,10 +335,15 @@
         };
 
         let filtered = rawData.filter(item => {
+            // FIX 1: Cast variables to String to prevent TypeError crashes
+            const safeTitle = item.title ? String(item.title).toLowerCase() : "";
+            const safeSummary = item.summary ? String(item.summary).toLowerCase() : "";
+            const safeId = item.id ? String(item.id).toLowerCase() : "";
+
             let matchText = filters.text === "" || 
-                (item.title && item.title.toLowerCase().includes(filters.text)) || 
-                (item.summary && item.summary.toLowerCase().includes(filters.text)) ||
-                (item.id && item.id.toLowerCase().includes(filters.text)); // Re-enabled ID Search
+                safeTitle.includes(filters.text) || 
+                safeSummary.includes(filters.text) ||
+                safeId.includes(filters.text);
             
             return (filters.month === "All" || (item.date && item.date.startsWith(filters.month))) &&
                    (filters.agency === "All" || item.agency === filters.agency) &&
@@ -387,6 +403,12 @@
     function renderTimeline(data) {
         const container = document.getElementById('timelineContainer');
         container.innerHTML = ''; 
+        
+        if (data.length === 0) {
+            container.innerHTML = '<div class="empty-state">No intelligence artifacts match the current filter parameters.</div>';
+            return;
+        }
+
         const fragment = document.createDocumentFragment();
 
         data.forEach(item => {
@@ -406,11 +428,10 @@
             const metaDiv = document.createElement('div');
             metaDiv.className = 'meta';
 
-            // Re-enabled Visual ID Tag
             if(item.id) {
                 const idBadge = document.createElement('span');
                 idBadge.className = 'badge id-tag';
-                idBadge.textContent = item.id.substring(0,8);
+                idBadge.textContent = String(item.id).substring(0,8);
                 idBadge.title = item.id;
                 metaDiv.appendChild(idBadge);
             }
@@ -486,13 +507,16 @@
         if (typeof Chart === 'undefined') return;
 
         try {
-            const fixedThemes = ["Incident Reporting", "Ransomware", "Third-Party Risk", "Data Privacy", "Governance"];
-            const themeCounts = fixedThemes.map(t => data.filter(d => d.theme === t).length);
+            let activeThemes = [...new Set(data.map(d => d.theme).filter(t => t && t !== 'General'))].sort();
+            if (activeThemes.length === 0) activeThemes = ["Incident Reporting", "Third-Party Risk", "Data Privacy"];
+            while (activeThemes.length < 3) activeThemes.push("N/A (Padding)");
+            
+            const themeCounts = activeThemes.map(t => t.startsWith("N/A") ? 0 : data.filter(d => d.theme === t).length);
 
             if(charts.radar) charts.radar.destroy();
             charts.radar = new Chart(document.getElementById('radarChart'), {
                 type: 'radar',
-                data: { labels: fixedThemes, datasets: [{ label: 'Events', data: themeCounts, backgroundColor: 'rgba(220, 38, 38, 0.2)', borderColor: '#dc2626', pointBackgroundColor: '#dc2626', borderWidth: 2 }] },
+                data: { labels: activeThemes, datasets: [{ label: 'Events', data: themeCounts, backgroundColor: 'rgba(220, 38, 38, 0.2)', borderColor: '#dc2626', pointBackgroundColor: '#dc2626', borderWidth: 2 }] },
                 options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { r: { beginAtZero: true, ticks: { stepSize: 1 } } } }
             });
 
@@ -527,14 +551,13 @@
         const repo = document.getElementById('gh-repo').value;
         if(!token) return alert("GitHub PAT Required.") && false;
 
-        // Fetch fresh SHA immediately before executing write
         try {
             const shaRes = await fetch(`https://api.github.com/repos/${repo}/contents/master_data.json`);
             if(shaRes.ok) {
                 const shaData = await shaRes.json();
                 currentFileSha = shaData.sha;
             }
-        } catch(e) { console.warn("SHA refresh failed."); }
+        } catch(e) {}
 
         const url = `https://api.github.com/repos/${repo}/contents/master_data.json`;
         const content = b64EncodeUnicode(JSON.stringify(rawData, null, 2));
@@ -548,7 +571,7 @@
                 currentFileSha = data.content.sha;
                 return true;
             } else {
-                alert("API Rejection.");
+                alert("API Rejection: File synchronization failed.");
                 return false;
             }
         } catch(e) {
@@ -558,6 +581,8 @@
     }
 
     async function addEntry() {
+        if (isProcessing) return; // FIX 3: Prevent double-click corruption
+        
         const payload = {
             id: Date.now().toString(),
             date: document.getElementById('in-date').value,
@@ -573,6 +598,11 @@
 
         if(!payload.date || !payload.title || !payload.summary) return alert('Define Date, Title, and Summary.');
 
+        isProcessing = true;
+        const btn = document.querySelector('.btn-action');
+        btn.textContent = "Syncing with GitHub...";
+        btn.style.opacity = "0.5";
+
         rawData.push(payload);
         const success = await syncToGitHub();
         if(success) {
@@ -582,12 +612,19 @@
             populateFilterOptions();
             applyFilters();
         } else {
-            rawData.pop();
+            rawData.pop(); // Revert payload if network fails
         }
+
+        isProcessing = false;
+        btn.textContent = "Execute Injection";
+        btn.style.opacity = "1";
     }
 
     async function deleteEntry(id) {
-        if(!confirm("Execute deletion protocol?")) return;
+        if (isProcessing) return;
+        if(!confirm("Execute deletion protocol? This action is permanent.")) return;
+        
+        isProcessing = true;
         const backup = [...rawData];
         rawData = rawData.filter(d => d.id !== id);
         
@@ -598,10 +635,11 @@
         } else {
             rawData = backup;
         }
+        isProcessing = false;
     }
 
     function exportChart(canvasId, name) {
-        if (typeof Chart === 'undefined') return alert("Charts offline. Cannot export.");
+        if (typeof Chart === 'undefined') return alert("Charts offline.");
         const link = document.createElement('a');
         link.download = `CTI_Chart_${name}.png`;
         link.href = document.getElementById(canvasId).toDataURL('image/png', 1.0);
@@ -614,7 +652,7 @@
             const headers = ['id', 'date', 'effective_date', 'severity', 'agency', 'type', 'theme', 'target_sector', 'title', 'summary', 'source_url'];
             const rows = rawData.map(row => 
                 headers.map(h => {
-                    let val = row[h] ? row[h].toString().replace(/"/g, '""') : '';
+                    let val = row[h] ? String(row[h]).replace(/"/g, '""') : '';
                     return `"${val}"`;
                 }).join(',')
             );
@@ -641,9 +679,19 @@
 
         const docClone = document.documentElement.cloneNode(true);
         docClone.querySelector('body').classList.remove('admin-mode');
+        
         const adminPanel = docClone.querySelector('#admin-panel');
         if(adminPanel) adminPanel.remove();
+        const toggleBtn = docClone.querySelector('.btn-admin-toggle');
+        if(toggleBtn) toggleBtn.remove();
         
+        // FIX 2: Dynamic injection via ID to allow multiple generations offline
+        const cleanData = JSON.stringify(rawData).replace(/</g, '\\u003c');
+        const dataNode = docClone.querySelector('#data-layer');
+        if (dataNode) {
+            dataNode.textContent = `window.INJECTED_DATA = ${cleanData};`;
+        }
+
         const blob = new Blob(["<!DOCTYPE html>\n" + docClone.outerHTML], { type: 'text/html' });
         const link = document.createElement('a');
         link.href = URL.createObjectURL(blob);
@@ -670,7 +718,7 @@
             .item { border: 1px solid #cbd5e1; padding: 20px; margin-bottom: 20px; border-radius: 4px; page-break-inside: avoid; }
             .meta { font-size: 12px; font-weight: bold; color: #64748b; margin-bottom: 10px; text-transform: uppercase; }
             .title { margin: 0 0 10px 0; font-size: 18px; }
-            .summary { margin: 0; line-height: 1.5; font-size: 14px; }
+            .summary { margin: 0; line-height: 1.5; font-size: 14px; white-space: pre-wrap; }
             @media print { body { padding: 0; } }
         </style></head><body>
         <h1>US CTI Executive Brief: High Priority Items</h1>
@@ -699,6 +747,16 @@
         printWindow.focus();
         setTimeout(() => printWindow.print(), 500);
     }
+
+    // FIX 4: UX Protection against accidental data loss
+    window.addEventListener("beforeunload", function (e) {
+        const title = document.getElementById('in-title')?.value;
+        const summary = document.getElementById('in-summary')?.value;
+        if (title || summary) {
+            e.preventDefault();
+            e.returnValue = '';
+        }
+    });
 
     window.addEventListener('DOMContentLoaded', () => {
         const tokenInput = document.getElementById('gh-token');
