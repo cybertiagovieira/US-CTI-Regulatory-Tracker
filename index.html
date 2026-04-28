@@ -373,7 +373,7 @@
         
         updateKPIs(filtered);
         renderTimeline(filtered);
-        renderCharts(filtered);
+        (filtered);
     }
 
     function updateKPIs(data) {
@@ -516,16 +516,13 @@
         if (typeof Chart === 'undefined') return;
 
         try {
-            let activeThemes = [...new Set(data.map(d => d.theme).filter(t => t && t !== 'General'))].sort();
-            if (activeThemes.length === 0) activeThemes = ["Incident Reporting", "Third-Party Risk", "Data Privacy"];
-            while (activeThemes.length < 3) activeThemes.push("N/A (Padding)");
-            
-            const themeCounts = activeThemes.map(t => t.startsWith("N/A") ? 0 : data.filter(d => d.theme === t).length);
+            const fixedThemes = ["Incident Reporting", "Ransomware", "Third-Party Risk", "Data Privacy", "Governance"];
+            const themeCounts = fixedThemes.map(t => data.filter(d => d.theme === t).length);
 
             if(charts.radar) charts.radar.destroy();
             charts.radar = new Chart(document.getElementById('radarChart'), {
                 type: 'radar',
-                data: { labels: activeThemes, datasets: [{ label: 'Events', data: themeCounts, backgroundColor: 'rgba(220, 38, 38, 0.2)', borderColor: '#dc2626', pointBackgroundColor: '#dc2626', borderWidth: 2 }] },
+                data: { labels: fixedThemes, datasets: [{ label: 'Events', data: themeCounts, backgroundColor: 'rgba(220, 38, 38, 0.2)', borderColor: '#dc2626', pointBackgroundColor: '#dc2626', borderWidth: 2 }] },
                 options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { r: { beginAtZero: true, ticks: { stepSize: 1 } } } }
             });
 
