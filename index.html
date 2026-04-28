@@ -46,8 +46,6 @@
     .btn-export:hover { background: #334155; }
     .btn-brief { background: #1e293b; color: #fbbf24; border: 1px solid #fbbf24; }
     .btn-brief:hover { background: #0f172a; }
-    .btn-admin-toggle { background: transparent; color: var(--text-muted); border: 1px solid var(--border); }
-    .btn-admin-toggle:hover { background: var(--border); color: var(--text-main); }
 
     .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin-bottom: 20px; }
     .kpi-card { background: var(--bg-panel); border: 1px solid var(--border); border-radius: 8px; padding: 15px; box-shadow: 0 1px 2px rgba(0,0,0,0.05); text-align: center; }
@@ -110,7 +108,6 @@
     <div class="header-bar">
         <h1>US CTI Regulatory Tracker</h1>
         <div class="export-group">
-            <button class="btn-export btn-admin-toggle" onclick="toggleAdmin()" id="btn-admin">Admin Controls</button>
             <button class="btn-export btn-brief" onclick="generateExecBrief()">Generate Executive Brief</button>
             <button class="btn-export" onclick="exportData('csv')">CSV</button>
             <button class="btn-export" onclick="exportData('json')">JSON</button>
@@ -242,12 +239,14 @@
     let rawData = [];
     let charts = {};
     let currentFileSha = '';
-    let isProcessing = false; // FIX 3: Global lock state
+    let isProcessing = false;
 
-    function toggleAdmin() {
-        document.body.classList.toggle('admin-mode');
-        const btn = document.getElementById('btn-admin');
-        btn.textContent = document.body.classList.contains('admin-mode') ? 'Exit Admin Mode' : 'Admin Controls';
+    // Security: Escapes HTML injection from raw JSON strings
+    function sanitizeHTML(str) {
+        if (!str) return "";
+        const temp = document.createElement('div');
+        temp.textContent = str;
+        return temp.innerHTML;
     }
 
     function b64EncodeUnicode(str) {
@@ -269,6 +268,12 @@
     }
 
     async function init() {
+        // Gated Admin Access: URL requires ?admin=true
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('admin') === 'true') {
+            document.body.classList.add('admin-mode');
+        }
+
         if (window.INJECTED_DATA) {
             rawData = window.INJECTED_DATA;
         } else if (window.location.protocol !== 'file:') {
@@ -320,6 +325,7 @@
         const today = new Date();
         today.setHours(0,0,0,0);
         const target = new Date(parts[0], parts[1] - 1, parts[2]);
+        if(isNaN(target.getTime())) return null;
         target.setHours(0,0,0,0);
         return Math.ceil((target - today) / (1000 * 60 * 60 * 24));
     }
@@ -335,7 +341,6 @@
         };
 
         let filtered = rawData.filter(item => {
-            // FIX 1: Cast variables to String to prevent TypeError crashes
             const safeTitle = item.title ? String(item.title).toLowerCase() : "";
             const safeSummary = item.summary ? String(item.summary).toLowerCase() : "";
             const safeId = item.id ? String(item.id).toLowerCase() : "";
@@ -359,7 +364,11 @@
             if (daysA !== null && daysA >= 0 && daysB !== null && daysB >= 0) return daysA - daysB;
             if (daysA !== null && daysA >= 0) return -1;
             if (daysB !== null && daysB >= 0) return 1;
-            return new Date(b.date) - new Date(a.date);
+            
+            // Hardened sort fallback
+            const timeA = a.date ? new Date(a.date).getTime() : 0;
+            const timeB = b.date ? new Date(b.date).getTime() : 0;
+            return (isNaN(timeB) ? 0 : timeB) - (isNaN(timeA) ? 0 : timeA);
         });
         
         updateKPIs(filtered);
@@ -581,7 +590,7 @@
     }
 
     async function addEntry() {
-        if (isProcessing) return; // FIX 3: Prevent double-click corruption
+        if (isProcessing) return; 
         
         const payload = {
             id: Date.now().toString(),
@@ -612,7 +621,7 @@
             populateFilterOptions();
             applyFilters();
         } else {
-            rawData.pop(); // Revert payload if network fails
+            rawData.pop(); 
         }
 
         isProcessing = false;
@@ -673,19 +682,12 @@
     }
 
     function exportArtifact() {
-        ['filter-month', 'filter-agency', 'filter-type', 'filter-theme', 'filter-sector'].forEach(id => document.getElementById(id).value = 'All');
-        document.getElementById('filter-text').value = '';
-        applyFilters();
-
         const docClone = document.documentElement.cloneNode(true);
         docClone.querySelector('body').classList.remove('admin-mode');
         
         const adminPanel = docClone.querySelector('#admin-panel');
         if(adminPanel) adminPanel.remove();
-        const toggleBtn = docClone.querySelector('.btn-admin-toggle');
-        if(toggleBtn) toggleBtn.remove();
         
-        // FIX 2: Dynamic injection via ID to allow multiple generations offline
         const cleanData = JSON.stringify(rawData).replace(/</g, '\\u003c');
         const dataNode = docClone.querySelector('#data-layer');
         if (dataNode) {
@@ -730,11 +732,14 @@
             briefData.forEach(d => {
                 const days = calculateDays(d.effective_date);
                 const dlString = (days !== null && days >= 0) ? ` | DEADLINE: T-${days} DAYS` : '';
+                const safeTitle = sanitizeHTML(d.title);
+                const safeSummary = sanitizeHTML(d.summary);
+                
                 html += `
                 <div class="item">
                     <div class="meta">${d.agency || 'UNKNOWN'} | ${d.type || 'UNKNOWN'} | SEVERITY: ${d.severity || 'N/A'} ${dlString}</div>
-                    <h2 class="title">${d.title}</h2>
-                    <p class="summary">${d.summary}</p>
+                    <h2 class="title">${safeTitle}</h2>
+                    <p class="summary">${safeSummary}</p>
                 </div>`;
             });
         }
@@ -748,7 +753,6 @@
         setTimeout(() => printWindow.print(), 500);
     }
 
-    // FIX 4: UX Protection against accidental data loss
     window.addEventListener("beforeunload", function (e) {
         const title = document.getElementById('in-title')?.value;
         const summary = document.getElementById('in-summary')?.value;
