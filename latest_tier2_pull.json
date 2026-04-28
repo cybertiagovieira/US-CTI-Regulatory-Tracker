@@ -1,6 +1,6 @@
 [
   {
-    "id": "SB-6644fd",
+    "id": "SB-0c5e0d",
     "date": "2026-04-27",
     "agency": "Other/SRO",
     "type": "Guidance/Circular",
@@ -9,7 +9,7 @@
     "source_url": "https://www.sec.gov/Archives/edgar/data/923139/000110465926049027/ffic-20260427x8k.htm"
   },
   {
-    "id": "SB-4571bc",
+    "id": "SB-218f9b",
     "date": "2026-04-27",
     "agency": "Other/SRO",
     "type": "Guidance/Circular",
@@ -18,16 +18,7 @@
     "source_url": "https://www.sec.gov/Archives/edgar/data/1004702/000100470226000041/ocfc-20260427.htm"
   },
   {
-    "id": "SB-469b2d",
-    "date": "2026-03-31",
-    "agency": "Other/SRO",
-    "type": "Guidance/Circular",
-    "title": "8-K - Invech Holdings, Inc. (0001009919) (Filer)",
-    "summary": "",
-    "source_url": "https://www.sec.gov/Archives/edgar/data/1009919/000168316826002471/invech_8k.htm"
-  },
-  {
-    "id": "SB-f04b48",
+    "id": "SB-e8182a",
     "date": "2026-03-30",
     "agency": "Other/SRO",
     "type": "Guidance/Circular",
@@ -36,34 +27,7 @@
     "source_url": "https://www.sec.gov/Archives/edgar/data/1498547/000149854726000012/cmft-20260327.htm"
   },
   {
-    "id": "SB-cd00e7",
-    "date": "2026-03-26",
-    "agency": "Other/SRO",
-    "type": "Guidance/Circular",
-    "title": "8-K - ASHFORD HOSPITALITY TRUST INC (0001232582) (Filer)",
-    "summary": "",
-    "source_url": "https://www.sec.gov/Archives/edgar/data/1232582/000123258226000070/aht-20260326.htm"
-  },
-  {
-    "id": "SB-49dbf0",
-    "date": "2026-03-26",
-    "agency": "Other/SRO",
-    "type": "Guidance/Circular",
-    "title": "8-K - Braemar Hotels & Resorts Inc. (0001574085) (Filer)",
-    "summary": "",
-    "source_url": "https://www.sec.gov/Archives/edgar/data/1574085/000157408526000052/bhr-20260326.htm"
-  },
-  {
-    "id": "SB-0de139",
-    "date": "2026-03-18",
-    "agency": "Other/SRO",
-    "type": "Guidance/Circular",
-    "title": "8-K - Elvictor Group, Inc. (0001741489) (Filer)",
-    "summary": "",
-    "source_url": "https://www.sec.gov/Archives/edgar/data/1741489/000121390026030830/ea0282254-8k_elvictor.htm"
-  },
-  {
-    "id": "SB-8b3b23",
+    "id": "SB-a3cee5",
     "date": "2026-03-16",
     "agency": "Other/SRO",
     "type": "Guidance/Circular",
@@ -72,7 +36,7 @@
     "source_url": "https://www.sec.gov/Archives/edgar/data/1407704/000164033426000448/boty_8k.htm"
   },
   {
-    "id": "SB-0514a1",
+    "id": "SB-024b14",
     "date": "2026-03-13",
     "agency": "Other/SRO",
     "type": "Guidance/Circular",
@@ -81,16 +45,7 @@
     "source_url": "https://www.sec.gov/Archives/edgar/data/913760/000091376026000023/intl-20260312.htm"
   },
   {
-    "id": "SB-916f36",
-    "date": "2026-03-12",
-    "agency": "Other/SRO",
-    "type": "Guidance/Circular",
-    "title": "Artificial Intelligence Technology Solutions Inc. (0001498148) (Filer)",
-    "summary": "",
-    "source_url": "https://www.sec.gov/Archives/edgar/data/1498148/000149315226009899/form8-k.htm"
-  },
-  {
-    "id": "SB-044d82",
+    "id": "SB-c0fdcd",
     "date": "2026-02-17",
     "agency": "Other/SRO",
     "type": "Guidance/Circular",
@@ -99,16 +54,7 @@
     "source_url": "https://www.sec.gov/Archives/edgar/data/1903382/000110465926016316/tm266579d1_8k.htm"
   },
   {
-    "id": "SB-71ff18",
-    "date": "2026-02-13",
-    "agency": "Other/SRO",
-    "type": "Guidance/Circular",
-    "title": "8-K - Cohen & Co Inc. (0001270436) (Filer)",
-    "summary": "",
-    "source_url": "https://www.sec.gov/Archives/edgar/data/1270436/000110465926015296/tm266432d1_8k.htm"
-  },
-  {
-    "id": "SB-068f86",
+    "id": "SB-06ef6f",
     "date": "2026-02-12",
     "agency": "Other/SRO",
     "type": "Guidance/Circular",
@@ -117,7 +63,7 @@
     "source_url": "https://www.sec.gov/Archives/edgar/data/1879001/000149315226006413/form8-k.htm"
   },
   {
-    "id": "SB-77f340",
+    "id": "SB-5f9666",
     "date": "2026-01-30",
     "agency": "Other/SRO",
     "type": "Guidance/Circular",
@@ -126,16 +72,7 @@
     "source_url": "https://www.sec.gov/Archives/edgar/data/1555017/000155501726000005/skyi-20260129_8k.htm"
   },
   {
-    "id": "SB-9a7408",
-    "date": "2026-01-29",
-    "agency": "Other/SRO",
-    "type": "Guidance/Circular",
-    "title": "8-K - AI Technology Group Inc. (0001289047) (Filer)",
-    "summary": "",
-    "source_url": "https://www.sec.gov/Archives/edgar/data/1289047/000147793226000501/aipg_8k.htm"
-  },
-  {
-    "id": "SB-6789e3",
+    "id": "SB-ac73f3",
     "date": "2026-01-27",
     "agency": "Other/SRO",
     "type": "Guidance/Circular",
@@ -144,16 +81,7 @@
     "source_url": "https://www.sec.gov/Archives/edgar/data/1699709/000168316826000571/vitanova_8k.htm"
   },
   {
-    "id": "SB-6ca484",
-    "date": "2026-01-26",
-    "agency": "Other/SRO",
-    "type": "Guidance/Circular",
-    "title": "8-K - ENERGY RESOURCES 12, L.P. (0001696088) (Filer)",
-    "summary": "",
-    "source_url": "https://www.sec.gov/Archives/edgar/data/1696088/000143774926002058/eres20260112_8k.htm"
-  },
-  {
-    "id": "SB-531864",
+    "id": "SB-2b40d6",
     "date": "2026-01-26",
     "agency": "Other/SRO",
     "type": "Guidance/Circular",
@@ -162,7 +90,7 @@
     "source_url": "https://www.sec.gov/Archives/edgar/data/1581552/000143774926002048/eele20260112_8k.htm"
   },
   {
-    "id": "SB-bfd94c",
+    "id": "SB-7b0c94",
     "date": "2026-01-16",
     "agency": "Other/SRO",
     "type": "Guidance/Circular",
@@ -171,7 +99,7 @@
     "source_url": "https://www.sec.gov/Archives/edgar/data/1698538/000119312526015525/sssht-20260116.htm"
   },
   {
-    "id": "SB-63a0c7",
+    "id": "SB-4b278a",
     "date": "2026-01-16",
     "agency": "Other/SRO",
     "type": "Guidance/Circular",
@@ -180,7 +108,7 @@
     "source_url": "https://www.sec.gov/Archives/edgar/data/866439/000168316826000358/darkpulse_8k.htm"
   },
   {
-    "id": "SB-55e772",
+    "id": "SB-430f98",
     "date": "2026-01-13",
     "agency": "Other/SRO",
     "type": "Guidance/Circular",
@@ -189,7 +117,7 @@
     "source_url": "https://www.sec.gov/Archives/edgar/data/1699709/000168316826000259/yijia_8k.htm"
   },
   {
-    "id": "SB-d605f5",
+    "id": "SB-880ea4",
     "date": "2026-01-13",
     "agency": "Other/SRO",
     "type": "Guidance/Circular",
