@@ -1,6 +1,15 @@
 [
   {
-    "id": "SB-0c5e0d",
+    "id": "SB-4b992b",
+    "date": "2026-04-28",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "8-K - American Fusion, Inc. (0000096664) (Filer)",
+    "summary": "",
+    "source_url": "https://www.sec.gov/Archives/edgar/data/96664/000107997326000557/amfn_8k.htm"
+  },
+  {
+    "id": "SB-7383c2",
     "date": "2026-04-27",
     "agency": "Other/SRO",
     "type": "Guidance/Circular",
@@ -9,7 +18,7 @@
     "source_url": "https://www.sec.gov/Archives/edgar/data/923139/000110465926049027/ffic-20260427x8k.htm"
   },
   {
-    "id": "SB-218f9b",
+    "id": "SB-00c8d8",
     "date": "2026-04-27",
     "agency": "Other/SRO",
     "type": "Guidance/Circular",
@@ -18,7 +27,7 @@
     "source_url": "https://www.sec.gov/Archives/edgar/data/1004702/000100470226000041/ocfc-20260427.htm"
   },
   {
-    "id": "SB-e8182a",
+    "id": "SB-9c04e3",
     "date": "2026-03-30",
     "agency": "Other/SRO",
     "type": "Guidance/Circular",
@@ -27,7 +36,7 @@
     "source_url": "https://www.sec.gov/Archives/edgar/data/1498547/000149854726000012/cmft-20260327.htm"
   },
   {
-    "id": "SB-a3cee5",
+    "id": "SB-b9e703",
     "date": "2026-03-16",
     "agency": "Other/SRO",
     "type": "Guidance/Circular",
@@ -36,7 +45,7 @@
     "source_url": "https://www.sec.gov/Archives/edgar/data/1407704/000164033426000448/boty_8k.htm"
   },
   {
-    "id": "SB-024b14",
+    "id": "SB-67e0bf",
     "date": "2026-03-13",
     "agency": "Other/SRO",
     "type": "Guidance/Circular",
@@ -45,7 +54,7 @@
     "source_url": "https://www.sec.gov/Archives/edgar/data/913760/000091376026000023/intl-20260312.htm"
   },
   {
-    "id": "SB-c0fdcd",
+    "id": "SB-d0e41e",
     "date": "2026-02-17",
     "agency": "Other/SRO",
     "type": "Guidance/Circular",
@@ -54,7 +63,7 @@
     "source_url": "https://www.sec.gov/Archives/edgar/data/1903382/000110465926016316/tm266579d1_8k.htm"
   },
   {
-    "id": "SB-06ef6f",
+    "id": "SB-c80818",
     "date": "2026-02-12",
     "agency": "Other/SRO",
     "type": "Guidance/Circular",
@@ -63,7 +72,7 @@
     "source_url": "https://www.sec.gov/Archives/edgar/data/1879001/000149315226006413/form8-k.htm"
   },
   {
-    "id": "SB-5f9666",
+    "id": "SB-205a29",
     "date": "2026-01-30",
     "agency": "Other/SRO",
     "type": "Guidance/Circular",
@@ -72,7 +81,7 @@
     "source_url": "https://www.sec.gov/Archives/edgar/data/1555017/000155501726000005/skyi-20260129_8k.htm"
   },
   {
-    "id": "SB-ac73f3",
+    "id": "SB-b642b4",
     "date": "2026-01-27",
     "agency": "Other/SRO",
     "type": "Guidance/Circular",
@@ -81,7 +90,7 @@
     "source_url": "https://www.sec.gov/Archives/edgar/data/1699709/000168316826000571/vitanova_8k.htm"
   },
   {
-    "id": "SB-2b40d6",
+    "id": "SB-4ca6cd",
     "date": "2026-01-26",
     "agency": "Other/SRO",
     "type": "Guidance/Circular",
@@ -90,7 +99,7 @@
     "source_url": "https://www.sec.gov/Archives/edgar/data/1581552/000143774926002048/eele20260112_8k.htm"
   },
   {
-    "id": "SB-7b0c94",
+    "id": "SB-fa573d",
     "date": "2026-01-16",
     "agency": "Other/SRO",
     "type": "Guidance/Circular",
@@ -99,7 +108,7 @@
     "source_url": "https://www.sec.gov/Archives/edgar/data/1698538/000119312526015525/sssht-20260116.htm"
   },
   {
-    "id": "SB-4b278a",
+    "id": "SB-54573f",
     "date": "2026-01-16",
     "agency": "Other/SRO",
     "type": "Guidance/Circular",
@@ -108,7 +117,7 @@
     "source_url": "https://www.sec.gov/Archives/edgar/data/866439/000168316826000358/darkpulse_8k.htm"
   },
   {
-    "id": "SB-430f98",
+    "id": "SB-bde68a",
     "date": "2026-01-13",
     "agency": "Other/SRO",
     "type": "Guidance/Circular",
@@ -117,7 +126,7 @@
     "source_url": "https://www.sec.gov/Archives/edgar/data/1699709/000168316826000259/yijia_8k.htm"
   },
   {
-    "id": "SB-880ea4",
+    "id": "SB-09c8c5",
     "date": "2026-01-13",
     "agency": "Other/SRO",
     "type": "Guidance/Circular",
