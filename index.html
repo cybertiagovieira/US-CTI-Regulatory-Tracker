@@ -559,36 +559,59 @@
         }
     }
 
-    async function syncToGitHub() {
+    async function syncToGitHubAtomic(action, target) {
         const token = document.getElementById('gh-token').value;
         const repo = document.getElementById('gh-repo').value;
         if(!token) return alert("GitHub PAT Required.") && false;
 
-        try {
-            const shaRes = await fetch(`https://api.github.com/repos/${repo}/contents/master_data.json`);
-            if(shaRes.ok) {
-                const shaData = await shaRes.json();
-                currentFileSha = shaData.sha;
-            }
-        } catch(e) {}
-
         const url = `https://api.github.com/repos/${repo}/contents/master_data.json`;
-        const content = b64EncodeUnicode(JSON.stringify(rawData, null, 2));
-        const body = { message: "Dashboard Admin: Update Payload", content: content, branch: "main" };
-        if (currentFileSha) body.sha = currentFileSha;
-
+        
         try {
-            const res = await fetch(url, { method: 'PUT', headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
-            if(res.ok) {
-                const data = await res.json();
-                currentFileSha = data.content.sha;
+            // Step 1: Fetch absolute latest remote state to prevent overwriting peers
+            const remoteRes = await fetch(`${url}?t=${new Date().getTime()}`);
+            if (!remoteRes.ok) throw new Error("Could not fetch remote state.");
+            const remoteData = await remoteRes.json();
+            
+            // Step 2: Decode remote payload securely
+            const remoteText = decodeURIComponent(escape(atob(remoteData.content)));
+            let remoteJson = JSON.parse(remoteText);
+
+            // Step 3: Apply local mutation to the fresh remote JSON directly
+            if (action === 'ADD') {
+                remoteJson.push(target);
+            } else if (action === 'DELETE') {
+                remoteJson = remoteJson.filter(d => d.id !== target);
+            }
+
+            // Step 4: Push the merged payload back with the validated SHA
+            const content = b64EncodeUnicode(JSON.stringify(remoteJson, null, 2));
+            const body = { 
+                message: `Dashboard Admin: ${action} Operation`, 
+                content: content, 
+                branch: "main",
+                sha: remoteData.sha 
+            };
+
+            const pushRes = await fetch(url, { 
+                method: 'PUT', 
+                headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' }, 
+                body: JSON.stringify(body) 
+            });
+
+            if (pushRes.ok) {
+                const pushData = await pushRes.json();
+                currentFileSha = pushData.content.sha;
+                
+                // Step 5: Sync local state to the merged remote state
+                rawData = remoteJson; 
                 return true;
             } else {
-                alert("API Rejection: File synchronization failed.");
+                alert("API Rejection: File synchronization failed due to deep conflict.");
                 return false;
             }
         } catch(e) {
-            alert("Network routing error.");
+            console.error(e);
+            alert("Network routing or synchronization error.");
             return false;
         }
     }
@@ -616,16 +639,15 @@
         btn.textContent = "Syncing with GitHub...";
         btn.style.opacity = "0.5";
 
-        rawData.push(payload);
-        const success = await syncToGitHub();
+        // Execute Atomic Sync
+        const success = await syncToGitHubAtomic('ADD', payload);
+        
         if(success) {
             document.getElementById('in-title').value = '';
             document.getElementById('in-summary').value = '';
             document.getElementById('in-effective-date').value = '';
             populateFilterOptions();
             applyFilters();
-        } else {
-            rawData.pop(); 
         }
 
         isProcessing = false;
@@ -638,16 +660,13 @@
         if(!confirm("Execute deletion protocol? This action is permanent.")) return;
         
         isProcessing = true;
-        const backup = [...rawData];
-        rawData = rawData.filter(d => d.id !== id);
+        const success = await syncToGitHubAtomic('DELETE', id);
         
-        const success = await syncToGitHub();
         if(success) {
             populateFilterOptions();
             applyFilters();
-        } else {
-            rawData = backup;
         }
+        
         isProcessing = false;
     }
 
