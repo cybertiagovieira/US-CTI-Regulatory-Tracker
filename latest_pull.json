@@ -108,15 +108,6 @@
     "source_url": "https://www.federalregister.gov/documents/2026/04/10/2026-06996/collection-of-checks-and-other-items-by-federal-reserve-banks-and-funds-transfers-through-the"
   },
   {
-    "id": "2026-06948",
-    "date": "2026-04-10",
-    "agency": "OCC",
-    "type": "NPRM",
-    "title": "Anti-Money Laundering and Countering the Financing of Terrorism Programs",
-    "summary": "The Office of the Comptroller of the Currency (OCC), Federal Deposit Insurance Corporation (FDIC), and the National Credit Union Administration (NCUA) (collectively, \"the Agencies\" or \"Agency\" when referencing the singular) are inviting comment on a proposed rule that would require banks to establish and maintain effective anti-money laundering and countering the financing of terrorism (AML/CFT) programs reasonably designed to identify, assess, and mitigate risks of illicit finance. The amendments are intended to align with changes that are being concurrently proposed by the Financial Crimes Enforcement Network (FinCEN) to implement provisions of the Anti-Money Laundering Act of 2020 (AML Act). Among other changes, this proposed rule would ensure that institutions establish and maintain effective AML/CFT programs that are intended to better achieve the purposes of the Bank Secrecy Act (BSA), culminating in the development of highly useful information related to illicit financial transactions for law enforcement and national security agencies. Through this rulemaking, the Agencies also intend to modernize and reform Federal supervision of AML/CFT programs by enhancing FinCEN's role in AML/CFT supervision and enforcement.",
-    "source_url": "https://www.federalregister.gov/documents/2026/04/10/2026-06948/anti-money-laundering-and-countering-the-financing-of-terrorism-programs"
-  },
-  {
     "id": "2026-06963",
     "date": "2026-04-10",
     "agency": "FinCEN",
@@ -124,6 +115,15 @@
     "title": "Permitted Payment Stablecoin Issuer Anti-Money Laundering/Countering the Financing of Terrorism Program and Sanctions Compliance Program Requirements",
     "summary": "The Department of the Treasury's Financial Crimes Enforcement Network (FinCEN) and Office of Foreign Assets Control (OFAC) are jointly issuing this proposed rule to implement provisions of the Guiding and Establishing National Innovation for U.S. Stablecoins Act (GENIUS Act). Specifically, it implements the GENIUS Act's directive to treat permitted payment stablecoin issuers (PPSIs) as financial institutions for purposes of the Bank Secrecy Act, proposes anti-money laundering obligations for PPSIs, and proposes certain specific obligations required by the GENIUS Act for PPSIs. It also implements the GENIUS Act's directive to require PPSIs to maintain effective sanctions compliance programs.",
     "source_url": "https://www.federalregister.gov/documents/2026/04/10/2026-06963/permitted-payment-stablecoin-issuer-anti-money-launderingcountering-the-financing-of-terrorism"
+  },
+  {
+    "id": "2026-06948",
+    "date": "2026-04-10",
+    "agency": "OCC",
+    "type": "NPRM",
+    "title": "Anti-Money Laundering and Countering the Financing of Terrorism Programs",
+    "summary": "The Office of the Comptroller of the Currency (OCC), Federal Deposit Insurance Corporation (FDIC), and the National Credit Union Administration (NCUA) (collectively, \"the Agencies\" or \"Agency\" when referencing the singular) are inviting comment on a proposed rule that would require banks to establish and maintain effective anti-money laundering and countering the financing of terrorism (AML/CFT) programs reasonably designed to identify, assess, and mitigate risks of illicit finance. The amendments are intended to align with changes that are being concurrently proposed by the Financial Crimes Enforcement Network (FinCEN) to implement provisions of the Anti-Money Laundering Act of 2020 (AML Act). Among other changes, this proposed rule would ensure that institutions establish and maintain effective AML/CFT programs that are intended to better achieve the purposes of the Bank Secrecy Act (BSA), culminating in the development of highly useful information related to illicit financial transactions for law enforcement and national security agencies. Through this rulemaking, the Agencies also intend to modernize and reform Federal supervision of AML/CFT programs by enhancing FinCEN's role in AML/CFT supervision and enforcement.",
+    "source_url": "https://www.federalregister.gov/documents/2026/04/10/2026-06948/anti-money-laundering-and-countering-the-financing-of-terrorism-programs"
   },
   {
     "id": "2026-06947",
