@@ -17,7 +17,7 @@ QUERY = (
     'organization:"National Futures Association" OR '
     'governmentbody:"New York State Department of Financial Services") AND '
     '(doctype:"Report") AND '
-    'fromdate:"2026-01-01"'
+    'fromdate:"2026-04-01"'
 )
 
 AGENCY_MAP = {
