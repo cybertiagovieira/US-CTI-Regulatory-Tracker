@@ -1,5 +1,212 @@
 [
   {
+    "id": "2026-08328",
+    "date": "2026-04-29",
+    "agency": "OCC",
+    "type": "Final Rule",
+    "title": "National Bank Non-Interest Charges and Fees",
+    "summary": "The OCC is adopting an interim final rule to clarify that national banks' power to charge non-interest charges and fees includes the power to assess, collect, impose, levy, receive, reserve, take, or otherwise obtain non-interest charges and fees, including interchange fees from credit and debit card operations. Further, the interim final rule explains that national banks may charge non-interest charges or fees, even when such charges and fees are set by or in consultation with third parties. The OCC invites public comments on this interim final rule.",
+    "source_url": "https://www.federalregister.gov/documents/2026/04/29/2026-08328/national-bank-non-interest-charges-and-fees"
+  },
+  {
+    "id": "2026-08298",
+    "date": "2026-04-29",
+    "agency": "OCC",
+    "type": "Final Rule",
+    "title": "Regulatory Capital Rule: Community Bank Leverage Ratio Framework",
+    "summary": "The Office of the Comptroller of the Currency, the Board of Governors of the Federal Reserve System, and the Federal Deposit Insurance Corporation are adopting a final rule that lowers the community bank leverage ratio (CBLR) requirement from 9 percent to 8 percent, consistent with the lower bound provided in section 201 of the Economic Growth, Regulatory Relief, and Consumer Protection Act. The final rule also extends the length of time that certain depository institutions and depository institution holding companies can remain in the CBLR framework while not meeting all of the qualifying criteria for the CBLR framework from two consecutive quarters to four consecutive quarters, subject to a limit of eight quarters in the previous five- year period.",
+    "source_url": "https://www.federalregister.gov/documents/2026/04/29/2026-08298/regulatory-capital-rule-community-bank-leverage-ratio-framework"
+  },
+  {
+    "id": "2026-08143",
+    "date": "2026-04-27",
+    "agency": "OCC",
+    "type": "NPRM",
+    "title": "Streamlining Regulations Concerning Public Welfare Investments, Open Market Collateralized Loan Obligations, and Federal Savings Association Nondiscrimination Requirements",
+    "summary": "The Office of the Comptroller of the Currency invites public comment on a notice of proposed rulemaking (proposed rule) to rescind or amend certain regulations that are unnecessary, based on anything other than the best reading of the underlying statutory authority, or lacking clear statutory authority, consistent with the criteria set out in the Executive Order titled Ensuring Lawful Governance and Implementing the President's \"Department of Government Efficiency\" Deregulatory Initiative. The proposed rule would remove certain references to minority- and women-owned entities; remove the portion of the credit risk retention requirements that provides an alternative compliance option for lead arrangers of open market collateralized loan obligations; and remove certain duplicative non-discrimination requirements for Federal savings associations.",
+    "source_url": "https://www.federalregister.gov/documents/2026/04/27/2026-08143/streamlining-regulations-concerning-public-welfare-investments-open-market-collateralized-loan"
+  },
+  {
+    "id": "2026-07993",
+    "date": "2026-04-24",
+    "agency": "SEC",
+    "type": "NPRM",
+    "title": "Form PF; Reporting Requirements for All Filers",
+    "summary": "The Commodity Futures Trading Commission (the \"CFTC\") and the Securities and Exchange Commission (the \"SEC\") (collectively, \"we\" or the \"Commissions\") are proposing to amend Form PF, the confidential reporting form for certain SEC-registered investment advisers to private funds, including those that also are registered with the CFTC as a commodity pool operator (a \"CPO\") or a commodity trading advisor (a \"CTA\"). The proposed amendments would eliminate certain filing and reporting obligations, streamline certain requirements, and make corrections and other revisions. The proposed amendments are designed to eliminate certain burdens, among other things.",
+    "source_url": "https://www.federalregister.gov/documents/2026/04/24/2026-07993/form-pf-reporting-requirements-for-all-filers"
+  },
+  {
+    "id": "2026-07804",
+    "date": "2026-04-22",
+    "agency": "CFPB",
+    "type": "Final Rule",
+    "title": "Equal Credit Opportunity Act (Regulation B)",
+    "summary": "The Consumer Financial Protection Bureau (Bureau or CFPB) is issuing a final rule that amends provisions related to disparate impact, discouragement of applicants or prospective applicants, and special purpose credit programs under Regulation B, the regulation implementing the Equal Credit Opportunity Act (ECOA or Act). The amendments facilitate compliance with ECOA by clarifying the obligations imposed by the statute.",
+    "source_url": "https://www.federalregister.gov/documents/2026/04/22/2026-07804/equal-credit-opportunity-act-regulation-b"
+  },
+  {
+    "id": "2026-07806",
+    "date": "2026-04-22",
+    "agency": "NCUA",
+    "type": "NPRM",
+    "title": "Bank Conversions and Mergers, Subpart C-Merger of Insured Credit Unions Into Banks",
+    "summary": "The NCUA Board (Board) is proposing to amend its regulations governing the merger of insured credit unions into banks. The Board proposes to eliminate certain prescriptive procedural, disclosure, and communication requirements. This action is necessary to reduce unnecessary regulatory burdens and provide credit union boards of directors with greater flexibility to exercise their business judgment. The intended effect of these changes is to ensure members receive clear and effective disclosures while simplifying compliance for credit unions, reducing administrative costs, and modernizing the conversion process.",
+    "source_url": "https://www.federalregister.gov/documents/2026/04/22/2026-07806/bank-conversions-and-mergers-subpart-c-merger-of-insured-credit-unions-into-banks"
+  },
+  {
+    "id": "2026-07643",
+    "date": "2026-04-20",
+    "agency": "CFTC",
+    "type": "Final Rule",
+    "title": "Order Providing Exemptive Relief To Facilitate Cross-Margining of Customer Positions Cleared at Chicago Mercantile Exchange, Inc. and Fixed Income Clearing Corporation",
+    "summary": "The Commodity Futures Trading Commission (\"CFTC\" or \"Commission\") is issuing an order pursuant to the Commodity Exchange Act (\"CEA\") that provides exemptive relief from the CEA and Commission regulations related to segregation and protection of futures customer funds. The order permits joint clearing members of the Chicago Mercantile Exchange, Inc. (\"CME\") and the Fixed Income Clearing Corporation (\"FICC\") that are dually registered as broker-dealers with the Securities and Exchange Commission (\"SEC\") and futures commission merchants (\"FCMs\") with the Commission (\"BD-FCMs\") to hold futures customer funds in a commingled customer account at FICC.",
+    "source_url": "https://www.federalregister.gov/documents/2026/04/20/2026-07643/order-providing-exemptive-relief-to-facilitate-cross-margining-of-customer-positions-cleared-at"
+  },
+  {
+    "id": "2026-07651",
+    "date": "2026-04-20",
+    "agency": "SEC",
+    "type": "NPRM",
+    "title": "Concept Release on Consolidated Audit Trail and Other Audit Trails and Data Sources",
+    "summary": "The Securities and Exchange Commission (the \"Commission\") is publishing this concept release to solicit comments in support of a comprehensive review of the Consolidated Audit Trail and other audit trails and related data sources currently used in the regulation of U.S. securities markets, including comments regarding the funding mechanisms for these audit trails and/or related data sources. There have been several developments since the Commission last evaluated the scope and sufficiency of these audit trails and related data sources. These developments have prompted the Commission to consider whether changes should be made to the rules and regulations governing existing audit trails and related data sources to better respond to and reflect current market conditions; demonstrated regulatory needs; civil liberty, privacy, and confidentiality concerns; cost-efficient technology solutions; and cybersecurity considerations.",
+    "source_url": "https://www.federalregister.gov/documents/2026/04/20/2026-07651/concept-release-on-consolidated-audit-trail-and-other-audit-trails-and-data-sources"
+  },
+  {
+    "id": "2026-07519",
+    "date": "2026-04-17",
+    "agency": "IRS",
+    "type": "NPRM",
+    "title": "Increase in Threshold for Requiring Information Reporting With Respect to Certain Payees; Extension and Modification of Limitation on Wagering Losses",
+    "summary": "This document contains proposed amendments relating to the dollar thresholds in regulations governing information reporting for payments made in the course of a trade or business and the corresponding backup withholding regulations. This document also contains proposed amendments to the regulations governing wagering losses. The proposed regulations reflect recent changes to the statutory law. These changes will affect persons who make payments in the course of their trade or business and those persons claiming a deduction for wagering losses.",
+    "source_url": "https://www.federalregister.gov/documents/2026/04/17/2026-07519/increase-in-threshold-for-requiring-information-reporting-with-respect-to-certain-payees-extension"
+  },
+  {
+    "id": "2026-07474",
+    "date": "2026-04-16",
+    "agency": "SEC",
+    "type": "Final Rule",
+    "title": "Adoption of Updated EDGAR Filer Manual",
+    "summary": "The Securities and Exchange Commission (\"Commission\") is adopting amendments to Volumes I and II of the Electronic Data Gathering, Analysis, and Retrieval system Filer Manual (\"EDGAR Filer Manual\" or \"Filer Manual\") and related rules and forms. EDGAR Release 26.1 was deployed in the EDGAR system on March 16, 2026.",
+    "source_url": "https://www.federalregister.gov/documents/2026/04/16/2026-07474/adoption-of-updated-edgar-filer-manual"
+  },
+  {
+    "id": "2026-07416",
+    "date": "2026-04-16",
+    "agency": "FinCEN",
+    "type": "Final Rule",
+    "title": "Imposition of Special Measure Prohibiting Certain Transmittals of Funds Involving CIBanco S.A., Instituci\u00f3n de Banca Multiple; Amendment",
+    "summary": "FinCEN is issuing notice of an order amending its June 2025 order finding that CIBanco S.A., Instituci[oacute]n de Banca Multiple (CIBanco), is a financial institution operating outside of the United States that is of primary money laundering concern in connection with illicit opioid trafficking and imposing a special measure prohibiting certain transmittals of funds involving CIBanco. This amendment allows for certain transmittals of funds to facilitate payments necessary for the Government of Mexico to liquidate CIBanco.",
+    "source_url": "https://www.federalregister.gov/documents/2026/04/16/2026-07416/imposition-of-special-measure-prohibiting-certain-transmittals-of-funds-involving-cibanco-sa"
+  },
+  {
+    "id": "2026-06996",
+    "date": "2026-04-10",
+    "agency": "FRB",
+    "type": "NPRM",
+    "title": "Collection of Checks and Other Items by Federal Reserve Banks and Funds Transfers Through the Fedwire Funds Service and the FedNow Service; Regulation J",
+    "summary": "The Board is proposing amendments to subpart C of Regulation J (governing the FedNow[supreg] Service) to permit FedNow participants to use intermediaries, other than Reserve Banks, to send funds transfers through the FedNow Service. The Board believes this change could support private-sector cross-border payment solutions by allowing FedNow participants to leverage an intermediary (for example, a correspondent bank) for the international portion of a cross-border transaction and use the FedNow Service for the U.S. domestic portion.",
+    "source_url": "https://www.federalregister.gov/documents/2026/04/10/2026-06996/collection-of-checks-and-other-items-by-federal-reserve-banks-and-funds-transfers-through-the"
+  },
+  {
+    "id": "2026-06963",
+    "date": "2026-04-10",
+    "agency": "FinCEN",
+    "type": "NPRM",
+    "title": "Permitted Payment Stablecoin Issuer Anti-Money Laundering/Countering the Financing of Terrorism Program and Sanctions Compliance Program Requirements",
+    "summary": "The Department of the Treasury's Financial Crimes Enforcement Network (FinCEN) and Office of Foreign Assets Control (OFAC) are jointly issuing this proposed rule to implement provisions of the Guiding and Establishing National Innovation for U.S. Stablecoins Act (GENIUS Act). Specifically, it implements the GENIUS Act's directive to treat permitted payment stablecoin issuers (PPSIs) as financial institutions for purposes of the Bank Secrecy Act, proposes anti-money laundering obligations for PPSIs, and proposes certain specific obligations required by the GENIUS Act for PPSIs. It also implements the GENIUS Act's directive to require PPSIs to maintain effective sanctions compliance programs.",
+    "source_url": "https://www.federalregister.gov/documents/2026/04/10/2026-06963/permitted-payment-stablecoin-issuer-anti-money-launderingcountering-the-financing-of-terrorism"
+  },
+  {
+    "id": "2026-06948",
+    "date": "2026-04-10",
+    "agency": "OCC",
+    "type": "NPRM",
+    "title": "Anti-Money Laundering and Countering the Financing of Terrorism Programs",
+    "summary": "The Office of the Comptroller of the Currency (OCC), Federal Deposit Insurance Corporation (FDIC), and the National Credit Union Administration (NCUA) (collectively, \"the Agencies\" or \"Agency\" when referencing the singular) are inviting comment on a proposed rule that would require banks to establish and maintain effective anti-money laundering and countering the financing of terrorism (AML/CFT) programs reasonably designed to identify, assess, and mitigate risks of illicit finance. The amendments are intended to align with changes that are being concurrently proposed by the Financial Crimes Enforcement Network (FinCEN) to implement provisions of the Anti-Money Laundering Act of 2020 (AML Act). Among other changes, this proposed rule would ensure that institutions establish and maintain effective AML/CFT programs that are intended to better achieve the purposes of the Bank Secrecy Act (BSA), culminating in the development of highly useful information related to illicit financial transactions for law enforcement and national security agencies. Through this rulemaking, the Agencies also intend to modernize and reform Federal supervision of AML/CFT programs by enhancing FinCEN's role in AML/CFT supervision and enforcement.",
+    "source_url": "https://www.federalregister.gov/documents/2026/04/10/2026-06948/anti-money-laundering-and-countering-the-financing-of-terrorism-programs"
+  },
+  {
+    "id": "2026-06947",
+    "date": "2026-04-10",
+    "agency": "OCC",
+    "type": "Final Rule",
+    "title": "Prohibition on the Use of Reputation Risk by Regulators",
+    "summary": "The Office of the Comptroller of the Currency and the Federal Deposit Insurance Corporation are adopting a final rule to codify the elimination of reputation risk from their supervisory programs. Among other things, the rule prohibits the agencies from criticizing or taking adverse action against an institution on the basis of reputation risk. The rule also prohibits the agencies from requiring, instructing, or encouraging an institution to close an account, to refrain from providing an account, product, or service, or to modify or terminate any product or service on the basis of a person or entity's political, social, cultural, or religious views or beliefs, constitutionally protected speech, or solely on the basis of politically disfavored but lawful business activities perceived to present reputation risk. The rule further forbids the agencies from taking any supervisory action or other adverse action against an institution, a group of institutions, or the institution-affiliated parties of any institution that is designed to punish or discourage an individual or group from engaging in any lawful political, social, cultural, or religious activities, constitutionally protected speech, or, for political reasons, lawful business activities that the agencies or its personnel disagree with or disfavor.",
+    "source_url": "https://www.federalregister.gov/documents/2026/04/10/2026-06947/prohibition-on-the-use-of-reputation-risk-by-regulators"
+  },
+  {
+    "id": "2026-06974",
+    "date": "2026-04-10",
+    "agency": "FDIC",
+    "type": "NPRM",
+    "title": "GENIUS Act Requirements and Standards for FDIC-Supervised Permitted Payment Stablecoin Issuers and Insured Depository Institutions",
+    "summary": "The Federal Deposit Insurance Corporation (FDIC) is soliciting comment on a proposal that would implement certain requirements pursuant to the Guiding and Establishing National Innovation for U.S. Stablecoins Act (GENIUS Act) applicable to FDIC-supervised permitted payment stablecoin issuers and insured depository institutions, clarify deposit insurance coverage for deposits held as reserve assets for payment stablecoins, and clarify the treatment of tokenized deposits.",
+    "source_url": "https://www.federalregister.gov/documents/2026/04/10/2026-06974/genius-act-requirements-and-standards-for-fdic-supervised-permitted-payment-stablecoin-issuers-and"
+  },
+  {
+    "id": "2026-07033",
+    "date": "2026-04-10",
+    "agency": "FinCEN",
+    "type": "NPRM",
+    "title": "Anti-Money Laundering and Countering the Financing of Terrorism Programs",
+    "summary": "Pursuant to the Department of the Treasury (Treasury) and FinCEN's efforts to modernize the Bank Secrecy Act (BSA) and to implement provisions of the Anti-Money Laundering Act of 2020 (AML Act), FinCEN is proposing a rule to fundamentally reform the requirements for financial institutions' anti-money laundering and countering the financing of terrorism (AML/CFT) programs. Among other changes, this proposed rule aims to ensure that financial institutions establish and maintain effective AML/CFT programs that better achieve the purposes of the BSA and lead to more effective outcomes for financial institutions as well as law enforcement and national security agencies. Through this rulemaking, consistent with its statutory authority as the administrator of the BSA, FinCEN is also proposing measures to modernize and reform Federal supervision of AML/CFT programs by enhancing FinCEN's role in AML/CFT supervision and enforcement in coordination with Federal banking regulators. In addition, FinCEN is proposing regulatory amendments to promote clarity and consistency across FinCEN's program rules for different types of financial institutions.",
+    "source_url": "https://www.federalregister.gov/documents/2026/04/10/2026-07033/anti-money-laundering-and-countering-the-financing-of-terrorism-programs"
+  },
+  {
+    "id": "2026-06757",
+    "date": "2026-04-08",
+    "agency": "NCUA",
+    "type": "NPRM",
+    "title": "Chartering and Field of Membership",
+    "summary": "The NCUA Board (Board) proposes to amend the associational common bond provisions of its chartering and field of membership (FOM) rules. The proposed FOM amendment would clarify that requiring the purchase of a product or service as a condition of membership no longer automatically bars eligibility as a recognized association. The Board does not believe such an automatic bar is required under the Federal Credit Union (FCU) Act, and a client-customer relationship as a condition of membership may still be incidental in a manner that permits an evaluation of the group's activities and overall circumstances.",
+    "source_url": "https://www.federalregister.gov/documents/2026/04/08/2026-06757/chartering-and-field-of-membership"
+  },
+  {
+    "id": "2026-06281",
+    "date": "2026-04-01",
+    "agency": "OCC",
+    "type": "Final Rule",
+    "title": "Rescission of OCC Guidelines Establishing Standards for Recovery Planning by Certain Large Insured National Banks, Insured Federal Savings Associations, and Insured Federal Branches",
+    "summary": "The OCC is amending its regulations by rescinding \"OCC Guidelines Establishing Standards for Recovery Planning by Certain Large Insured National Banks, Insured Federal Savings Associations, and Insured Federal Branches.\"",
+    "source_url": "https://www.federalregister.gov/documents/2026/04/01/2026-06281/rescission-of-occ-guidelines-establishing-standards-for-recovery-planning-by-certain-large-insured"
+  },
+  {
+    "id": "2026-06271",
+    "date": "2026-04-01",
+    "agency": "FinCEN",
+    "type": "NPRM",
+    "title": "Whistleblower Incentives and Protections",
+    "summary": "FinCEN is proposing a rule to establish a whistleblower program that offers incentives and protections to encourage individuals who have information about potential violations of the Bank Secrecy Act (BSA), International Emergency Economic Powers Act (IEEPA), Trading With the Enemy Act of 1917 (TWEA), and Foreign Narcotics Kingpin Designation Act (Kingpin Act) to voluntarily report such information (the \"Whistleblower Program\"). The proposed rule would implement section 6314 of the Anti-Money Laundering Act of 2020 (AML Act) and the Anti-Money Laundering Whistleblower Improvement Act (AML Whistleblower Improvement Act), which were enacted into law as part of the National Defense Authorization Act for Fiscal Year 2021 (FY21 NDAA) and the Consolidated Appropriations Act of 2023, respectively. The Whistleblower Program will contribute to the U.S. government's efforts to safeguard the financial system from illicit use, promote national security, and combat money laundering, terrorist financing, proliferation financing, and related crimes. This notice of proposed rulemaking invites comments from the public regarding all aspects of the proposed rule, as well as comments in response to specific questions.",
+    "source_url": "https://www.federalregister.gov/documents/2026/04/01/2026-06271/whistleblower-incentives-and-protections"
+  },
+  {
+    "id": "SB-5ce3b7",
+    "date": "2026-04-28",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "8-K - American Fusion, Inc. (0000096664) (Filer)",
+    "summary": "",
+    "source_url": "https://www.sec.gov/Archives/edgar/data/96664/000107997326000557/amfn_8k.htm"
+  },
+  {
+    "id": "SB-954260",
+    "date": "2026-04-27",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "8-K - FLUSHING FINANCIAL CORP (0000923139) (Filer)",
+    "summary": "",
+    "source_url": "https://www.sec.gov/Archives/edgar/data/923139/000110465926049027/ffic-20260427x8k.htm"
+  },
+  {
+    "id": "SB-cac5f0",
+    "date": "2026-04-27",
+    "agency": "Other/SRO",
+    "type": "Guidance/Circular",
+    "title": "8-K - OCEANFIRST FINANCIAL CORP (0001004702) (Filer)",
+    "summary": "",
+    "source_url": "https://www.sec.gov/Archives/edgar/data/1004702/000100470226000041/ocfc-20260427.htm"
+  },
+  {
     "id": "2026-06229",
     "date": "2026-03-31",
     "agency": "SEC",
