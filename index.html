@@ -100,6 +100,26 @@
         .timeline { margin-left: 5px; border-left: none; padding-left: 0;}
         .event::before { display: none; }
     }
+
+    /* Tab Navigation */
+    .tab-bar { display: flex; gap: 15px; margin-bottom: 20px; border-bottom: 2px solid var(--border); padding-bottom: 5px; }
+    .tab-btn { background: transparent; border: none; font-size: 15px; font-weight: bold; color: var(--text-muted); cursor: pointer; padding: 5px 10px; }
+    .tab-btn.active { color: var(--text-main); border-bottom: 3px solid var(--c-primary); margin-bottom: -8px; }
+    .tab-btn .badge-count { background: var(--sev-high); color: white; border-radius: 10px; padding: 2px 6px; font-size: 11px; margin-left: 5px; }
+    .tab-btn .badge-count.zero { background: var(--c-gray-light); }
+
+    /* Container Toggling */
+    .quarantine-container { display: none; }
+    .quarantine-mode .timeline-main { display: none; }
+    .quarantine-mode .quarantine-container { display: block; }
+
+    /* Quarantine Visual Flag */
+    .event.quarantine-flag {
+        border: 2px dashed var(--sev-high);
+        background: repeating-linear-gradient( 45deg, #fffafa, #fffafa 10px, #fef2f2 10px, #fef2f2 20px );
+    }
+    .quarantine-flag::before { border-color: var(--sev-high); background: var(--sev-high); }
+    
 </style>
 </head>
 <body>
@@ -221,7 +241,12 @@
             </div>
         </div>
         <div class="main-content">
-            <div class="timeline" id="timelineContainer"></div>
+            <div class="tab-bar">
+                <button class="tab-btn active" id="tab-timeline" onclick="switchTab('timeline')">Active Intelligence</button>
+                <button class="tab-btn" id="tab-quarantine" onclick="switchTab('quarantine')">Quarantine Queue <span class="badge-count zero" id="count-quarantine">0</span></button>
+            </div>
+            <div class="timeline timeline-main" id="timelineContainer"></div>
+            <div class="timeline quarantine-container" id="quarantineContainer"></div>
         </div>
     </div>
 </div>
@@ -342,6 +367,19 @@
         }, 300);
     }
 
+    function switchTab(tab) {
+        document.getElementById('tab-timeline').classList.remove('active');
+        document.getElementById('tab-quarantine').classList.remove('active');
+        
+        if (tab === 'timeline') {
+            document.getElementById('tab-timeline').classList.add('active');
+            document.querySelector('.main-content').classList.remove('quarantine-mode');
+        } else {
+            document.getElementById('tab-quarantine').classList.add('active');
+            document.querySelector('.main-content').classList.add('quarantine-mode');
+        }
+    }
+
     function applyFilters() {
         const filters = {
             month: document.getElementById('filter-month').value,
@@ -352,8 +390,13 @@
             text: document.getElementById('filter-text').value.toLowerCase()
         };
 
-        let filtered = rawData.filter(item => {
-            // Absolute Sanitization: Cast all schema properties to Strings
+        // Fidelity Control Regex
+        const quarantineRegex = /(rate limit exceeded|llm processing error)/i;
+        
+        let validData = [];
+        let quarantineData = [];
+
+        rawData.forEach(item => {
             const safeTitle  = item.title ? String(item.title).toLowerCase() : "";
             const safeSummary = item.summary ? String(item.summary).toLowerCase() : "";
             const safeId     = item.id ? String(item.id).toLowerCase() : "";
@@ -368,36 +411,59 @@
                 safeSummary.includes(filters.text) ||
                 safeId.includes(filters.text);
             
-            // Execute comparisons safely against the casted strings
-            return (filters.month === "All" || safeDate.startsWith(filters.month)) &&
+            const matchesFilters = (filters.month === "All" || safeDate.startsWith(filters.month)) &&
                    (filters.agency === "All" || safeAgency === filters.agency) &&
                    (filters.type === "All" || safeType === filters.type) &&
                    (filters.theme === "All" || safeTheme === filters.theme) &&
                    (filters.sector === "All" || safeSector === filters.sector) &&
                    matchText;
+
+            if (matchesFilters) {
+                // Route corrupt data to Quarantine
+                if (quarantineRegex.test(safeSummary)) {
+                    quarantineData.push(item);
+                } else {
+                    validData.push(item);
+                }
+            }
         });
 
-        filtered.sort((a, b) => {
+        const sortLogic = (a, b) => {
             const daysA = calculateDays(a.effective_date);
             const daysB = calculateDays(b.effective_date);
             if (daysA !== null && daysA >= 0 && daysB !== null && daysB >= 0) return daysA - daysB;
             if (daysA !== null && daysA >= 0) return -1;
             if (daysB !== null && daysB >= 0) return 1;
             
-            // Hardened sort fallback
             const timeA = a.date ? new Date(a.date).getTime() : 0;
             const timeB = b.date ? new Date(b.date).getTime() : 0;
             return (isNaN(timeB) ? 0 : timeB) - (isNaN(timeA) ? 0 : timeA);
-        });
+        };
+
+        validData.sort(sortLogic);
+        quarantineData.sort(sortLogic);
         
-        updateKPIs(filtered);
-        renderTimeline(filtered);
-        renderCharts(filtered);
+        // Update Quarantine Badge Counter
+        const qBadge = document.getElementById('count-quarantine');
+        qBadge.textContent = quarantineData.length;
+        if (quarantineData.length > 0) {
+            qBadge.classList.remove('zero');
+        } else {
+            qBadge.classList.add('zero');
+        }
+
+        // Isolate corrupt data from analytical processing
+        updateKPIs(validData); 
+        renderCharts(validData);
+
+        // Render dual timelines
+        renderTimeline(validData, 'timelineContainer', false);
+        renderTimeline(quarantineData, 'quarantineContainer', true);
     }
 
     function updateKPIs(data) {
         document.getElementById('kpi-total').textContent = data.length;
-
+    
         if (data.length === 0) {
             document.getElementById('kpi-agency').textContent = "-";
             document.getElementById('kpi-theme').textContent = "-";
@@ -428,12 +494,13 @@
         document.getElementById('kpi-deadlines').textContent = nearDeadline;
     }
 
-    function renderTimeline(data) {
-        const container = document.getElementById('timelineContainer');
+    // Notice the updated signature: renderTimeline(data, containerId, isQuarantine)
+    function renderTimeline(data, containerId = 'timelineContainer', isQuarantine = false) {
+        const container = document.getElementById(containerId);
         container.innerHTML = ''; 
         
         if (data.length === 0) {
-            container.innerHTML = '<div class="empty-state">No intelligence artifacts match the current filter parameters.</div>';
+            container.innerHTML = `<div class="empty-state">No ${isQuarantine ? 'corrupted ' : ''}intelligence artifacts match the current filter parameters.</div>`;
             return;
         }
 
@@ -443,10 +510,12 @@
             const cfg = typeConfig[item.type] || { color: "#475569" };
             const badgeTextColor = item.type === "NPRM" ? "#000000" : "#ffffff";
             const sevClass = item.severity ? `sev-${item.severity}` : '';
+            const quarantineClass = isQuarantine ? 'quarantine-flag' : '';
 
             const eventDiv = document.createElement('div');
-            eventDiv.className = `event ${sevClass}`;
+            eventDiv.className = `event ${sevClass} ${quarantineClass}`;
 
+            // --- Keep the rest of your existing eventDiv assembly logic below ---
             const deleteBtn = document.createElement('button');
             deleteBtn.className = 'btn-delete';
             deleteBtn.textContent = '×';
@@ -530,7 +599,7 @@
         });
         container.appendChild(fragment);
     }
-
+    
     function renderCharts(data) {
         if (typeof Chart === 'undefined') return;
 
