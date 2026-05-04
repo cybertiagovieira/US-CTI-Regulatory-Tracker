@@ -1,47 +1,51 @@
 import json
+from difflib import SequenceMatcher
 
-def purge_artifacts():
-    file_path = 'master_data.json'
-    
+DATA_FILE = 'master_data.json'
+SIMILARITY_THRESHOLD = 0.80
+
+def calculate_similarity(a, b):
+    if not a or not b: 
+        return 0.0
+    return SequenceMatcher(None, str(a).lower(), str(b).lower()).ratio()
+
+def execute_purge():
     try:
-        with open(file_path, "r", encoding="utf-8") as f:
+        with open(DATA_FILE, 'r', encoding='utf-8') as f:
             data = json.load(f)
-    except (FileNotFoundError, json.JSONDecodeError) as e:
-        print(f"Ledger initialization failed: {e}.")
+    except (FileNotFoundError, json.JSONDecodeError):
+        print("Fatal: master_data.json unreadable or missing.")
         return
 
-    initial_count = len(data)
-    
-    # 1. Drop bad SRO artifact pattern
-    clean_data = [
-        item for item in data 
-        if not (item.get("agency") == "Other/SRO" and 
-                item.get("type") == "Guidance/Circular" and 
-                item.get("summary", "").strip() == "")
-    ]
+    retained = []
+    purged = 0
 
-    # 2. Duplicate URL stripping logic correctly implemented
-    seen_urls = set()
-    deduped_data = []
-    for item in clean_data:
-        url = item.get("source_url")
-        # Require URL to be truthy and longer than 5 chars to qualify for deduplication. Prevents deleting manual entries.
-        if url and len(url) > 5:
-            if url in seen_urls:
-                continue
-            seen_urls.add(url)
-        deduped_data.append(item)
+    for new_item in data:
+        is_duplicate = False
+        for existing_item in retained:
+            # Baseline Constraint: Exact URL collision
+            url_a = new_item.get('source_url')
+            url_b = existing_item.get('source_url')
+            if url_a and url_b and url_a == url_b:
+                is_duplicate = True
+                break
 
-    removed_count = initial_count - len(deduped_data)
+            # Semantic Constraint: Agency + Date + Title topology
+            if new_item.get('agency') == existing_item.get('agency') and new_item.get('date') == existing_item.get('date'):
+                sim = calculate_similarity(new_item.get('title'), existing_item.get('title'))
+                if sim >= SIMILARITY_THRESHOLD:
+                    is_duplicate = True
+                    break
 
-    try:
-        with open(file_path, 'w', encoding='utf-8') as f:
-            json.dump(deduped_data, f, indent=2)
-    except Exception as e:
-        print(f"Write failure: {e}")
-        return
+        if is_duplicate:
+            purged += 1
+        else:
+            retained.append(new_item)
 
-    print(f"Purge complete. Terminated {removed_count} artifacts. {len(deduped_data)} records retained.")
+    with open(DATA_FILE, 'w', encoding='utf-8') as f:
+        json.dump(retained, f, indent=2)
+
+    print(f"Purge complete. Semantic duplicates removed: {purged}. Total records retained: {len(retained)}")
 
 if __name__ == "__main__":
-    purge_artifacts()
+    execute_purge()
