@@ -376,16 +376,11 @@
             const timeA = a.date ? new Date(a.date).getTime() : 0;
             const timeB = b.date ? new Date(b.date).getTime() : 0;
             return (isNaN(timeB) ? 0 : timeB) - (isNaN(timeA) ? 0 : timeA);
-            
-            // Hardened sort fallback
-            const timeA = a.date ? new Date(a.date).getTime() : 0;
-            const timeB = b.date ? new Date(b.date).getTime() : 0;
-            return (isNaN(timeB) ? 0 : timeB) - (isNaN(timeA) ? 0 : timeA);
         });
         
         updateKPIs(filtered);
         renderTimeline(filtered);
-        renderCharts(filtered); // FIX: Restored this function call
+        renderCharts(filtered);
     }
 
     function updateKPIs(data) {
@@ -691,17 +686,41 @@
     }
 
     function exportArtifact() {
+        // Serialize dynamic filter states into hard DOM attributes prior to cloning
+        ['filter-month', 'filter-agency', 'filter-type', 'filter-theme', 'filter-sector'].forEach(id => {
+            const el = document.getElementById(id);
+            if (!el) return;
+            Array.from(el.options).forEach(opt => opt.removeAttribute('selected'));
+            const selectedOpt = el.querySelector(`option[value="${el.value}"]`);
+            if (selectedOpt) selectedOpt.setAttribute('selected', 'selected');
+        });
+
+        const textFilter = document.getElementById('filter-text');
+        if (textFilter) textFilter.setAttribute('value', textFilter.value);
+
+        // Clone DOM without triggering disruptive live UI resets
         const docClone = document.documentElement.cloneNode(true);
         docClone.querySelector('body').classList.remove('admin-mode');
         
+        // Strip administrative surface area from the executive export
         const adminPanel = docClone.querySelector('#admin-panel');
-        if(adminPanel) adminPanel.remove();
+        if (adminPanel) adminPanel.remove();
+        const adminBtn = docClone.querySelector('#btn-admin');
+        if (adminBtn) adminBtn.remove();
         
+        // Error Boundary & Self-Healing Data Injection
         const cleanData = JSON.stringify(rawData).replace(/</g, '\\u003c');
-        const dataNode = docClone.querySelector('#data-layer');
-        if (dataNode) {
-            dataNode.textContent = `window.INJECTED_DATA = ${cleanData};`;
+        let dataNode = docClone.querySelector('#data-layer');
+        
+        // Fallback: Rebuild the data layer if the tag was manually deleted from the HTML
+        if (!dataNode) {
+            console.warn("Data layer missing. Self-healing protocol executed.");
+            dataNode = document.createElement('script');
+            dataNode.id = 'data-layer';
+            docClone.head.appendChild(dataNode);
         }
+        
+        dataNode.textContent = `window.INJECTED_DATA = ${cleanData};`;
 
         const blob = new Blob(["<!DOCTYPE html>\n" + docClone.outerHTML], { type: 'text/html' });
         const link = document.createElement('a');
