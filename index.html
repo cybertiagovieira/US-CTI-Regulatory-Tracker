@@ -108,6 +108,24 @@
     .tab-btn .badge-count { background: var(--sev-high); color: white; border-radius: 10px; padding: 2px 6px; font-size: 11px; margin-left: 5px; }
     .tab-btn .badge-count.zero { background: var(--c-gray-light); }
 
+    /* Kanban Layout */
+    .view-controls { margin-bottom: 15px; display: flex; gap: 10px; }
+    .btn-view { background: #e2e8f0; border: none; padding: 5px 12px; border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: bold; color: var(--text-muted); }
+    .btn-view.active { background: var(--c-primary); color: white; }
+    
+    .kanban-board { display: none; grid-template-columns: repeat(3, 1fr); gap: 20px; align-items: start; }
+    .kanban-mode .timeline-main { display: none; }
+    .kanban-mode .kanban-board { display: grid; }
+    
+    .kanban-col { background: #f8fafc; border: 1px solid var(--border); border-radius: 8px; padding: 10px; height: 100%; min-height: 500px; }
+    .kanban-col h3 { text-align: center; margin: 0 0 10px 0; font-size: 13px; color: var(--text-main); border-bottom: 2px solid var(--border); padding-bottom: 10px; text-transform: uppercase; }
+    .kanban-col.col-proposed h3 { border-color: var(--hl-3); }
+    .kanban-col.col-active h3 { border-color: var(--c-primary); }
+    .kanban-col.col-punitive h3 { border-color: var(--hl-1); }
+    
+    .kanban-board .event { margin-bottom: 10px; padding: 10px; }
+    .kanban-board .event::before { display: none; }
+
     /* Container Toggling */
     .quarantine-container { display: none; }
     .quarantine-mode .timeline-main { display: none; }
@@ -245,7 +263,29 @@
                 <button class="tab-btn active" id="tab-timeline" onclick="switchTab('timeline')">Active Intelligence</button>
                 <button class="tab-btn" id="tab-quarantine" onclick="switchTab('quarantine')">Quarantine Queue <span class="badge-count zero" id="count-quarantine">0</span></button>
             </div>
+            
+            <div class="view-controls" id="active-view-controls">
+                <button class="btn-view active" id="view-timeline" onclick="switchView('timeline')">Timeline View</button>
+                <button class="btn-view" id="view-kanban" onclick="switchView('kanban')">Kanban Matrix</button>
+            </div>
+
             <div class="timeline timeline-main" id="timelineContainer"></div>
+            
+            <div class="kanban-board" id="kanbanContainer">
+                <div class="kanban-col col-proposed">
+                    <h3>Proposed (NPRM)</h3>
+                    <div id="kb-proposed"></div>
+                </div>
+                <div class="kanban-col col-active">
+                    <h3>Active Mandates</h3>
+                    <div id="kb-active"></div>
+                </div>
+                <div class="kanban-col col-punitive">
+                    <h3>Enforcement / Audits</h3>
+                    <div id="kb-punitive"></div>
+                </div>
+            </div>
+
             <div class="timeline quarantine-container" id="quarantineContainer"></div>
         </div>
     </div>
@@ -367,16 +407,32 @@
         }, 300);
     }
 
+    function switchView(viewType) {
+        document.getElementById('view-timeline').classList.remove('active');
+        document.getElementById('view-kanban').classList.remove('active');
+        
+        if (viewType === 'timeline') {
+            document.getElementById('view-timeline').classList.add('active');
+            document.querySelector('.main-content').classList.remove('kanban-mode');
+        } else {
+            document.getElementById('view-kanban').classList.add('active');
+            document.querySelector('.main-content').classList.add('kanban-mode');
+        }
+    }
+
     function switchTab(tab) {
         document.getElementById('tab-timeline').classList.remove('active');
         document.getElementById('tab-quarantine').classList.remove('active');
+        const viewControls = document.getElementById('active-view-controls');
         
         if (tab === 'timeline') {
             document.getElementById('tab-timeline').classList.add('active');
             document.querySelector('.main-content').classList.remove('quarantine-mode');
+            if(viewControls) viewControls.style.display = 'flex';
         } else {
             document.getElementById('tab-quarantine').classList.add('active');
             document.querySelector('.main-content').classList.add('quarantine-mode');
+            if(viewControls) viewControls.style.display = 'none';
         }
     }
 
@@ -458,6 +514,7 @@
 
         // Render dual timelines
         renderTimeline(validData, 'timelineContainer', false);
+        renderKanban(validData);
         renderTimeline(quarantineData, 'quarantineContainer', true);
     }
 
@@ -495,6 +552,96 @@
     }
 
     // Notice the updated signature: renderTimeline(data, containerId, isQuarantine)
+    function createEventCard(item, isQuarantine) {
+        const cfg = typeConfig[item.type] || { color: "#475569" };
+        const badgeTextColor = item.type === "NPRM" ? "#000000" : "#ffffff";
+        const sevClass = item.severity ? `sev-${item.severity}` : '';
+        const quarantineClass = isQuarantine ? 'quarantine-flag' : '';
+
+        const eventDiv = document.createElement('div');
+        eventDiv.className = `event ${sevClass} ${quarantineClass}`;
+
+        const deleteBtn = document.createElement('button');
+        deleteBtn.className = 'btn-delete';
+        deleteBtn.textContent = '×';
+        deleteBtn.onclick = () => deleteEntry(item.id);
+        eventDiv.appendChild(deleteBtn);
+
+        const metaDiv = document.createElement('div');
+        metaDiv.className = 'meta';
+
+        if(item.id) {
+            const idBadge = document.createElement('span');
+            idBadge.className = 'badge id-tag';
+            idBadge.textContent = String(item.id).substring(0,8);
+            idBadge.title = item.id;
+            metaDiv.appendChild(idBadge);
+        }
+
+        const typeBadge = document.createElement('span');
+        typeBadge.className = 'badge';
+        typeBadge.style.background = cfg.color;
+        typeBadge.style.color = badgeTextColor;
+        typeBadge.textContent = item.type;
+        metaDiv.appendChild(typeBadge);
+
+        if(item.agency) {
+            const agencyBadge = document.createElement('span');
+            agencyBadge.className = 'badge agency';
+            agencyBadge.textContent = item.agency;
+            metaDiv.appendChild(agencyBadge);
+        }
+
+        if(item.theme && item.theme !== "General") {
+            const themeBadge = document.createElement('span');
+            themeBadge.className = 'badge theme';
+            themeBadge.textContent = item.theme;
+            metaDiv.appendChild(themeBadge);
+        }
+
+        if(item.target_sector && item.target_sector !== "All Entities") {
+            const sectorBadge = document.createElement('span');
+            sectorBadge.className = 'badge sector';
+            sectorBadge.textContent = item.target_sector;
+            metaDiv.appendChild(sectorBadge);
+        }
+
+        const daysLeft = calculateDays(item.effective_date);
+        if (daysLeft !== null && daysLeft >= 0) {
+            const cdBadge = document.createElement('span');
+            cdBadge.className = `badge countdown ${daysLeft <= 30 ? 'urgent' : ''}`;
+            cdBadge.textContent = `T-${daysLeft} Days`;
+            metaDiv.appendChild(cdBadge);
+        }
+
+        const dateSpan = document.createElement('span');
+        dateSpan.className = 'date';
+        dateSpan.textContent = `Issued: ${item.date}`;
+        metaDiv.appendChild(dateSpan);
+        eventDiv.appendChild(metaDiv);
+
+        const titleH2 = document.createElement('h2');
+        titleH2.className = 'title';
+        titleH2.textContent = item.title;
+        eventDiv.appendChild(titleH2);
+
+        const summaryP = document.createElement('p');
+        summaryP.className = 'summary';
+        summaryP.textContent = item.summary;
+        eventDiv.appendChild(summaryP);
+
+        if(item.source_url) {
+            const link = document.createElement('a');
+            link.className = 'source-link';
+            link.href = item.source_url;
+            link.target = '_blank';
+            link.textContent = 'Access Source Document →';
+            eventDiv.appendChild(link);
+        }
+
+        return eventDiv;
+    }
+
     function renderTimeline(data, containerId = 'timelineContainer', isQuarantine = false) {
         const container = document.getElementById(containerId);
         container.innerHTML = ''; 
@@ -505,139 +652,32 @@
         }
 
         const fragment = document.createDocumentFragment();
-
         data.forEach(item => {
-            const cfg = typeConfig[item.type] || { color: "#475569" };
-            const badgeTextColor = item.type === "NPRM" ? "#000000" : "#ffffff";
-            const sevClass = item.severity ? `sev-${item.severity}` : '';
-            const quarantineClass = isQuarantine ? 'quarantine-flag' : '';
-
-            const eventDiv = document.createElement('div');
-            eventDiv.className = `event ${sevClass} ${quarantineClass}`;
-
-            // --- Keep the rest of your existing eventDiv assembly logic below ---
-            const deleteBtn = document.createElement('button');
-            deleteBtn.className = 'btn-delete';
-            deleteBtn.textContent = '×';
-            deleteBtn.onclick = () => deleteEntry(item.id);
-            eventDiv.appendChild(deleteBtn);
-
-            const metaDiv = document.createElement('div');
-            metaDiv.className = 'meta';
-
-            if(item.id) {
-                const idBadge = document.createElement('span');
-                idBadge.className = 'badge id-tag';
-                idBadge.textContent = String(item.id).substring(0,8);
-                idBadge.title = item.id;
-                metaDiv.appendChild(idBadge);
-            }
-
-            const typeBadge = document.createElement('span');
-            typeBadge.className = 'badge';
-            typeBadge.style.background = cfg.color;
-            typeBadge.style.color = badgeTextColor;
-            typeBadge.textContent = item.type;
-            metaDiv.appendChild(typeBadge);
-
-            if(item.agency) {
-                const agencyBadge = document.createElement('span');
-                agencyBadge.className = 'badge agency';
-                agencyBadge.textContent = item.agency;
-                metaDiv.appendChild(agencyBadge);
-            }
-
-            if(item.theme && item.theme !== "General") {
-                const themeBadge = document.createElement('span');
-                themeBadge.className = 'badge theme';
-                themeBadge.textContent = item.theme;
-                metaDiv.appendChild(themeBadge);
-            }
-
-            if(item.target_sector && item.target_sector !== "All Entities") {
-                const sectorBadge = document.createElement('span');
-                sectorBadge.className = 'badge sector';
-                sectorBadge.textContent = item.target_sector;
-                metaDiv.appendChild(sectorBadge);
-            }
-
-            const daysLeft = calculateDays(item.effective_date);
-            if (daysLeft !== null && daysLeft >= 0) {
-                const cdBadge = document.createElement('span');
-                cdBadge.className = `badge countdown ${daysLeft <= 30 ? 'urgent' : ''}`;
-                cdBadge.textContent = `T-${daysLeft} Days`;
-                metaDiv.appendChild(cdBadge);
-            }
-
-            const dateSpan = document.createElement('span');
-            dateSpan.className = 'date';
-            dateSpan.textContent = `Issued: ${item.date}`;
-            metaDiv.appendChild(dateSpan);
-
-            eventDiv.appendChild(metaDiv);
-
-            const titleH2 = document.createElement('h2');
-            titleH2.className = 'title';
-            titleH2.textContent = item.title;
-            eventDiv.appendChild(titleH2);
-
-            const summaryP = document.createElement('p');
-            summaryP.className = 'summary';
-            summaryP.textContent = item.summary;
-            eventDiv.appendChild(summaryP);
-
-            if(item.source_url) {
-                const link = document.createElement('a');
-                link.className = 'source-link';
-                link.href = item.source_url;
-                link.target = '_blank';
-                link.textContent = 'Access Source Document →';
-                eventDiv.appendChild(link);
-            }
-
-            fragment.appendChild(eventDiv);
+            fragment.appendChild(createEventCard(item, isQuarantine));
         });
         container.appendChild(fragment);
     }
-    
-    function renderCharts(data) {
-        if (typeof Chart === 'undefined') return;
 
-        try {
-            const fixedThemes = ["Incident Reporting", "Ransomware", "Third-Party Risk", "Data Privacy", "Governance"];
-            const themeCounts = fixedThemes.map(t => data.filter(d => d.theme === t).length);
+    function renderKanban(data) {
+        const kbProposed = document.getElementById('kb-proposed');
+        const kbActive = document.getElementById('kb-active');
+        const kbPunitive = document.getElementById('kb-punitive');
 
-            if(charts.radar) charts.radar.destroy();
-            charts.radar = new Chart(document.getElementById('radarChart'), {
-                type: 'radar',
-                data: { labels: fixedThemes, datasets: [{ label: 'Events', data: themeCounts, backgroundColor: 'rgba(220, 38, 38, 0.2)', borderColor: '#dc2626', pointBackgroundColor: '#dc2626', borderWidth: 2 }] },
-                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { r: { beginAtZero: true, ticks: { stepSize: 1 } } } }
-            });
+        kbProposed.innerHTML = '';
+        kbActive.innerHTML = '';
+        kbPunitive.innerHTML = '';
 
-            const types = Object.keys(typeConfig);
-            const typeCounts = types.map(t => data.filter(d => d.type === t).length);
-            const typeColors = types.map(t => typeConfig[t].color);
-
-            if(charts.donut) charts.donut.destroy();
-            charts.donut = new Chart(document.getElementById('donutChart'), {
-                type: 'doughnut',
-                data: { labels: types, datasets: [{ data: typeCounts, backgroundColor: typeColors, borderWidth: 0 }] },
-                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right', labels: { boxWidth: 10 } } }, cutout: '70%' }
-            });
-
-            const agencies = [...new Set(data.map(d => d.agency).filter(Boolean))].sort();
-            const agencyCounts = agencies.map(a => data.filter(d => d.agency === a).length);
+        data.forEach(item => {
+            const card = createEventCard(item, false);
             
-            if(charts.bar) charts.bar.destroy();
-            charts.bar = new Chart(document.getElementById('barChart'), {
-                type: 'bar',
-                data: { labels: agencies, datasets: [{ data: agencyCounts, backgroundColor: '#3b82f6', borderRadius: 3 }] },
-                options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { beginAtZero: true, ticks: { stepSize: 1 } } } }
-            });
-
-        } catch (e) {
-            console.error("Chart generation failed.", e);
-        }
+            if (item.type === 'NPRM') {
+                kbProposed.appendChild(card);
+            } else if (item.type === 'Enforcement Action' || item.type === 'Examination Priority') {
+                kbPunitive.appendChild(card);
+            } else {
+                kbActive.appendChild(card);
+            }
+        });
     }
 
     async function githubFetch(url, options = {}, retries = 3) {
