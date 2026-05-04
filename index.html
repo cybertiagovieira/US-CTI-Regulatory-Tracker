@@ -324,16 +324,27 @@
         };
 
         let filtered = rawData.filter(item => {
+            // Absolute Sanitization: Cast all schema properties to Strings
+            const safeTitle  = item.title ? String(item.title).toLowerCase() : "";
+            const safeSummary = item.summary ? String(item.summary).toLowerCase() : "";
+            const safeId     = item.id ? String(item.id).toLowerCase() : "";
+            const safeDate   = item.date ? String(item.date) : "";
+            const safeAgency = item.agency ? String(item.agency) : "";
+            const safeType   = item.type ? String(item.type) : "";
+            const safeTheme  = item.theme ? String(item.theme) : "";
+            const safeSector = item.target_sector ? String(item.target_sector) : "";
+
             let matchText = filters.text === "" || 
-                (item.title && item.title.toLowerCase().includes(filters.text)) || 
-                (item.summary && item.summary.toLowerCase().includes(filters.text)) ||
-                (item.id && item.id.toLowerCase().includes(filters.text)); // Re-enabled ID Search
+                safeTitle.includes(filters.text) || 
+                safeSummary.includes(filters.text) ||
+                safeId.includes(filters.text);
             
-            return (filters.month === "All" || (item.date && item.date.startsWith(filters.month))) &&
-                   (filters.agency === "All" || item.agency === filters.agency) &&
-                   (filters.type === "All" || item.type === filters.type) &&
-                   (filters.theme === "All" || item.theme === filters.theme) &&
-                   (filters.sector === "All" || item.target_sector === filters.sector) &&
+            // Execute comparisons safely against the casted strings
+            return (filters.month === "All" || safeDate.startsWith(filters.month)) &&
+                   (filters.agency === "All" || safeAgency === filters.agency) &&
+                   (filters.type === "All" || safeType === filters.type) &&
+                   (filters.theme === "All" || safeTheme === filters.theme) &&
+                   (filters.sector === "All" || safeSector === filters.sector) &&
                    matchText;
         });
 
@@ -343,7 +354,11 @@
             if (daysA !== null && daysA >= 0 && daysB !== null && daysB >= 0) return daysA - daysB;
             if (daysA !== null && daysA >= 0) return -1;
             if (daysB !== null && daysB >= 0) return 1;
-            return new Date(b.date) - new Date(a.date);
+            
+            // Hardened sort fallback
+            const timeA = a.date ? new Date(a.date).getTime() : 0;
+            const timeB = b.date ? new Date(b.date).getTime() : 0;
+            return (isNaN(timeB) ? 0 : timeB) - (isNaN(timeA) ? 0 : timeA);
         });
         
         updateKPIs(filtered);
