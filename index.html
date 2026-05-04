@@ -571,6 +571,47 @@
         }
     }
 
+    async function githubFetch(url, options = {}, retries = 3) {
+        for (let i = 0; i < retries; i++) {
+            const response = await fetch(url, options);
+            
+            // Bypass successful requests
+            if (response.ok) return response;
+
+            // Intercept Rate Limits (GitHub uses 403 for secondary limits, 429 for general)
+            if (response.status === 403 || response.status === 429) {
+                const retryAfter = response.headers.get('retry-after');
+                const rateLimitRemaining = response.headers.get('x-ratelimit-remaining');
+                
+                if (retryAfter || rateLimitRemaining === '0') {
+                    let waitTime = 2000; // Default 2s penalty
+
+                    if (retryAfter) {
+                        waitTime = parseInt(retryAfter) * 1000;
+                    } else {
+                        const resetTime = response.headers.get('x-ratelimit-reset');
+                        if (resetTime) {
+                            const resetDate = new Date(parseInt(resetTime) * 1000);
+                            waitTime = Math.max(resetDate - new Date(), 1000);
+                            
+                            // Hard abort if wait time exceeds 60 seconds (Primary Quota Exhausted)
+                            if (waitTime > 60000) {
+                                throw new Error(`API Quota Exhausted. Ban lifts at: ${resetDate.toLocaleTimeString()}`);
+                            }
+                        }
+                    }
+
+                    console.warn(`[Rate Limit] Imposed penalty. Pausing thread for ${waitTime}ms...`);
+                    await new Promise(resolve => setTimeout(resolve, waitTime));
+                    continue; // Re-execute request after penalty box
+                }
+            }
+            // Return standard errors (404, 409) to caller
+            return response; 
+        }
+        throw new Error("API Failure: Max retry attempts exceeded.");
+    }
+
     async function syncToGitHubAtomic(action, target) {
         const token = document.getElementById('gh-token').value;
         const repo = document.getElementById('gh-repo').value;
@@ -579,23 +620,25 @@
         const url = `https://api.github.com/repos/${repo}/contents/master_data.json`;
         
         try {
-            // Step 1: Fetch absolute latest remote state to prevent overwriting peers
-            const remoteRes = await fetch(`${url}?t=${new Date().getTime()}`);
+            // Step 1: Fetch via rate-limit interceptor
+            const remoteRes = await githubFetch(`${url}?t=${new Date().getTime()}`, {
+                headers: { 'Authorization': `token ${token}` }
+            });
             if (!remoteRes.ok) throw new Error("Could not fetch remote state.");
             const remoteData = await remoteRes.json();
             
-            // Step 2: Decode remote payload securely
+            // Step 2: Decode remote payload
             const remoteText = decodeURIComponent(escape(atob(remoteData.content)));
             let remoteJson = JSON.parse(remoteText);
 
-            // Step 3: Apply local mutation to the fresh remote JSON directly
+            // Step 3: Apply local mutation
             if (action === 'ADD') {
                 remoteJson.push(target);
             } else if (action === 'DELETE') {
                 remoteJson = remoteJson.filter(d => d.id !== target);
             }
 
-            // Step 4: Push the merged payload back with the validated SHA
+            // Step 4: Push merged payload via rate-limit interceptor
             const content = b64EncodeUnicode(JSON.stringify(remoteJson, null, 2));
             const body = { 
                 message: `Dashboard Admin: ${action} Operation`, 
@@ -604,7 +647,7 @@
                 sha: remoteData.sha 
             };
 
-            const pushRes = await fetch(url, { 
+            const pushRes = await githubFetch(url, { 
                 method: 'PUT', 
                 headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' }, 
                 body: JSON.stringify(body) 
@@ -613,8 +656,6 @@
             if (pushRes.ok) {
                 const pushData = await pushRes.json();
                 currentFileSha = pushData.content.sha;
-                
-                // Step 5: Sync local state to the merged remote state
                 rawData = remoteJson; 
                 return true;
             } else {
@@ -623,11 +664,11 @@
             }
         } catch(e) {
             console.error(e);
-            alert("Network routing or synchronization error.");
+            alert(e.message || "Network routing or synchronization error.");
             return false;
         }
     }
-
+    
     async function addEntry() {
         if (isProcessing) return; 
         
