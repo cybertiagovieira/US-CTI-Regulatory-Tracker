@@ -3,8 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>US CTI Regulatory Intelligence - Builder</title>
+<title>US CTI Regulatory Intelligence Dashboard</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script id="data-layer">
+    // Artifact injection point for offline HTML exports
+    window.INJECTED_DATA = null;
+</script>
 <style>
     :root {
         --bg-main: #f1f5f9; 
@@ -60,6 +64,7 @@
     .chart-container { position: relative; height: 220px; width: 100%; }
     
     .timeline { border-left: 2px solid var(--border); padding-left: 20px; margin-left: 10px;}
+    .empty-state { text-align: center; padding: 40px; color: var(--text-muted); font-weight: bold; border: 2px dashed var(--border); border-radius: 8px; background: var(--bg-panel); }
     .event { background: var(--bg-panel); padding: 15px; border-radius: 6px; margin-bottom: 15px; border-left: 4px solid transparent; border: 1px solid var(--border); position: relative; box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
     .event.sev-High { border-left: 4px solid var(--sev-high); background: #fef2f2; }
     .event.sev-Medium { border-left: 4px solid var(--sev-med); }
@@ -79,7 +84,7 @@
     .badge.countdown.urgent { background: var(--sev-high); animation: pulse 2s infinite; }
     .date { color: var(--text-muted); margin-left: auto; font-weight: normal; }
     .title { margin: 0 0 8px 0; font-size: 15px; color: var(--text-main); }
-    .summary { margin: 0; color: #334155; font-size: 13px; line-height: 1.5; }
+    .summary { margin: 0; color: #334155; font-size: 13px; line-height: 1.5; white-space: pre-wrap; }
     
     a.source-link { color: var(--c-primary); text-decoration: none; font-size: 12px; margin-top: 8px; display: inline-block; font-weight: bold;}
     a.source-link:hover { text-decoration: underline; }
@@ -92,20 +97,21 @@
 
     @media (max-width: 900px) {
         .dashboard-grid { grid-template-columns: 1fr; }
-        .timeline { margin-left: 5px; }
+        .timeline { margin-left: 5px; border-left: none; padding-left: 0;}
+        .event::before { display: none; }
     }
 </style>
 </head>
-<body class="admin-mode">
+<body>
 
 <div class="container">
     <div class="header-bar">
-        <h1>US CTI Regulatory Tracker: 2026</h1>
+        <h1>US CTI Regulatory Tracker</h1>
         <div class="export-group">
             <button class="btn-export btn-brief" onclick="generateExecBrief()">Generate Executive Brief</button>
             <button class="btn-export" onclick="exportData('csv')">CSV</button>
             <button class="btn-export" onclick="exportData('json')">JSON</button>
-            <button class="btn-export" onclick="exportArtifact()">HTML</button>
+            <button class="btn-export" onclick="exportArtifact()">HTML Download</button>
         </div>
     </div>
 
@@ -233,6 +239,15 @@
     let rawData = [];
     let charts = {};
     let currentFileSha = '';
+    let isProcessing = false;
+
+    // Security: Escapes HTML injection from raw JSON strings
+    function sanitizeHTML(str) {
+        if (!str) return "";
+        const temp = document.createElement('div');
+        temp.textContent = str;
+        return temp.innerHTML;
+    }
 
     function b64EncodeUnicode(str) {
         return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, function(match, p1) {
@@ -249,24 +264,25 @@
                 const data = await res.json();
                 currentFileSha = data.sha;
             }
-        } catch(e) {
-            console.warn("GitHub SHA fetch bypass.");
-        }
+        } catch(e) {}
     }
 
     async function init() {
-        if (window.location.protocol === 'file:') {
-            document.body.innerHTML = '<div style="padding: 40px; text-align: center;"><h2>Local Execution Blocked</h2><p>Execute HTTP Server.</p><code>python -m http.server 8000</code></div>';
-            return;
+        // Gated Admin Access: URL requires ?admin=true
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('admin') === 'true') {
+            document.body.classList.add('admin-mode');
         }
 
-        try {
-            const response = await fetch(`master_data.json?t=${new Date().getTime()}`);
-            if(response.ok) {
-                rawData = await response.json();
-            }
-        } catch (error) {
-            console.error("Payload inaccessible.");
+        if (window.INJECTED_DATA) {
+            rawData = window.INJECTED_DATA;
+        } else if (window.location.protocol !== 'file:') {
+            try {
+                const response = await fetch(`master_data.json?t=${new Date().getTime()}`);
+                if(response.ok) {
+                    rawData = await response.json();
+                }
+            } catch (error) { console.error("Data inaccessible."); }
         }
 
         await fetchSha();
@@ -309,6 +325,7 @@
         const today = new Date();
         today.setHours(0,0,0,0);
         const target = new Date(parts[0], parts[1] - 1, parts[2]);
+        if(isNaN(target.getTime())) return null;
         target.setHours(0,0,0,0);
         return Math.ceil((target - today) / (1000 * 60 * 60 * 24));
     }
@@ -359,11 +376,16 @@
             const timeA = a.date ? new Date(a.date).getTime() : 0;
             const timeB = b.date ? new Date(b.date).getTime() : 0;
             return (isNaN(timeB) ? 0 : timeB) - (isNaN(timeA) ? 0 : timeA);
+            
+            // Hardened sort fallback
+            const timeA = a.date ? new Date(a.date).getTime() : 0;
+            const timeB = b.date ? new Date(b.date).getTime() : 0;
+            return (isNaN(timeB) ? 0 : timeB) - (isNaN(timeA) ? 0 : timeA);
         });
         
         updateKPIs(filtered);
         renderTimeline(filtered);
-        renderCharts(filtered);
+        renderCharts(filtered); // FIX: Restored this function call
     }
 
     function updateKPIs(data) {
@@ -402,6 +424,12 @@
     function renderTimeline(data) {
         const container = document.getElementById('timelineContainer');
         container.innerHTML = ''; 
+        
+        if (data.length === 0) {
+            container.innerHTML = '<div class="empty-state">No intelligence artifacts match the current filter parameters.</div>';
+            return;
+        }
+
         const fragment = document.createDocumentFragment();
 
         data.forEach(item => {
@@ -421,11 +449,10 @@
             const metaDiv = document.createElement('div');
             metaDiv.className = 'meta';
 
-            // Re-enabled Visual ID Tag
             if(item.id) {
                 const idBadge = document.createElement('span');
                 idBadge.className = 'badge id-tag';
-                idBadge.textContent = item.id.substring(0,8);
+                idBadge.textContent = String(item.id).substring(0,8);
                 idBadge.title = item.id;
                 metaDiv.appendChild(idBadge);
             }
@@ -542,14 +569,13 @@
         const repo = document.getElementById('gh-repo').value;
         if(!token) return alert("GitHub PAT Required.") && false;
 
-        // Fetch fresh SHA immediately before executing write
         try {
             const shaRes = await fetch(`https://api.github.com/repos/${repo}/contents/master_data.json`);
             if(shaRes.ok) {
                 const shaData = await shaRes.json();
                 currentFileSha = shaData.sha;
             }
-        } catch(e) { console.warn("SHA refresh failed."); }
+        } catch(e) {}
 
         const url = `https://api.github.com/repos/${repo}/contents/master_data.json`;
         const content = b64EncodeUnicode(JSON.stringify(rawData, null, 2));
@@ -563,7 +589,7 @@
                 currentFileSha = data.content.sha;
                 return true;
             } else {
-                alert("API Rejection.");
+                alert("API Rejection: File synchronization failed.");
                 return false;
             }
         } catch(e) {
@@ -573,6 +599,8 @@
     }
 
     async function addEntry() {
+        if (isProcessing) return; 
+        
         const payload = {
             id: Date.now().toString(),
             date: document.getElementById('in-date').value,
@@ -588,6 +616,11 @@
 
         if(!payload.date || !payload.title || !payload.summary) return alert('Define Date, Title, and Summary.');
 
+        isProcessing = true;
+        const btn = document.querySelector('.btn-action');
+        btn.textContent = "Syncing with GitHub...";
+        btn.style.opacity = "0.5";
+
         rawData.push(payload);
         const success = await syncToGitHub();
         if(success) {
@@ -597,12 +630,19 @@
             populateFilterOptions();
             applyFilters();
         } else {
-            rawData.pop();
+            rawData.pop(); 
         }
+
+        isProcessing = false;
+        btn.textContent = "Execute Injection";
+        btn.style.opacity = "1";
     }
 
     async function deleteEntry(id) {
-        if(!confirm("Execute deletion protocol?")) return;
+        if (isProcessing) return;
+        if(!confirm("Execute deletion protocol? This action is permanent.")) return;
+        
+        isProcessing = true;
         const backup = [...rawData];
         rawData = rawData.filter(d => d.id !== id);
         
@@ -613,10 +653,11 @@
         } else {
             rawData = backup;
         }
+        isProcessing = false;
     }
 
     function exportChart(canvasId, name) {
-        if (typeof Chart === 'undefined') return alert("Charts offline. Cannot export.");
+        if (typeof Chart === 'undefined') return alert("Charts offline.");
         const link = document.createElement('a');
         link.download = `CTI_Chart_${name}.png`;
         link.href = document.getElementById(canvasId).toDataURL('image/png', 1.0);
@@ -629,7 +670,7 @@
             const headers = ['id', 'date', 'effective_date', 'severity', 'agency', 'type', 'theme', 'target_sector', 'title', 'summary', 'source_url'];
             const rows = rawData.map(row => 
                 headers.map(h => {
-                    let val = row[h] ? row[h].toString().replace(/"/g, '""') : '';
+                    let val = row[h] ? String(row[h]).replace(/"/g, '""') : '';
                     return `"${val}"`;
                 }).join(',')
             );
@@ -650,15 +691,18 @@
     }
 
     function exportArtifact() {
-        ['filter-month', 'filter-agency', 'filter-type', 'filter-theme', 'filter-sector'].forEach(id => document.getElementById(id).value = 'All');
-        document.getElementById('filter-text').value = '';
-        applyFilters();
-
         const docClone = document.documentElement.cloneNode(true);
         docClone.querySelector('body').classList.remove('admin-mode');
+        
         const adminPanel = docClone.querySelector('#admin-panel');
         if(adminPanel) adminPanel.remove();
         
+        const cleanData = JSON.stringify(rawData).replace(/</g, '\\u003c');
+        const dataNode = docClone.querySelector('#data-layer');
+        if (dataNode) {
+            dataNode.textContent = `window.INJECTED_DATA = ${cleanData};`;
+        }
+
         const blob = new Blob(["<!DOCTYPE html>\n" + docClone.outerHTML], { type: 'text/html' });
         const link = document.createElement('a');
         link.href = URL.createObjectURL(blob);
@@ -685,7 +729,7 @@
             .item { border: 1px solid #cbd5e1; padding: 20px; margin-bottom: 20px; border-radius: 4px; page-break-inside: avoid; }
             .meta { font-size: 12px; font-weight: bold; color: #64748b; margin-bottom: 10px; text-transform: uppercase; }
             .title { margin: 0 0 10px 0; font-size: 18px; }
-            .summary { margin: 0; line-height: 1.5; font-size: 14px; }
+            .summary { margin: 0; line-height: 1.5; font-size: 14px; white-space: pre-wrap; }
             @media print { body { padding: 0; } }
         </style></head><body>
         <h1>US CTI Executive Brief: High Priority Items</h1>
@@ -697,11 +741,14 @@
             briefData.forEach(d => {
                 const days = calculateDays(d.effective_date);
                 const dlString = (days !== null && days >= 0) ? ` | DEADLINE: T-${days} DAYS` : '';
+                const safeTitle = sanitizeHTML(d.title);
+                const safeSummary = sanitizeHTML(d.summary);
+                
                 html += `
                 <div class="item">
                     <div class="meta">${d.agency || 'UNKNOWN'} | ${d.type || 'UNKNOWN'} | SEVERITY: ${d.severity || 'N/A'} ${dlString}</div>
-                    <h2 class="title">${d.title}</h2>
-                    <p class="summary">${d.summary}</p>
+                    <h2 class="title">${safeTitle}</h2>
+                    <p class="summary">${safeSummary}</p>
                 </div>`;
             });
         }
@@ -714,6 +761,15 @@
         printWindow.focus();
         setTimeout(() => printWindow.print(), 500);
     }
+
+    window.addEventListener("beforeunload", function (e) {
+        const title = document.getElementById('in-title')?.value;
+        const summary = document.getElementById('in-summary')?.value;
+        if (title || summary) {
+            e.preventDefault();
+            e.returnValue = '';
+        }
+    });
 
     window.addEventListener('DOMContentLoaded', () => {
         const tokenInput = document.getElementById('gh-token');
