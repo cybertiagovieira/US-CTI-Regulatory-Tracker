@@ -202,7 +202,7 @@
         <select id="filter-type" onchange="applyFilters()"><option value="All">All Action Types</option></select>
         <select id="filter-theme" onchange="applyFilters()"><option value="All">All Threat Themes</option></select>
         <select id="filter-sector" onchange="applyFilters()"><option value="All">All Target Sectors</option></select>
-        <input type="text" id="filter-text" placeholder="Search keywords or IDs..." onkeyup="applyFilters()" style="grid-column: 1 / -1;">
+        <input type="text" id="filter-text" placeholder="Search keywords or IDs..." onkeyup="debounceFilters()" style="grid-column: 1 / -1;">
     </div>
 
     <div class="dashboard-grid">
@@ -328,6 +328,18 @@
         if(isNaN(target.getTime())) return null;
         target.setHours(0,0,0,0);
         return Math.ceil((target - today) / (1000 * 60 * 60 * 24));
+    }
+
+    let filterTimeout = null;
+
+    function debounceFilters() {
+        if (filterTimeout) {
+            clearTimeout(filterTimeout);
+        }
+        // Delay DOM reconstruction by 300 milliseconds
+        filterTimeout = setTimeout(() => {
+            applyFilters();
+        }, 300);
     }
 
     function applyFilters() {
