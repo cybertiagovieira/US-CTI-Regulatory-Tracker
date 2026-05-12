@@ -246,15 +246,15 @@
     <div class="dashboard-grid">
         <div class="sidebar">
             <div class="panel">
-                <h3>Cyber Threat Taxonomy <button class="btn-export-png" onclick="exportChart('radarChart', 'Taxonomy')">PNG</button></h3>
-                <div class="chart-container"><canvas id="radarChart"></canvas></div>
+                <h3>Regulatory Velocity (6-Month Trend) <button class="btn-export-png" onclick="exportChart('velocityChart', 'Velocity')">PNG</button></h3>
+                <div class="chart-container"><canvas id="velocityChart"></canvas></div>
             </div>
             <div class="panel">
                 <h3>Action Distribution <button class="btn-export-png" onclick="exportChart('donutChart', 'Distribution')">PNG</button></h3>
                 <div class="chart-container"><canvas id="donutChart"></canvas></div>
             </div>
             <div class="panel">
-                <h3>Cross-Agency Dependencies <button class="btn-export-png" onclick="exportChart('barChart', 'Dependencies')">PNG</button></h3>
+                <h3>Agency Posture Matrix <button class="btn-export-png" onclick="exportChart('barChart', 'Posture')">PNG</button></h3>
                 <div class="chart-container"><canvas id="barChart"></canvas></div>
             </div>
         </div>
@@ -697,17 +697,21 @@
         if (typeof Chart === 'undefined') return;
 
         try {
-            // Dynamically extract active themes, defaulting null/undefined to "Uncategorized"
-            const dynamicThemes = [...new Set(data.map(d => d.theme || "Uncategorized"))].sort();
-            const themeCounts = dynamicThemes.map(t => data.filter(d => (d.theme || "Uncategorized") === t).length);
-
-            if(charts.radar) charts.radar.destroy();
-            charts.radar = new Chart(document.getElementById('radarChart'), {
-                type: 'radar',
-                data: { labels: dynamicThemes, datasets: [{ label: 'Events', data: themeCounts, backgroundColor: 'rgba(220, 38, 38, 0.2)', borderColor: '#dc2626', pointBackgroundColor: '#dc2626', borderWidth: 2 }] },
-                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { r: { beginAtZero: true, ticks: { stepSize: 1 } } } }
+            // 1. Regulatory Velocity (6-Month Trend)
+            const months = [...new Set(data.map(d => d.date ? d.date.substring(0, 7) : "Unknown").filter(d => d !== "Unknown"))].sort().slice(-6);
+            const volData = months.map(m => data.filter(d => d.date && d.date.startsWith(m)).length);
+            
+            if(charts.velocity) charts.velocity.destroy();
+            charts.velocity = new Chart(document.getElementById('velocityChart'), {
+                type: 'line',
+                data: { 
+                    labels: months, 
+                    datasets: [{ label: 'Actions Issued', data: volData, borderColor: '#3b82f6', backgroundColor: 'rgba(59, 130, 246, 0.1)', fill: true, tension: 0.3 }] 
+                },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } } }
             });
 
+            // 2. Action Distribution (Donut)
             const types = Object.keys(typeConfig);
             const typeCounts = types.map(t => data.filter(d => d.type === t).length);
             const typeColors = types.map(t => typeConfig[t].color);
@@ -719,15 +723,14 @@
                 options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right', labels: { boxWidth: 10 } } }, cutout: '70%' }
             });
 
+            // 3. Agency Posture Matrix (Stacked Bar)
             const agencies = [...new Set(data.map(d => d.agency).filter(Boolean))].sort();
-            // Expanded color palette to accommodate dynamic theme generation
-            const colors = ['#dc2626', '#d97706', '#059669', '#3b82f6', '#8b5cf6', '#10b981', '#f59e0b', '#6366f1', '#ec4899'];
             
-            const datasets = dynamicThemes.map((theme, index) => {
+            const datasets = types.map(type => {
                 return {
-                    label: theme,
-                    data: agencies.map(a => data.filter(d => d.agency === a && (d.theme || "Uncategorized") === theme).length),
-                    backgroundColor: colors[index % colors.length]
+                    label: type,
+                    data: agencies.map(a => data.filter(d => d.agency === a && d.type === type).length),
+                    backgroundColor: typeConfig[type].color
                 };
             });
 
