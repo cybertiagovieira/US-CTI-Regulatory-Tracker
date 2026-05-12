@@ -697,13 +697,14 @@
         if (typeof Chart === 'undefined') return;
 
         try {
-            const fixedThemes = ["Incident Reporting", "Ransomware", "Third-Party Risk", "Data Privacy", "Governance"];
-            const themeCounts = fixedThemes.map(t => data.filter(d => d.theme === t).length);
+            // Dynamically extract active themes, defaulting null/undefined to "Uncategorized"
+            const dynamicThemes = [...new Set(data.map(d => d.theme || "Uncategorized"))].sort();
+            const themeCounts = dynamicThemes.map(t => data.filter(d => (d.theme || "Uncategorized") === t).length);
 
             if(charts.radar) charts.radar.destroy();
             charts.radar = new Chart(document.getElementById('radarChart'), {
                 type: 'radar',
-                data: { labels: fixedThemes, datasets: [{ label: 'Events', data: themeCounts, backgroundColor: 'rgba(220, 38, 38, 0.2)', borderColor: '#dc2626', pointBackgroundColor: '#dc2626', borderWidth: 2 }] },
+                data: { labels: dynamicThemes, datasets: [{ label: 'Events', data: themeCounts, backgroundColor: 'rgba(220, 38, 38, 0.2)', borderColor: '#dc2626', pointBackgroundColor: '#dc2626', borderWidth: 2 }] },
                 options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { r: { beginAtZero: true, ticks: { stepSize: 1 } } } }
             });
 
@@ -719,12 +720,13 @@
             });
 
             const agencies = [...new Set(data.map(d => d.agency).filter(Boolean))].sort();
-            const colors = ['#dc2626', '#d97706', '#059669', '#3b82f6', '#8b5cf6'];
+            // Expanded color palette to accommodate dynamic theme generation
+            const colors = ['#dc2626', '#d97706', '#059669', '#3b82f6', '#8b5cf6', '#10b981', '#f59e0b', '#6366f1', '#ec4899'];
             
-            const datasets = fixedThemes.map((theme, index) => {
+            const datasets = dynamicThemes.map((theme, index) => {
                 return {
                     label: theme,
-                    data: agencies.map(a => data.filter(d => d.agency === a && d.theme === theme).length),
+                    data: agencies.map(a => data.filter(d => d.agency === a && (d.theme || "Uncategorized") === theme).length),
                     backgroundColor: colors[index % colors.length]
                 };
             });
