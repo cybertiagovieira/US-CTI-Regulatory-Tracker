@@ -6,7 +6,6 @@
 <title>US CTI Regulatory Intelligence Dashboard</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script id="data-layer">
-    // Artifact injection point for offline HTML exports
     window.INJECTED_DATA = null;
 </script>
 <style>
@@ -53,7 +52,11 @@
     .kpi-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; font-weight: bold;}
     .val-alert { color: var(--sev-high); }
 
-    .filter-bar { background: var(--bg-panel); border: 1px solid var(--border); border-radius: 8px; padding: 15px; margin-bottom: 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; box-shadow: 0 1px 2px rgba(0,0,0,0.05); align-items: center; }
+    .filter-bar { background: var(--bg-panel); border: 1px solid var(--border); border-radius: 8px; padding: 15px; margin-bottom: 10px; display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; box-shadow: 0 1px 2px rgba(0,0,0,0.05); align-items: center; }
+    
+    .quick-filters { display: flex; gap: 8px; margin-bottom: 20px; overflow-x: auto; padding-bottom: 5px; }
+    .chip { background: #e2e8f0; border: 1px solid var(--border); border-radius: 15px; padding: 4px 10px; font-size: 11px; cursor: pointer; white-space: nowrap; color: var(--text-muted); font-weight: bold;}
+    .chip:hover { background: var(--border); color: var(--text-main); }
 
     .dashboard-grid { display: grid; grid-template-columns: 350px 1fr; gap: 20px; }
     .sidebar { display: flex; flex-direction: column; gap: 20px; }
@@ -85,7 +88,6 @@
     .date { color: var(--text-muted); margin-left: auto; font-weight: normal; }
     .title { margin: 0 0 8px 0; font-size: 15px; color: var(--text-main); }
     .summary { margin: 0; color: #334155; font-size: 13px; line-height: 1.5; white-space: pre-wrap; }
-    
     a.source-link { color: var(--c-primary); text-decoration: none; font-size: 12px; margin-top: 8px; display: inline-block; font-weight: bold;}
     a.source-link:hover { text-decoration: underline; }
 
@@ -95,49 +97,46 @@
         100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0); }
     }
 
-    @media (max-width: 900px) {
-        .dashboard-grid { grid-template-columns: 1fr; }
-        .timeline { margin-left: 5px; border-left: none; padding-left: 0;}
-        .event::before { display: none; }
-    }
-
-    /* Tab Navigation */
+    /* Tab & View Architecture */
     .tab-bar { display: flex; gap: 15px; margin-bottom: 20px; border-bottom: 2px solid var(--border); padding-bottom: 5px; }
     .tab-btn { background: transparent; border: none; font-size: 15px; font-weight: bold; color: var(--text-muted); cursor: pointer; padding: 5px 10px; }
     .tab-btn.active { color: var(--text-main); border-bottom: 3px solid var(--c-primary); margin-bottom: -8px; }
     .tab-btn .badge-count { background: var(--sev-high); color: white; border-radius: 10px; padding: 2px 6px; font-size: 11px; margin-left: 5px; }
     .tab-btn .badge-count.zero { background: var(--c-gray-light); }
 
-    /* Kanban Layout */
     .view-controls { margin-bottom: 15px; display: flex; gap: 10px; }
     .btn-view { background: #e2e8f0; border: none; padding: 5px 12px; border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: bold; color: var(--text-muted); }
     .btn-view.active { background: var(--c-primary); color: white; }
     
     .kanban-board { display: none; grid-template-columns: repeat(3, 1fr); gap: 20px; align-items: start; }
-    .kanban-mode .timeline-main { display: none; }
-    .kanban-mode .kanban-board { display: grid; }
-    
     .kanban-col { background: #f8fafc; border: 1px solid var(--border); border-radius: 8px; padding: 10px; height: 100%; min-height: 500px; }
     .kanban-col h3 { text-align: center; margin: 0 0 10px 0; font-size: 13px; color: var(--text-main); border-bottom: 2px solid var(--border); padding-bottom: 10px; text-transform: uppercase; }
     .kanban-col.col-proposed h3 { border-color: var(--hl-3); }
     .kanban-col.col-active h3 { border-color: var(--c-primary); }
     .kanban-col.col-punitive h3 { border-color: var(--hl-1); }
-    
     .kanban-board .event { margin-bottom: 10px; padding: 10px; }
     .kanban-board .event::before { display: none; }
 
-    /* Container Toggling */
+    /* State Toggles */
     .quarantine-container { display: none; }
+    .kanban-mode .timeline-main { display: none; }
+    .kanban-mode .kanban-board { display: grid; }
     .quarantine-mode .timeline-main { display: none; }
+    .quarantine-mode .kanban-board { display: none; }
     .quarantine-mode .quarantine-container { display: block; }
 
-    /* Quarantine Visual Flag */
     .event.quarantine-flag {
         border: 2px dashed var(--sev-high);
         background: repeating-linear-gradient( 45deg, #fffafa, #fffafa 10px, #fef2f2 10px, #fef2f2 20px );
     }
     .quarantine-flag::before { border-color: var(--sev-high); background: var(--sev-high); }
-    
+
+    @media (max-width: 900px) {
+        .dashboard-grid { grid-template-columns: 1fr; }
+        .timeline { margin-left: 5px; border-left: none; padding-left: 0;}
+        .event::before { display: none; }
+        .kanban-board { grid-template-columns: 1fr; }
+    }
 </style>
 </head>
 <body>
@@ -242,6 +241,7 @@
         <select id="filter-sector" onchange="applyFilters()"><option value="All">All Target Sectors</option></select>
         <input type="text" id="filter-text" placeholder="Search keywords or IDs..." onkeyup="debounceFilters()" style="grid-column: 1 / -1;">
     </div>
+    <div class="quick-filters" id="quick-filters"></div>
 
     <div class="dashboard-grid">
         <div class="sidebar">
@@ -254,7 +254,7 @@
                 <div class="chart-container"><canvas id="donutChart"></canvas></div>
             </div>
             <div class="panel">
-                <h3>Agency Engagement <button class="btn-export-png" onclick="exportChart('barChart', 'Agency')">PNG</button></h3>
+                <h3>Cross-Agency Dependencies <button class="btn-export-png" onclick="exportChart('barChart', 'Dependencies')">PNG</button></h3>
                 <div class="chart-container"><canvas id="barChart"></canvas></div>
             </div>
         </div>
@@ -305,8 +305,8 @@
     let charts = {};
     let currentFileSha = '';
     let isProcessing = false;
+    let filterTimeout = null;
 
-    // Security: Escapes HTML injection from raw JSON strings
     function sanitizeHTML(str) {
         if (!str) return "";
         const temp = document.createElement('div');
@@ -333,7 +333,6 @@
     }
 
     async function init() {
-        // Gated Admin Access: URL requires ?admin=true
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.get('admin') === 'true') {
             document.body.classList.add('admin-mode');
@@ -352,6 +351,7 @@
 
         await fetchSha();
         populateFilterOptions();
+        generateQuickFilters();
         
         if (typeof Chart !== 'undefined') {
             Chart.defaults.color = '#64748b';
@@ -383,6 +383,23 @@
         });
     }
 
+    function generateQuickFilters() {
+        const container = document.getElementById('quick-filters');
+        if(!container) return;
+        container.innerHTML = '';
+        const terms = ["Stablecoin", "AML", "Whistleblower", "Crypto", "Reporting", "Cyber"];
+        terms.forEach(term => {
+            const btn = document.createElement('button');
+            btn.className = 'chip';
+            btn.textContent = term;
+            btn.onclick = () => {
+                document.getElementById('filter-text').value = term;
+                applyFilters();
+            };
+            container.appendChild(btn);
+        });
+    }
+
     function calculateDays(targetDateStr) {
         if(!targetDateStr) return null;
         const parts = targetDateStr.split('-');
@@ -395,28 +412,22 @@
         return Math.ceil((target - today) / (1000 * 60 * 60 * 24));
     }
 
-    let filterTimeout = null;
-
     function debounceFilters() {
-        if (filterTimeout) {
-            clearTimeout(filterTimeout);
-        }
-        // Delay DOM reconstruction by 300 milliseconds
-        filterTimeout = setTimeout(() => {
-            applyFilters();
-        }, 300);
+        if (filterTimeout) clearTimeout(filterTimeout);
+        filterTimeout = setTimeout(() => applyFilters(), 300);
     }
 
     function switchView(viewType) {
         document.getElementById('view-timeline').classList.remove('active');
         document.getElementById('view-kanban').classList.remove('active');
+        const mainContent = document.querySelector('.main-content');
         
         if (viewType === 'timeline') {
             document.getElementById('view-timeline').classList.add('active');
-            document.querySelector('.main-content').classList.remove('kanban-mode');
+            mainContent.classList.remove('kanban-mode');
         } else {
             document.getElementById('view-kanban').classList.add('active');
-            document.querySelector('.main-content').classList.add('kanban-mode');
+            mainContent.classList.add('kanban-mode');
         }
     }
 
@@ -424,14 +435,15 @@
         document.getElementById('tab-timeline').classList.remove('active');
         document.getElementById('tab-quarantine').classList.remove('active');
         const viewControls = document.getElementById('active-view-controls');
+        const mainContent = document.querySelector('.main-content');
         
         if (tab === 'timeline') {
             document.getElementById('tab-timeline').classList.add('active');
-            document.querySelector('.main-content').classList.remove('quarantine-mode');
+            mainContent.classList.remove('quarantine-mode');
             if(viewControls) viewControls.style.display = 'flex';
         } else {
             document.getElementById('tab-quarantine').classList.add('active');
-            document.querySelector('.main-content').classList.add('quarantine-mode');
+            mainContent.classList.add('quarantine-mode');
             if(viewControls) viewControls.style.display = 'none';
         }
     }
@@ -446,7 +458,6 @@
             text: document.getElementById('filter-text').value.toLowerCase()
         };
 
-        // Fidelity Control Regex
         const quarantineRegex = /(rate limit exceeded|llm processing error)/i;
         
         let validData = [];
@@ -475,7 +486,6 @@
                    matchText;
 
             if (matchesFilters) {
-                // Route corrupt data to Quarantine
                 if (quarantineRegex.test(safeSummary)) {
                     quarantineData.push(item);
                 } else {
@@ -499,7 +509,6 @@
         validData.sort(sortLogic);
         quarantineData.sort(sortLogic);
         
-        // Update Quarantine Badge Counter
         const qBadge = document.getElementById('count-quarantine');
         qBadge.textContent = quarantineData.length;
         if (quarantineData.length > 0) {
@@ -508,11 +517,8 @@
             qBadge.classList.add('zero');
         }
 
-        // Isolate corrupt data from analytical processing
         updateKPIs(validData); 
         renderCharts(validData);
-
-        // Render dual timelines
         renderTimeline(validData, 'timelineContainer', false);
         renderKanban(validData);
         renderTimeline(quarantineData, 'quarantineContainer', true);
@@ -551,7 +557,6 @@
         document.getElementById('kpi-deadlines').textContent = nearDeadline;
     }
 
-    // Notice the updated signature: renderTimeline(data, containerId, isQuarantine)
     function createEventCard(item, isQuarantine) {
         const cfg = typeConfig[item.type] || { color: "#475569" };
         const badgeTextColor = item.type === "NPRM" ? "#000000" : "#ffffff";
@@ -609,8 +614,14 @@
         const daysLeft = calculateDays(item.effective_date);
         if (daysLeft !== null && daysLeft >= 0) {
             const cdBadge = document.createElement('span');
-            cdBadge.className = `badge countdown ${daysLeft <= 30 ? 'urgent' : ''}`;
-            cdBadge.textContent = `T-${daysLeft} Days`;
+            if (item.type === 'NPRM') {
+                cdBadge.className = `badge countdown ${daysLeft <= 15 ? 'urgent' : ''}`;
+                cdBadge.style.background = '#d97706';
+                cdBadge.textContent = `Comment Closes: T-${daysLeft} Days`;
+            } else {
+                cdBadge.className = `badge countdown ${daysLeft <= 30 ? 'urgent' : ''}`;
+                cdBadge.textContent = `Compliance: T-${daysLeft} Days`;
+            }
             metaDiv.appendChild(cdBadge);
         }
 
@@ -644,6 +655,7 @@
 
     function renderTimeline(data, containerId = 'timelineContainer', isQuarantine = false) {
         const container = document.getElementById(containerId);
+        if(!container) return;
         container.innerHTML = ''; 
         
         if (data.length === 0) {
@@ -662,6 +674,8 @@
         const kbProposed = document.getElementById('kb-proposed');
         const kbActive = document.getElementById('kb-active');
         const kbPunitive = document.getElementById('kb-punitive');
+        
+        if(!kbProposed || !kbActive || !kbPunitive) return;
 
         kbProposed.innerHTML = '';
         kbActive.innerHTML = '';
@@ -669,7 +683,6 @@
 
         data.forEach(item => {
             const card = createEventCard(item, false);
-            
             if (item.type === 'NPRM') {
                 kbProposed.appendChild(card);
             } else if (item.type === 'Enforcement Action' || item.type === 'Examination Priority') {
@@ -680,42 +693,81 @@
         });
     }
 
+    function renderCharts(data) {
+        if (typeof Chart === 'undefined') return;
+
+        try {
+            const fixedThemes = ["Incident Reporting", "Ransomware", "Third-Party Risk", "Data Privacy", "Governance"];
+            const themeCounts = fixedThemes.map(t => data.filter(d => d.theme === t).length);
+
+            if(charts.radar) charts.radar.destroy();
+            charts.radar = new Chart(document.getElementById('radarChart'), {
+                type: 'radar',
+                data: { labels: fixedThemes, datasets: [{ label: 'Events', data: themeCounts, backgroundColor: 'rgba(220, 38, 38, 0.2)', borderColor: '#dc2626', pointBackgroundColor: '#dc2626', borderWidth: 2 }] },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { r: { beginAtZero: true, ticks: { stepSize: 1 } } } }
+            });
+
+            const types = Object.keys(typeConfig);
+            const typeCounts = types.map(t => data.filter(d => d.type === t).length);
+            const typeColors = types.map(t => typeConfig[t].color);
+
+            if(charts.donut) charts.donut.destroy();
+            charts.donut = new Chart(document.getElementById('donutChart'), {
+                type: 'doughnut',
+                data: { labels: types, datasets: [{ data: typeCounts, backgroundColor: typeColors, borderWidth: 0 }] },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right', labels: { boxWidth: 10 } } }, cutout: '70%' }
+            });
+
+            const agencies = [...new Set(data.map(d => d.agency).filter(Boolean))].sort();
+            const colors = ['#dc2626', '#d97706', '#059669', '#3b82f6', '#8b5cf6'];
+            
+            const datasets = fixedThemes.map((theme, index) => {
+                return {
+                    label: theme,
+                    data: agencies.map(a => data.filter(d => d.agency === a && d.theme === theme).length),
+                    backgroundColor: colors[index % colors.length]
+                };
+            });
+
+            if(charts.bar) charts.bar.destroy();
+            charts.bar = new Chart(document.getElementById('barChart'), {
+                type: 'bar',
+                data: { labels: agencies, datasets: datasets },
+                options: { 
+                    indexAxis: 'y', responsive: true, maintainAspectRatio: false, 
+                    plugins: { legend: { display: true, position: 'bottom', labels: { boxWidth: 10, font: {size: 9} } } }, 
+                    scales: { x: { stacked: true, beginAtZero: true, ticks: { stepSize: 1 } }, y: { stacked: true } } 
+                }
+            });
+
+        } catch (e) {
+            console.error("Chart generation failed.", e);
+        }
+    }
+
     async function githubFetch(url, options = {}, retries = 3) {
         for (let i = 0; i < retries; i++) {
             const response = await fetch(url, options);
-            
-            // Bypass successful requests
             if (response.ok) return response;
-
-            // Intercept Rate Limits (GitHub uses 403 for secondary limits, 429 for general)
             if (response.status === 403 || response.status === 429) {
                 const retryAfter = response.headers.get('retry-after');
                 const rateLimitRemaining = response.headers.get('x-ratelimit-remaining');
-                
                 if (retryAfter || rateLimitRemaining === '0') {
-                    let waitTime = 2000; // Default 2s penalty
-
-                    if (retryAfter) {
-                        waitTime = parseInt(retryAfter) * 1000;
-                    } else {
+                    let waitTime = 2000;
+                    if (retryAfter) { waitTime = parseInt(retryAfter) * 1000; } 
+                    else {
                         const resetTime = response.headers.get('x-ratelimit-reset');
                         if (resetTime) {
                             const resetDate = new Date(parseInt(resetTime) * 1000);
                             waitTime = Math.max(resetDate - new Date(), 1000);
-                            
-                            // Hard abort if wait time exceeds 60 seconds (Primary Quota Exhausted)
-                            if (waitTime > 60000) {
-                                throw new Error(`API Quota Exhausted. Ban lifts at: ${resetDate.toLocaleTimeString()}`);
-                            }
+                            if (waitTime > 60000) throw new Error(`API Quota Exhausted. Ban lifts at: ${resetDate.toLocaleTimeString()}`);
                         }
                     }
-
                     console.warn(`[Rate Limit] Imposed penalty. Pausing thread for ${waitTime}ms...`);
                     await new Promise(resolve => setTimeout(resolve, waitTime));
-                    continue; // Re-execute request after penalty box
+                    continue; 
                 }
             }
-            // Return standard errors (404, 409) to caller
             return response; 
         }
         throw new Error("API Failure: Max retry attempts exceeded.");
@@ -725,43 +777,18 @@
         const token = document.getElementById('gh-token').value;
         const repo = document.getElementById('gh-repo').value;
         if(!token) return alert("GitHub PAT Required.") && false;
-
         const url = `https://api.github.com/repos/${repo}/contents/master_data.json`;
-        
         try {
-            // Step 1: Fetch via rate-limit interceptor
-            const remoteRes = await githubFetch(`${url}?t=${new Date().getTime()}`, {
-                headers: { 'Authorization': `token ${token}` }
-            });
+            const remoteRes = await githubFetch(`${url}?t=${new Date().getTime()}`, { headers: { 'Authorization': `token ${token}` } });
             if (!remoteRes.ok) throw new Error("Could not fetch remote state.");
             const remoteData = await remoteRes.json();
-            
-            // Step 2: Decode remote payload
             const remoteText = decodeURIComponent(escape(atob(remoteData.content)));
             let remoteJson = JSON.parse(remoteText);
-
-            // Step 3: Apply local mutation
-            if (action === 'ADD') {
-                remoteJson.push(target);
-            } else if (action === 'DELETE') {
-                remoteJson = remoteJson.filter(d => d.id !== target);
-            }
-
-            // Step 4: Push merged payload via rate-limit interceptor
+            if (action === 'ADD') { remoteJson.push(target); } 
+            else if (action === 'DELETE') { remoteJson = remoteJson.filter(d => d.id !== target); }
             const content = b64EncodeUnicode(JSON.stringify(remoteJson, null, 2));
-            const body = { 
-                message: `Dashboard Admin: ${action} Operation`, 
-                content: content, 
-                branch: "main",
-                sha: remoteData.sha 
-            };
-
-            const pushRes = await githubFetch(url, { 
-                method: 'PUT', 
-                headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' }, 
-                body: JSON.stringify(body) 
-            });
-
+            const body = { message: `Dashboard Admin: ${action} Operation`, content: content, branch: "main", sha: remoteData.sha };
+            const pushRes = await githubFetch(url, { method: 'PUT', headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
             if (pushRes.ok) {
                 const pushData = await pushRes.json();
                 currentFileSha = pushData.content.sha;
@@ -780,7 +807,6 @@
     
     async function addEntry() {
         if (isProcessing) return; 
-        
         const payload = {
             id: Date.now().toString(),
             date: document.getElementById('in-date').value,
@@ -793,17 +819,12 @@
             title: document.getElementById('in-title').value,
             summary: document.getElementById('in-summary').value
         };
-
         if(!payload.date || !payload.title || !payload.summary) return alert('Define Date, Title, and Summary.');
-
         isProcessing = true;
         const btn = document.querySelector('.btn-action');
         btn.textContent = "Syncing with GitHub...";
         btn.style.opacity = "0.5";
-
-        // Execute Atomic Sync
         const success = await syncToGitHubAtomic('ADD', payload);
-        
         if(success) {
             document.getElementById('in-title').value = '';
             document.getElementById('in-summary').value = '';
@@ -811,7 +832,6 @@
             populateFilterOptions();
             applyFilters();
         }
-
         isProcessing = false;
         btn.textContent = "Execute Injection";
         btn.style.opacity = "1";
@@ -820,15 +840,9 @@
     async function deleteEntry(id) {
         if (isProcessing) return;
         if(!confirm("Execute deletion protocol? This action is permanent.")) return;
-        
         isProcessing = true;
         const success = await syncToGitHubAtomic('DELETE', id);
-        
-        if(success) {
-            populateFilterOptions();
-            applyFilters();
-        }
-        
+        if(success) { populateFilterOptions(); applyFilters(); }
         isProcessing = false;
     }
 
@@ -844,21 +858,13 @@
         let content, mime, ext;
         if (format === 'csv') {
             const headers = ['id', 'date', 'effective_date', 'severity', 'agency', 'type', 'theme', 'target_sector', 'title', 'summary', 'source_url'];
-            const rows = rawData.map(row => 
-                headers.map(h => {
-                    let val = row[h] ? String(row[h]).replace(/"/g, '""') : '';
-                    return `"${val}"`;
-                }).join(',')
-            );
+            const rows = rawData.map(row => headers.map(h => { let val = row[h] ? String(row[h]).replace(/"/g, '""') : ''; return `"${val}"`; }).join(','));
             content = [headers.join(','), ...rows].join('\n');
-            mime = 'text/csv;charset=utf-8;';
-            ext = 'csv';
+            mime = 'text/csv;charset=utf-8;'; ext = 'csv';
         } else if (format === 'json') {
             content = JSON.stringify(rawData, null, 2);
-            mime = 'application/json';
-            ext = 'json';
+            mime = 'application/json'; ext = 'json';
         }
-
         const blob = new Blob([content], { type: mime });
         const link = document.createElement('a');
         link.href = URL.createObjectURL(blob);
@@ -867,7 +873,6 @@
     }
 
     function exportArtifact() {
-        // Serialize dynamic filter states into hard DOM attributes prior to cloning
         ['filter-month', 'filter-agency', 'filter-type', 'filter-theme', 'filter-sector'].forEach(id => {
             const el = document.getElementById(id);
             if (!el) return;
@@ -875,34 +880,20 @@
             const selectedOpt = el.querySelector(`option[value="${el.value}"]`);
             if (selectedOpt) selectedOpt.setAttribute('selected', 'selected');
         });
-
         const textFilter = document.getElementById('filter-text');
         if (textFilter) textFilter.setAttribute('value', textFilter.value);
-
-        // Clone DOM without triggering disruptive live UI resets
         const docClone = document.documentElement.cloneNode(true);
         docClone.querySelector('body').classList.remove('admin-mode');
-        
-        // Strip administrative surface area from the executive export
         const adminPanel = docClone.querySelector('#admin-panel');
         if (adminPanel) adminPanel.remove();
-        const adminBtn = docClone.querySelector('#btn-admin');
-        if (adminBtn) adminBtn.remove();
-        
-        // Error Boundary & Self-Healing Data Injection
         const cleanData = JSON.stringify(rawData).replace(/</g, '\\u003c');
         let dataNode = docClone.querySelector('#data-layer');
-        
-        // Fallback: Rebuild the data layer if the tag was manually deleted from the HTML
         if (!dataNode) {
-            console.warn("Data layer missing. Self-healing protocol executed.");
             dataNode = document.createElement('script');
             dataNode.id = 'data-layer';
             docClone.head.appendChild(dataNode);
         }
-        
         dataNode.textContent = `window.INJECTED_DATA = ${cleanData};`;
-
         const blob = new Blob(["<!DOCTYPE html>\n" + docClone.outerHTML], { type: 'text/html' });
         const link = document.createElement('a');
         link.href = URL.createObjectURL(blob);
@@ -911,9 +902,7 @@
     }
 
     function generateExecBrief() {
-        const thirtyDaysAgo = new Date();
-        thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
-        
+        const thirtyDaysAgo = new Date(); thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
         const briefData = rawData.filter(d => {
             const isRecent = new Date(d.date) >= thirtyDaysAgo;
             const isHighSev = d.severity === 'High';
@@ -921,80 +910,33 @@
             return isHighSev || impending;
         }).sort((a, b) => new Date(b.date) - new Date(a.date));
 
-        let html = `
-        <html><head><title>CTI Executive Briefing</title>
-        <style>
-            body { font-family: Arial, sans-serif; padding: 40px; color: #0f172a; max-width: 1000px; margin: 0 auto; }
-            h1 { border-bottom: 2px solid #dc2626; padding-bottom: 10px; color: #dc2626; }
-            .item { border: 1px solid #cbd5e1; padding: 20px; margin-bottom: 20px; border-radius: 4px; page-break-inside: avoid; }
-            .meta { font-size: 12px; font-weight: bold; color: #64748b; margin-bottom: 10px; text-transform: uppercase; }
-            .title { margin: 0 0 10px 0; font-size: 18px; }
-            .summary { margin: 0; line-height: 1.5; font-size: 14px; white-space: pre-wrap; }
-            @media print { body { padding: 0; } }
-        </style></head><body>
-        <h1>US CTI Executive Brief: High Priority Items</h1>
-        <p style="margin-bottom: 30px;">Generated: ${new Date().toLocaleDateString()} | Active High Severity & Impending Deadlines (< 90 Days)</p>`;
-
-        if(briefData.length === 0) {
-            html += `<p>No critical events detected within operational threshold.</p>`;
-        } else {
+        let html = `<html><head><title>CTI Executive Briefing</title><style>body { font-family: Arial, sans-serif; padding: 40px; color: #0f172a; max-width: 1000px; margin: 0 auto; } h1 { border-bottom: 2px solid #dc2626; padding-bottom: 10px; color: #dc2626; } .item { border: 1px solid #cbd5e1; padding: 20px; margin-bottom: 20px; border-radius: 4px; page-break-inside: avoid; } .meta { font-size: 12px; font-weight: bold; color: #64748b; margin-bottom: 10px; text-transform: uppercase; } .title { margin: 0 0 10px 0; font-size: 18px; } .summary { margin: 0; line-height: 1.5; font-size: 14px; white-space: pre-wrap; } @media print { body { padding: 0; } }</style></head><body><h1>US CTI Executive Brief: High Priority Items</h1><p style="margin-bottom: 30px;">Generated: ${new Date().toLocaleDateString()} | Active High Severity & Impending Deadlines (< 90 Days)</p>`;
+        if(briefData.length === 0) { html += `<p>No critical events detected within operational threshold.</p>`; } 
+        else {
             briefData.forEach(d => {
                 const days = calculateDays(d.effective_date);
                 const dlString = (days !== null && days >= 0) ? ` | DEADLINE: T-${days} DAYS` : '';
-                const safeTitle = sanitizeHTML(d.title);
-                const safeSummary = sanitizeHTML(d.summary);
-                
-                html += `
-                <div class="item">
-                    <div class="meta">${d.agency || 'UNKNOWN'} | ${d.type || 'UNKNOWN'} | SEVERITY: ${d.severity || 'N/A'} ${dlString}</div>
-                    <h2 class="title">${safeTitle}</h2>
-                    <p class="summary">${safeSummary}</p>
-                </div>`;
+                html += `<div class="item"><div class="meta">${d.agency || 'UNKNOWN'} | ${d.type || 'UNKNOWN'} | SEVERITY: ${d.severity || 'N/A'} ${dlString}</div><h2 class="title">${sanitizeHTML(d.title)}</h2><p class="summary">${sanitizeHTML(d.summary)}</p></div>`;
             });
         }
-        
         html += `</body></html>`;
-        
         const printWindow = window.open('', '_blank');
-        printWindow.document.write(html);
-        printWindow.document.close();
-        printWindow.focus();
+        printWindow.document.write(html); printWindow.document.close(); printWindow.focus();
         setTimeout(() => printWindow.print(), 500);
     }
 
     window.addEventListener("beforeunload", function (e) {
         const title = document.getElementById('in-title')?.value;
         const summary = document.getElementById('in-summary')?.value;
-        if (title || summary) {
-            e.preventDefault();
-            e.returnValue = '';
-        }
+        if (title || summary) { e.preventDefault(); e.returnValue = ''; }
     });
 
     window.addEventListener('DOMContentLoaded', () => {
         const tokenInput = document.getElementById('gh-token');
-        
-        // SECURITY PATCH: Force-purge legacy vulnerable storage
-        if (localStorage.getItem('cti_gh_token')) {
-            localStorage.removeItem('cti_gh_token');
-            console.warn("Security Event: Purged legacy persistent PAT from local storage.");
-        }
-
-        // Shift to ephemeral session storage (destroyed on tab close)
+        if (localStorage.getItem('cti_gh_token')) { localStorage.removeItem('cti_gh_token'); }
         const sessionToken = sessionStorage.getItem('cti_gh_token_ephemeral');
-        if (sessionToken) {
-            tokenInput.value = sessionToken;
-        }
-
-        // Cache temporarily during active session only
-        tokenInput.addEventListener('change', (e) => {
-            sessionStorage.setItem('cti_gh_token_ephemeral', e.target.value);
-        });
-
-        // Optional UX Security: Wipe token from DOM on focus out if highly paranoid
-        // (Left out by default to prevent annoying the user during rapid data entry, 
-        // but session isolation provides the necessary baseline security).
-
+        if (sessionToken) { tokenInput.value = sessionToken; }
+        tokenInput.addEventListener('change', (e) => { sessionStorage.setItem('cti_gh_token_ephemeral', e.target.value); });
         init();
     });
 </script>
