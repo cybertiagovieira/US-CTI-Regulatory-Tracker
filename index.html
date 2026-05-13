@@ -925,23 +925,30 @@
 
         briefData.forEach(d => {
             if (d.severity === 'High') highSevCount++;
-            
             const days = calculateDays(d.effective_date);
             if (days !== null && days >= 0 && days <= 30) cliffCount++;
-
             if (d.agency) agencyCounts[d.agency] = (agencyCounts[d.agency] || 0) + 1;
             if (d.theme && d.theme !== 'General') themeCounts[d.theme] = (themeCounts[d.theme] || 0) + 1;
         });
 
         const dominantAgency = Object.keys(agencyCounts).length 
-            ? Object.keys(agencyCounts).reduce((a, b) => agencyCounts[a] > agencyCounts[b] ? a : b) 
-            : 'N/A';
-            
+            ? Object.keys(agencyCounts).reduce((a, b) => agencyCounts[a] > agencyCounts[b] ? a : b) : 'N/A';
         const dominantTheme = Object.keys(themeCounts).length 
-            ? Object.keys(themeCounts).reduce((a, b) => themeCounts[a] > themeCounts[b] ? a : b) 
-            : 'N/A';
+            ? Object.keys(themeCounts).reduce((a, b) => themeCounts[a] > themeCounts[b] ? a : b) : 'N/A';
 
-        // Construct Print-Optimized DOM with Thematic CSS
+        // BLUF Text Formatter
+        const formatBLUF = (text) => {
+            if (!text) return "";
+            const firstPeriod = text.indexOf('. ');
+            if (firstPeriod !== -1) {
+                const lead = text.substring(0, firstPeriod + 1);
+                const remainder = text.substring(firstPeriod + 1);
+                return `<strong>${sanitizeHTML(lead)}</strong>${sanitizeHTML(remainder)}`;
+            }
+            return `<strong>${sanitizeHTML(text)}</strong>`;
+        };
+
+        // Construct Print-Optimized DOM
         let html = `<html><head><title>CTI Executive Briefing</title><style>
             body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif; padding: 40px; color: #0f172a; max-width: 1000px; margin: 0 auto; } 
             h1 { border-bottom: 3px solid #dc2626; padding-bottom: 10px; color: #0f172a; margin-bottom: 5px; font-size: 28px; text-transform: uppercase; letter-spacing: 1px;} 
@@ -952,13 +959,26 @@
             .macro-value.dark { color: #0f172a; }
             .macro-label { font-size: 11px; color: #64748b; text-transform: uppercase; font-weight: bold; letter-spacing: 0.5px; }
             
-            /* Thematic Grouping CSS */
-            .theme-banner { background: #1e293b; color: #ffffff; padding: 12px 20px; border-radius: 6px; font-size: 16px; text-transform: uppercase; margin-top: 40px; margin-bottom: 15px; letter-spacing: 1px; page-break-after: avoid; }
-            .theme-section { margin-bottom: 20px; }
+            /* Thematic Grouping & Print Hardening */
+            .theme-section { margin-bottom: 20px; page-break-before: always; }
+            .theme-section:first-of-type { page-break-before: auto; }
+            .theme-banner { background: #1e293b; color: #ffffff; padding: 12px 20px; border-radius: 6px; font-size: 16px; text-transform: uppercase; margin-top: 20px; margin-bottom: 15px; letter-spacing: 1px; page-break-after: avoid; }
             
-            .item { border: 1px solid #e2e8f0; border-left: 4px solid #cbd5e1; padding: 20px; margin-bottom: 15px; border-radius: 4px 6px 6px 4px; page-break-inside: avoid; background: #ffffff; margin-left: 10px; } 
-            .meta { font-size: 12px; font-weight: bold; color: #64748b; margin-bottom: 10px; text-transform: uppercase; } 
-            .title { margin: 0 0 10px 0; font-size: 18px; color: #0f172a; } 
+            /* Triage Architecture */
+            .triage-header { font-size: 13px; font-weight: bold; margin: 25px 0 15px 10px; text-transform: uppercase; letter-spacing: 1px; page-break-after: avoid; }
+            .triage-red { color: #dc2626; border-bottom: 2px solid #dc2626; display: inline-block; padding-bottom: 3px; }
+            .triage-yellow { color: #d97706; border-bottom: 2px solid #d97706; display: inline-block; padding-bottom: 3px; }
+
+            /* Two-Column Metadata Density */
+            .item { border: 1px solid #e2e8f0; padding: 20px; margin-bottom: 15px; border-radius: 6px; page-break-inside: avoid; background: #ffffff; } 
+            .meta-grid { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 1px solid #e2e8f0; padding-bottom: 10px; margin-bottom: 15px; }
+            .meta-block { display: flex; flex-direction: column; }
+            .meta-right { text-align: right; }
+            .meta-label { font-size: 10px; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; font-weight: bold; margin-bottom: 3px; }
+            .meta-value { font-size: 12px; font-weight: bold; color: #334155; text-transform: uppercase; }
+            .meta-value.alert { color: #dc2626; }
+            
+            .title { margin: 0 0 10px 0; font-size: 17px; color: #0f172a; line-height: 1.3;} 
             .summary { margin: 0; line-height: 1.6; font-size: 14px; color: #334155; white-space: pre-wrap; } 
             
             @media print { 
@@ -973,7 +993,6 @@
         if (briefData.length === 0) {
             html += `<p style="font-weight:bold; color:#64748b;">No critical events detected within the operational threshold.</p>`;
         } else {
-            // Inject Macro-Intelligence Header
             html += `
             <div class="macro-grid">
                 <div class="macro-box">
@@ -995,40 +1014,71 @@
             </div>
             `;
 
-            // Step 1: Group Data by Theme
+            // Group Data by Theme
             const groupedData = {};
             briefData.forEach(d => {
                 const themeName = (d.theme && d.theme !== 'General') ? d.theme : 'Uncategorized / Broad Mandates';
-                if (!groupedData[themeName]) {
-                    groupedData[themeName] = [];
-                }
+                if (!groupedData[themeName]) groupedData[themeName] = [];
                 groupedData[themeName].push(d);
             });
 
-            // Step 2: Sort Themes (Alphabetical, but force Uncategorized to the bottom)
+            // Sort Themes (Uncategorized pushed to bottom)
             const sortedThemes = Object.keys(groupedData).sort((a, b) => {
                 if (a === 'Uncategorized / Broad Mandates') return 1;
                 if (b === 'Uncategorized / Broad Mandates') return -1;
                 return a.localeCompare(b);
             });
 
-            // Step 3: Render Thematic Blocks
+            // Render Themes and Triage Zones
             sortedThemes.forEach(theme => {
                 html += `<div class="theme-section">`;
                 html += `<div class="theme-banner">${theme}</div>`;
                 
+                const redZone = [];
+                const yellowZone = [];
+
                 groupedData[theme].forEach(d => {
                     const days = calculateDays(d.effective_date);
-                    const dlString = (days !== null && days >= 0) ? ` | DEADLINE: T-${days} DAYS` : '';
-                    html += `
-                    <div class="item">
-                        <div class="meta">${d.agency || 'UNKNOWN'} | ${d.type || 'UNKNOWN'} | SEVERITY: ${d.severity || 'N/A'}${dlString}</div>
-                        <h3 class="title">${sanitizeHTML(d.title)}</h3>
-                        <p class="summary">${sanitizeHTML(d.summary)}</p>
-                    </div>`;
+                    // Triage Algorithm
+                    const isRed = d.type === 'Final Rule' || d.type === 'Enforcement Action' || (days !== null && days < 45);
+                    if (isRed) redZone.push({ data: d, days: days });
+                    else yellowZone.push({ data: d, days: days });
                 });
+
+                const renderItem = (obj, isRed) => {
+                    const d = obj.data;
+                    const days = obj.days;
+                    const dlString = (days !== null && days >= 0) ? `T-${days} DAYS` : 'NO DEADLINE';
+                    const alertClass = isRed ? 'alert' : '';
+                    
+                    return `
+                    <div class="item">
+                        <div class="meta-grid">
+                            <div class="meta-block">
+                                <div class="meta-label">Agency | Date | Type</div>
+                                <div class="meta-value">${d.agency || 'UNKNOWN'} &nbsp;&bull;&nbsp; ${d.date || 'UNKNOWN'} &nbsp;&bull;&nbsp; ${d.type || 'UNKNOWN'}</div>
+                            </div>
+                            <div class="meta-block meta-right">
+                                <div class="meta-label">Severity | Deadline</div>
+                                <div class="meta-value ${alertClass}">${d.severity || 'N/A'} &nbsp;&bull;&nbsp; ${dlString}</div>
+                            </div>
+                        </div>
+                        <h3 class="title">${sanitizeHTML(d.title)}</h3>
+                        <p class="summary">${formatBLUF(d.summary)}</p>
+                    </div>`;
+                };
+
+                if (redZone.length > 0) {
+                    html += `<div class="triage-header triage-red">Red Zone (Immediate Action)</div>`;
+                    redZone.forEach(obj => html += renderItem(obj, true));
+                }
+
+                if (yellowZone.length > 0) {
+                    html += `<div class="triage-header triage-yellow">Yellow Zone (Strategic Horizon)</div>`;
+                    yellowZone.forEach(obj => html += renderItem(obj, false));
+                }
                 
-                html += `</div>`; // Close theme-section
+                html += `</div>`; 
             });
         }
 
@@ -1040,6 +1090,7 @@
         printWindow.focus();
         setTimeout(() => printWindow.print(), 500);
     }
+    
     window.addEventListener("beforeunload", function (e) {
         const title = document.getElementById('in-title')?.value;
         const summary = document.getElementById('in-summary')?.value;
