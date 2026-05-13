@@ -941,7 +941,7 @@
             ? Object.keys(themeCounts).reduce((a, b) => themeCounts[a] > themeCounts[b] ? a : b) 
             : 'N/A';
 
-        // Construct Print-Optimized DOM
+        // Construct Print-Optimized DOM with Thematic CSS
         let html = `<html><head><title>CTI Executive Briefing</title><style>
             body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif; padding: 40px; color: #0f172a; max-width: 1000px; margin: 0 auto; } 
             h1 { border-bottom: 3px solid #dc2626; padding-bottom: 10px; color: #0f172a; margin-bottom: 5px; font-size: 28px; text-transform: uppercase; letter-spacing: 1px;} 
@@ -951,13 +951,19 @@
             .macro-value { font-size: 32px; font-weight: bold; color: #dc2626; margin-bottom: 5px; }
             .macro-value.dark { color: #0f172a; }
             .macro-label { font-size: 11px; color: #64748b; text-transform: uppercase; font-weight: bold; letter-spacing: 0.5px; }
-            .item { border: 1px solid #e2e8f0; padding: 20px; margin-bottom: 20px; border-radius: 6px; page-break-inside: avoid; background: #ffffff; } 
+            
+            /* Thematic Grouping CSS */
+            .theme-banner { background: #1e293b; color: #ffffff; padding: 12px 20px; border-radius: 6px; font-size: 16px; text-transform: uppercase; margin-top: 40px; margin-bottom: 15px; letter-spacing: 1px; page-break-after: avoid; }
+            .theme-section { margin-bottom: 20px; }
+            
+            .item { border: 1px solid #e2e8f0; border-left: 4px solid #cbd5e1; padding: 20px; margin-bottom: 15px; border-radius: 4px 6px 6px 4px; page-break-inside: avoid; background: #ffffff; margin-left: 10px; } 
             .meta { font-size: 12px; font-weight: bold; color: #64748b; margin-bottom: 10px; text-transform: uppercase; } 
             .title { margin: 0 0 10px 0; font-size: 18px; color: #0f172a; } 
             .summary { margin: 0; line-height: 1.6; font-size: 14px; color: #334155; white-space: pre-wrap; } 
+            
             @media print { 
                 body { padding: 0; } 
-                .macro-box { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+                .macro-box, .theme-banner { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
             }
         </style></head><body>
         <h1>US CTI Executive Brief</h1>
@@ -989,16 +995,40 @@
             </div>
             `;
 
-            // Sequential Listing
+            // Step 1: Group Data by Theme
+            const groupedData = {};
             briefData.forEach(d => {
-                const days = calculateDays(d.effective_date);
-                const dlString = (days !== null && days >= 0) ? ` | DEADLINE: T-${days} DAYS` : '';
-                html += `
-                <div class="item">
-                    <div class="meta">${d.agency || 'UNKNOWN'} | ${d.type || 'UNKNOWN'} | SEVERITY: ${d.severity || 'N/A'}${dlString}</div>
-                    <h2 class="title">${sanitizeHTML(d.title)}</h2>
-                    <p class="summary">${sanitizeHTML(d.summary)}</p>
-                </div>`;
+                const themeName = (d.theme && d.theme !== 'General') ? d.theme : 'Uncategorized / Broad Mandates';
+                if (!groupedData[themeName]) {
+                    groupedData[themeName] = [];
+                }
+                groupedData[themeName].push(d);
+            });
+
+            // Step 2: Sort Themes (Alphabetical, but force Uncategorized to the bottom)
+            const sortedThemes = Object.keys(groupedData).sort((a, b) => {
+                if (a === 'Uncategorized / Broad Mandates') return 1;
+                if (b === 'Uncategorized / Broad Mandates') return -1;
+                return a.localeCompare(b);
+            });
+
+            // Step 3: Render Thematic Blocks
+            sortedThemes.forEach(theme => {
+                html += `<div class="theme-section">`;
+                html += `<div class="theme-banner">${theme}</div>`;
+                
+                groupedData[theme].forEach(d => {
+                    const days = calculateDays(d.effective_date);
+                    const dlString = (days !== null && days >= 0) ? ` | DEADLINE: T-${days} DAYS` : '';
+                    html += `
+                    <div class="item">
+                        <div class="meta">${d.agency || 'UNKNOWN'} | ${d.type || 'UNKNOWN'} | SEVERITY: ${d.severity || 'N/A'}${dlString}</div>
+                        <h3 class="title">${sanitizeHTML(d.title)}</h3>
+                        <p class="summary">${sanitizeHTML(d.summary)}</p>
+                    </div>`;
+                });
+                
+                html += `</div>`; // Close theme-section
             });
         }
 
