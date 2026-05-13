@@ -908,28 +908,108 @@
 
     function generateExecBrief() {
         const thirtyDaysAgo = new Date(); thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+        
+        // Isolate Executive Threshold Data
         const briefData = rawData.filter(d => {
-            const isRecent = new Date(d.date) >= thirtyDaysAgo;
             const isHighSev = d.severity === 'High';
-            const impending = calculateDays(d.effective_date) !== null && calculateDays(d.effective_date) <= 90 && calculateDays(d.effective_date) >= 0;
+            const daysToEffective = calculateDays(d.effective_date);
+            const impending = daysToEffective !== null && daysToEffective <= 90 && daysToEffective >= 0;
             return isHighSev || impending;
         }).sort((a, b) => new Date(b.date) - new Date(a.date));
 
-        let html = `<html><head><title>CTI Executive Briefing</title><style>body { font-family: Arial, sans-serif; padding: 40px; color: #0f172a; max-width: 1000px; margin: 0 auto; } h1 { border-bottom: 2px solid #dc2626; padding-bottom: 10px; color: #dc2626; } .item { border: 1px solid #cbd5e1; padding: 20px; margin-bottom: 20px; border-radius: 4px; page-break-inside: avoid; } .meta { font-size: 12px; font-weight: bold; color: #64748b; margin-bottom: 10px; text-transform: uppercase; } .title { margin: 0 0 10px 0; font-size: 18px; } .summary { margin: 0; line-height: 1.5; font-size: 14px; white-space: pre-wrap; } @media print { body { padding: 0; } }</style></head><body><h1>US CTI Executive Brief: High Priority Items</h1><p style="margin-bottom: 30px;">Generated: ${new Date().toLocaleDateString()} | Active High Severity & Impending Deadlines (< 90 Days)</p>`;
-        if(briefData.length === 0) { html += `<p>No critical events detected within operational threshold.</p>`; } 
-        else {
+        // Calculate Macro-Intelligence Metrics
+        let highSevCount = 0;
+        let cliffCount = 0;
+        let agencyCounts = {};
+        let themeCounts = {};
+
+        briefData.forEach(d => {
+            if (d.severity === 'High') highSevCount++;
+            
+            const days = calculateDays(d.effective_date);
+            if (days !== null && days >= 0 && days <= 30) cliffCount++;
+
+            if (d.agency) agencyCounts[d.agency] = (agencyCounts[d.agency] || 0) + 1;
+            if (d.theme && d.theme !== 'General') themeCounts[d.theme] = (themeCounts[d.theme] || 0) + 1;
+        });
+
+        const dominantAgency = Object.keys(agencyCounts).length 
+            ? Object.keys(agencyCounts).reduce((a, b) => agencyCounts[a] > agencyCounts[b] ? a : b) 
+            : 'N/A';
+            
+        const dominantTheme = Object.keys(themeCounts).length 
+            ? Object.keys(themeCounts).reduce((a, b) => themeCounts[a] > themeCounts[b] ? a : b) 
+            : 'N/A';
+
+        // Construct Print-Optimized DOM
+        let html = `<html><head><title>CTI Executive Briefing</title><style>
+            body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif; padding: 40px; color: #0f172a; max-width: 1000px; margin: 0 auto; } 
+            h1 { border-bottom: 3px solid #dc2626; padding-bottom: 10px; color: #0f172a; margin-bottom: 5px; font-size: 28px; text-transform: uppercase; letter-spacing: 1px;} 
+            .subtitle { color: #64748b; font-size: 13px; margin-bottom: 30px; font-weight: bold; }
+            .macro-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-bottom: 35px; }
+            .macro-box { border: 1px solid #cbd5e1; padding: 20px 10px; border-radius: 8px; text-align: center; background: #f8fafc; }
+            .macro-value { font-size: 32px; font-weight: bold; color: #dc2626; margin-bottom: 5px; }
+            .macro-value.dark { color: #0f172a; }
+            .macro-label { font-size: 11px; color: #64748b; text-transform: uppercase; font-weight: bold; letter-spacing: 0.5px; }
+            .item { border: 1px solid #e2e8f0; padding: 20px; margin-bottom: 20px; border-radius: 6px; page-break-inside: avoid; background: #ffffff; } 
+            .meta { font-size: 12px; font-weight: bold; color: #64748b; margin-bottom: 10px; text-transform: uppercase; } 
+            .title { margin: 0 0 10px 0; font-size: 18px; color: #0f172a; } 
+            .summary { margin: 0; line-height: 1.6; font-size: 14px; color: #334155; white-space: pre-wrap; } 
+            @media print { 
+                body { padding: 0; } 
+                .macro-box { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            }
+        </style></head><body>
+        <h1>US CTI Executive Brief</h1>
+        <div class="subtitle">GENERATED: ${new Date().toLocaleDateString()} | SCOPE: ACTIVE HIGH SEVERITY & IMPENDING DEADLINES</div>
+        `;
+
+        if (briefData.length === 0) {
+            html += `<p style="font-weight:bold; color:#64748b;">No critical events detected within the operational threshold.</p>`;
+        } else {
+            // Inject Macro-Intelligence Header
+            html += `
+            <div class="macro-grid">
+                <div class="macro-box">
+                    <div class="macro-value">${highSevCount}</div>
+                    <div class="macro-label">High Severity Alerts</div>
+                </div>
+                <div class="macro-box">
+                    <div class="macro-value dark">${dominantAgency}</div>
+                    <div class="macro-label">Dominant Agency</div>
+                </div>
+                <div class="macro-box">
+                    <div class="macro-value dark" style="font-size: 18px; line-height: 38px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="${dominantTheme}">${dominantTheme}</div>
+                    <div class="macro-label">Primary Threat Theme</div>
+                </div>
+                <div class="macro-box">
+                    <div class="macro-value">${cliffCount}</div>
+                    <div class="macro-label">Deadlines < 30 Days</div>
+                </div>
+            </div>
+            `;
+
+            // Sequential Listing
             briefData.forEach(d => {
                 const days = calculateDays(d.effective_date);
                 const dlString = (days !== null && days >= 0) ? ` | DEADLINE: T-${days} DAYS` : '';
-                html += `<div class="item"><div class="meta">${d.agency || 'UNKNOWN'} | ${d.type || 'UNKNOWN'} | SEVERITY: ${d.severity || 'N/A'} ${dlString}</div><h2 class="title">${sanitizeHTML(d.title)}</h2><p class="summary">${sanitizeHTML(d.summary)}</p></div>`;
+                html += `
+                <div class="item">
+                    <div class="meta">${d.agency || 'UNKNOWN'} | ${d.type || 'UNKNOWN'} | SEVERITY: ${d.severity || 'N/A'}${dlString}</div>
+                    <h2 class="title">${sanitizeHTML(d.title)}</h2>
+                    <p class="summary">${sanitizeHTML(d.summary)}</p>
+                </div>`;
             });
         }
+
         html += `</body></html>`;
+        
         const printWindow = window.open('', '_blank');
-        printWindow.document.write(html); printWindow.document.close(); printWindow.focus();
+        printWindow.document.write(html); 
+        printWindow.document.close(); 
+        printWindow.focus();
         setTimeout(() => printWindow.print(), 500);
     }
-
     window.addEventListener("beforeunload", function (e) {
         const title = document.getElementById('in-title')?.value;
         const summary = document.getElementById('in-summary')?.value;
