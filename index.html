@@ -1078,11 +1078,13 @@
                 };
 
                 if (redZone.length > 0) {
-                    html += `<div class="triage-header triage-red">Red Zone (Immediate Action)</div>`;
+                    // Shifted from task-mandating to observational risk profiling
+                    html += `<div class="triage-header triage-red">Red Zone (Critical Intelligence & Near-Term Horizon)</div>`;
                     redZone.forEach(obj => html += renderItem(obj, true));
                 }
 
                 if (yellowZone.length > 0) {
+                    // Maintained as it represents an informational timeline rather than a task
                     html += `<div class="triage-header triage-yellow">Yellow Zone (Strategic Horizon)</div>`;
                     yellowZone.forEach(obj => html += renderItem(obj, false));
                 }
