@@ -909,12 +909,21 @@
     function generateExecBrief() {
         const thirtyDaysAgo = new Date(); thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
         
-        // Isolate Executive Threshold Data
+        // Isolate Executive Threshold Data (Updated with Unenriched Fallback)
         const briefData = rawData.filter(d => {
+            // 1. Explicit High Severity
             const isHighSev = d.severity === 'High';
+            
+            // 2. Impending Deadlines (<90 Days)
             const daysToEffective = calculateDays(d.effective_date);
             const impending = daysToEffective !== null && daysToEffective <= 90 && daysToEffective >= 0;
-            return isHighSev || impending;
+            
+            // 3. Unenriched Data Fallback (Recent Critical Actions)
+            const isRecent = d.date ? new Date(d.date) >= thirtyDaysAgo : false;
+            const isCriticalType = d.type === 'Final Rule' || d.type === 'Enforcement Action';
+            const recentCritical = isRecent && isCriticalType;
+
+            return isHighSev || impending || recentCritical;
         }).sort((a, b) => new Date(b.date) - new Date(a.date));
 
         // Calculate Macro-Intelligence Metrics
